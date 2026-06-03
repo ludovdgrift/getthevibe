@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+
+# Secrets / env (anon key in index.html mag publiek; echte secrets nooit committen)
+.env
+.env.*
+
+# Logs / tmp
+*.log
+node_modules/
