@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VibeNow — See the vibe before you arrive</title>
+<meta name="description" content="VibeNow laat je zien hoe het nú is op een plek — druk, rustig, gezellig of feest — vóór je de deur uit gaat. Schrijf je in voor de lancering.">
+<!-- Open Graph (mooie preview bij delen via WhatsApp/social) -->
+<meta property="og:title" content="VibeNow — zie hoe het nú is">
+<meta property="og:description" content="Zie de vibe van een plek vóór je gaat. Schrijf je in voor de lancering in Amsterdam.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://getthevibe.now">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --ink:#18171f; --muted:#7a7989; --card:#ffffff;
+  --line:rgba(20,18,40,.10);
+  --heat-1:#ffc02e; --heat-2:#ff7a18; --heat-3:#ff2d6f; --cool:#1aa7d0;
+  --disp:"Bricolage Grotesque",sans-serif; --body:"Schibsted Grotesk",sans-serif;
+  --grad:linear-gradient(95deg,var(--heat-1),var(--heat-2) 45%,var(--heat-3));
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--body); color:var(--ink); line-height:1.5;
+  min-height:100svh;
+  background:
+    radial-gradient(900px 520px at 12% -8%, rgba(255,122,24,.20), transparent 60%),
+    radial-gradient(820px 600px at 112% 4%, rgba(255,45,111,.16), transparent 55%),
+    radial-gradient(700px 600px at 50% 118%, rgba(255,192,46,.16), transparent 60%),
+    #faf5ef;
+  display:flex; flex-direction:column; align-items:center;
+  padding:26px 22px 40px;
+}
+.wrap{width:100%;max-width:440px;display:flex;flex-direction:column;min-height:calc(100svh - 66px)}
+
+/* fade-in stagger */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.r{opacity:0;animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+.r1{animation-delay:.05s}.r2{animation-delay:.16s}.r3{animation-delay:.27s}
+.r4{animation-delay:.38s}.r5{animation-delay:.5s}.r6{animation-delay:.62s}
+
+/* brand */
+.brandrow{display:flex;align-items:center;gap:11px;margin-bottom:30px}
+.dot{width:30px;height:30px;border-radius:10px;background:conic-gradient(from 220deg,var(--heat-1),var(--heat-2),var(--heat-3),var(--heat-2),var(--heat-1));position:relative;box-shadow:0 6px 18px -4px rgba(255,77,90,.5)}
+.dot::after{content:"";position:absolute;inset:8px;border-radius:50%;background:#faf5ef}
+.brandrow .name{font-family:var(--disp);font-weight:800;font-size:19px;letter-spacing:-.01em}
+.brandrow .name b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* pill */
+.pill{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600;box-shadow:0 6px 20px -10px rgba(120,70,40,.3);margin-bottom:22px}
+.pill .live{width:8px;height:8px;border-radius:50%;background:var(--heat-3);box-shadow:0 0 0 0 rgba(255,45,111,.6);animation:pulse 1.7s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,45,111,.55)}70%{box-shadow:0 0 0 8px rgba(255,45,111,0)}100%{box-shadow:0 0 0 0 rgba(255,45,111,0)}}
+
+/* hero */
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(40px,12vw,54px);line-height:1.02;letter-spacing:-.03em;margin-bottom:16px}
+h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{font-size:17px;color:#3c3b48;margin-bottom:8px;font-weight:500}
+.sub{font-size:14.5px;color:var(--muted);margin-bottom:26px}
+
+/* form */
+.form-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 24px 60px -28px rgba(120,70,40,.4);margin-bottom:14px}
+.form-card .ft{font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:14px}
+label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin:0 0 6px 2px}
+input{width:100%;font-family:var(--body);font-size:16px;color:var(--ink);background:#f7f5f2;border:1.5px solid var(--line);border-radius:14px;padding:14px 15px;outline:none;transition:border-color .15s,background .15s}
+input:focus{border-color:var(--heat-2);background:#fff}
+input::placeholder{color:#a9a8b5}
+.field{margin-bottom:12px}
+button.cta{width:100%;border:none;cursor:pointer;font-family:var(--disp);font-weight:800;font-size:17px;color:#1a0f06;background:var(--grad);border-radius:14px;padding:16px;margin-top:4px;box-shadow:0 12px 28px -10px rgba(255,77,90,.6);transition:transform .12s,filter .15s}
+button.cta:hover{filter:brightness(1.04)}
+button.cta:active{transform:scale(.985)}
+.tiny{font-size:11.5px;color:var(--muted);text-align:center;margin-top:11px}
+
+/* success */
+.success{display:none;text-align:center;padding:8px 6px 4px}
+.success .big{font-size:42px;line-height:1;margin-bottom:14px}
+.success h2{font-family:var(--disp);font-weight:800;font-size:23px;margin-bottom:8px}
+.success p{font-size:14.5px;color:#3c3b48;margin-bottom:18px}
+.share{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink);font-weight:700;font-size:14.5px;background:#f1efeb;border:1px solid var(--line);border-radius:13px;padding:13px 18px;transition:background .15s}
+.share:hover{background:#eae7e2}
+.is-done .form-live{display:none}
+.is-done .success{display:block;animation:rise .5s ease forwards}
+
+/* how it works */
+.how{margin-top:30px}
+.how-t{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-left:2px}
+.step{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:none}
+.step .ic{flex-shrink:0;width:40px;height:40px;border-radius:13px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:19px;box-shadow:0 6px 16px -8px rgba(120,70,40,.3)}
+.step .tx b{font-family:var(--disp);font-weight:700;font-size:15px;display:block}
+.step .tx span{font-size:13.5px;color:var(--muted)}
+
+/* footer */
+.foot{margin-top:auto;padding-top:34px;text-align:center;font-size:12.5px;color:var(--muted)}
+.foot b{color:#3c3b48;font-weight:700}
+.foot .privacy{display:block;margin-top:5px;font-size:11.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brandrow r r1">
+    <div class="dot"></div>
+    <div class="name">Vibe<b>Now</b></div>
+  </div>
+
+  <span class="pill r r1"><span class="live"></span>Binnenkort live in Amsterdam</span>
+
+  <h1 class="r r2">See the vibe<br>before you <span class="g">arrive.</span></h1>
+  <p class="lede r r3">Zie hoe het nú is op een plek — druk, rustig, gezellig of feest — vóór je de deur uit gaat.</p>
+  <p class="sub r r3">Geen oude reviews. Geen foto's van maanden geleden. Gewoon: wat er nú gebeurt.</p>
+
+  <div class="form-card r r4" id="card">
+    <div class="form-live">
+      <div class="ft">Wees er als eerste bij 🔥</div>
+      <!-- Aanmeldingen gaan rechtstreeks naar je eigen Supabase-tabel 'signups'. -->
+      <form id="signup">
+        <div class="field">
+          <label for="email">E-mailadres</label>
+          <input type="email" id="email" name="email" inputmode="email" autocomplete="email" placeholder="jij@email.nl" required>
+        </div>
+        <div class="field">
+          <label for="hood">Waar ga jij graag uit? <span style="font-weight:400">(optioneel)</span></label>
+          <input type="text" id="hood" name="buurt_of_stad" placeholder="bijv. Leidseplein, De Pijp, Noord…">
+        </div>
+        <button type="submit" class="cta">Hou me op de hoogte</button>
+        <p class="tiny">We mailen je één keer als VibeNow live gaat. Geen spam.</p>
+      </form>
+    </div>
+
+    <div class="success">
+      <div class="big">🔥</div>
+      <h2>Je staat op de lijst!</h2>
+      <p>Je hoort van ons zodra VibeNow live gaat. Tot snel.</p>
+      <a class="share" id="shareBtn" href="#">📲 Tip een vriend</a>
+    </div>
+  </div>
+
+  <div class="how r r5">
+    <div class="how-t">Zo werkt het</div>
+    <div class="step">
+      <div class="ic">📍</div>
+      <div class="tx"><b>Open de app</b><span>Zie meteen wat er nú om je heen leeft.</span></div>
+    </div>
+    <div class="step">
+      <div class="ic">👀</div>
+      <div class="tx"><b>Voel de vibe</b><span>Druk, rustig, gezellig of feest — vóór je gaat.</span></div>
+    </div>
+    <div class="step">
+      <div class="ic">✨</div>
+      <div class="tx"><b>Deel in één tik</b><span>Ben je ergens leuk? Laat anderen de vibe zien.</span></div>
+    </div>
+  </div>
+
+  <div class="foot r r6">
+    <b>getthevibe.now</b>
+    <span class="privacy">We tonen de vibe van een plek — nooit waar individuele mensen zijn.</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  // === Jouw Supabase-gegevens (anon key mag publiek; beveiliging zit in RLS) ===
+  var SUPABASE_URL = 'https://uwxapldrcmxtkwlxwwnc.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eGFwbGRyY214dGt3bHh3d25jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NzM5ODksImV4cCI6MjA5NjA0OTk4OX0.gAFJSCgBLwmV5r9FwZZObTPuu0KzWlm0LYMDlo0DKX4';
+
+  var form = document.getElementById('signup');
+  var card = document.getElementById('card');
+  var shareUrl = 'https://getthevibe.now';
+  var shareText = 'Check VibeNow — zie hoe het nú is voordat je ergens heen gaat 🔥 ' + shareUrl;
+
+  // "Tip een vriend": gebruikt native share op mobiel, anders WhatsApp.
+  var shareBtn = document.getElementById('shareBtn');
+  shareBtn.setAttribute('href', 'https://wa.me/?text=' + encodeURIComponent(shareText));
+  shareBtn.addEventListener('click', function(e){
+    if (navigator.share) {
+      e.preventDefault();
+      navigator.share({ title: 'VibeNow', text: 'Zie hoe het nú is voordat je ergens heen gaat 🔥', url: shareUrl }).catch(function(){});
+    }
+  });
+
+  function done(){ card.classList.add('is-done'); }
+
+  // Supabase-client (null als de library niet kon laden, bv. in een afgeschermde preview).
+  var sb = (window.supabase && window.supabase.createClient)
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('email').value.trim();
+    var buurt = document.getElementById('hood').value.trim();
+    if (!email) return;
+
+    // Preview-modus: library niet geladen → toon de bedankt-staat zonder op te slaan.
+    if (!sb) {
+      console.warn('Supabase niet geladen — preview-modus, aanmelding niet opgeslagen. Op je eigen host werkt het wel.');
+      done();
+      return;
+    }
+
+    var btn = form.querySelector('button');
+    var original = btn.textContent;
+    btn.textContent = 'Bezig…';
+    btn.disabled = true;
+
+    // Let op: GEEN .select() erachter — dan blijft de lijst dicht (RLS) en slaagt de insert.
+    sb.from('signups').insert({ email: email, buurt: buurt || null })
+      .then(function(res){
+        if (res.error) {
+          console.error(res.error);
+          btn.textContent = original; btn.disabled = false;
+          alert('Er ging iets mis — probeer het nog eens.');
+        } else {
+          done();
+        }
+      });
+  });
+})();
+</script>
+</body>
+</html>
