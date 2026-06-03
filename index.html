@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Security: Content-Security-Policy beperkt waar scripts/styles/verbindingen vandaan mogen komen.
+     connect-src staat ALLEEN jouw eigen Supabase-project toe. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://uwxapldrcmxtkwlxwwnc.supabase.co; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>VibeNow — See the vibe before you arrive</title>
 <meta name="description" content="VibeNow laat je zien hoe het nú is op een plek — druk, rustig, gezellig of feest — vóór je de deur uit gaat. Schrijf je in voor de lancering.">
 <!-- Open Graph (mooie preview bij delen via WhatsApp/social) -->
