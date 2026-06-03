@@ -14,3 +14,6 @@ desktop.ini
 # Logs / tmp
 *.log
 node_modules/
+
+# Per ongeluk geneste kopie van de repo (hoort hier niet)
+/getthevibe/
