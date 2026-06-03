@@ -79,7 +79,7 @@ body{
 .tagline-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.16);backdrop-filter:blur(4px);padding:4px 9px;border-radius:999px;font-size:11.5px;font-weight:600;color:#fff}
 
 /* MAP */
-#leafletmap{position:absolute;inset:0;background:#eceae4}
+#leafletmap{position:absolute;inset:0;background:#eceae4;isolation:isolate}
 .leaflet-container{background:#eceae4!important;font-family:var(--body)}
 .leaflet-control-attribution{background:rgba(255,255,255,.8)!important;color:#999!important;font-size:9px!important}
 .leaflet-control-attribution a{color:#777!important}
@@ -222,7 +222,7 @@ body{
   <div class="viewport">
 
     <!-- FEED -->
-    <section class="screen active" id="feed">
+    <section class="screen" id="feed">
       <div class="head"><div class="kicker">Live · in Amsterdam, om je heen</div><h2>In de buurt</h2></div>
       <div class="filterbar" id="feed-filterbar">
         <div class="fchips" id="feed-fchips"></div>
@@ -232,7 +232,7 @@ body{
     </section>
 
     <!-- MAP -->
-    <section class="screen" id="map">
+    <section class="screen active" id="map">
       <div id="leafletmap"></div>
       <div class="searchbar" onclick="openSearch()">🔍 Zoek stad, café, strand…</div>
       <div class="filterbar map" id="map-filterbar">
@@ -346,8 +346,8 @@ body{
   </div>
 
   <nav class="nav">
-    <button class="on" data-tab="feed" onclick="go('feed')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10" stroke-linecap="round"/></svg>Feed</button>
-    <button data-tab="map" onclick="go('map')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z" stroke-linejoin="round"/><path d="M9 4v14M15 6v14"/></svg>Kaart</button>
+    <button class="on" data-tab="map" onclick="go('map')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z" stroke-linejoin="round"/><path d="M9 4v14M15 6v14"/></svg>Kaart</button>
+    <button data-tab="feed" onclick="go('feed')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10" stroke-linecap="round"/></svg>Feed</button>
     <button class="center" data-tab="upload" onclick="go('upload')"><span class="fab"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span></button>
     <button data-tab="trending" onclick="go('trending')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 7v6h-6" stroke-linecap="round" stroke-linejoin="round"/></svg>Trending</button>
     <button data-tab="profile" onclick="go('profile')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0" stroke-linecap="round"/></svg>Profiel</button>
@@ -662,6 +662,7 @@ function fallbackMap(){
 /* ---------- INIT ---------- */
 renderCats('feed'); renderCats('map');
 renderFeed(); renderTrending(); renderProfile();
+initMap();
 </script>
 </body>
 </html>
