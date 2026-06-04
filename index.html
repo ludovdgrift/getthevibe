@@ -51,6 +51,9 @@ header{position:sticky;top:0;z-index:100;background:rgba(250,245,239,.82);backdr
 .btn-primary:active{transform:scale(.98)}
 .btn-lg{padding:16px 22px;font-size:16.5px;border-radius:14px}
 .nav .btn{padding:9px 15px;font-size:13.5px}
+.nav-right{display:flex;align-items:center;gap:12px}
+.lang-toggle{background:none;border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;font-family:var(--body);letter-spacing:.03em;transition:background .15s,border-color .15s}
+.lang-toggle:hover{background:#fff;border-color:var(--heat-2)}
 
 /* ---------- HERO ---------- */
 .hero{position:relative;overflow:hidden}
@@ -146,7 +149,10 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 <header>
   <div class="container nav">
     <a class="logo" href="#top"><img src="vibenow-pulse-logo.png" alt="VibeNow" style="height:28px;width:auto;display:block"></a>
-    <a class="btn btn-primary" href="#aanmelden">Word de eerste</a>
+    <div class="nav-right">
+      <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">EN</button>
+      <a class="btn btn-primary" href="#aanmelden" data-i18n="ctaHeader">Word de eerste</a>
+    </div>
   </div>
 </header>
 
@@ -154,33 +160,33 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 <section class="hero">
   <div class="container hero-grid">
     <div class="hero-copy">
-      <span class="pill r r1"><span class="live"></span>Binnenkort live in Amsterdam</span>
+      <span class="pill r r1"><span class="live"></span><span data-i18n="pill">Binnenkort live in Amsterdam</span></span>
       <h1 class="r r1">See the vibe<br>before you <span class="g">arrive.</span></h1>
-      <p class="lede r r2">Zie hoe het nú is op een plek — druk, rustig, gezellig of ontspannen — vóór je de deur uit gaat.</p>
-      <p class="sub r r2">Geen oude reviews, geen AI, geen foto's van maanden geleden. Gewoon: wat er nú gebeurt.</p>
+      <p class="lede r r2" data-i18n="lede">Zie hoe het nú is op een plek — druk, rustig, gezellig of ontspannen — vóór je de deur uit gaat.</p>
+      <p class="sub r r2" data-i18n="sub">Geen oude reviews, geen AI, geen foto's van maanden geleden. Gewoon: wat er nú gebeurt.</p>
 
       <div class="form-card r r3" id="aanmelden">
         <div class="form-live">
-          <div class="ft">Wees er als eerste bij 🔥</div>
+          <div class="ft" data-i18n="formTitle">Wees er als eerste bij 🔥</div>
           <!-- Aanmeldingen gaan rechtstreeks naar je eigen Supabase-tabel 'signups'. -->
           <form id="signup">
             <div class="field">
-              <label for="email">E-mailadres</label>
-              <input type="email" id="email" name="email" inputmode="email" autocomplete="email" placeholder="jij@email.nl" required>
+              <label for="email" data-i18n="labelEmail">E-mailadres</label>
+              <input type="email" id="email" name="email" inputmode="email" autocomplete="email" placeholder="jij@email.nl" data-i18n-ph="phEmail" required>
             </div>
             <div class="field">
-              <label for="hood">Welke plekken wil je kunnen checken? <span style="font-weight:400">(optioneel)</span></label>
-              <input type="text" id="hood" name="buurt_of_stad" placeholder="bijv. terrasjes in De Pijp, koffieplekken, uitgaan…">
+              <label for="hood"><span data-i18n="labelHood">Welke plekken wil je kunnen checken?</span> <span style="font-weight:400" data-i18n="optional">(optioneel)</span></label>
+              <input type="text" id="hood" name="buurt_of_stad" placeholder="bijv. terrasjes in De Pijp, koffieplekken, uitgaan…" data-i18n-ph="phHood">
             </div>
-            <button type="submit" class="btn cta-form">Hou me op de hoogte</button>
-            <p class="tiny">We mailen je één keer als VibeNow live gaat. Geen spam.</p>
+            <button type="submit" class="btn cta-form" data-i18n="submit">Hou me op de hoogte</button>
+            <p class="tiny" data-i18n="tiny">We mailen je één keer als VibeNow live gaat. Geen spam.</p>
           </form>
         </div>
         <div class="success">
           <div class="big">🔥</div>
-          <h2>Je staat op de lijst!</h2>
-          <p>Je hoort van ons zodra VibeNow live gaat. Tot snel.</p>
-          <a class="share" id="shareBtn" href="#">📲 Tip een vriend</a>
+          <h2 data-i18n="successH">Je staat op de lijst!</h2>
+          <p data-i18n="successP">Je hoort van ons zodra VibeNow live gaat. Tot snel.</p>
+          <a class="share" id="shareBtn" href="#" data-i18n="share">📲 Tip een vriend</a>
         </div>
       </div>
     </div>
@@ -193,7 +199,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
             <source src="media/vibenow-demo.mp4" type="video/mp4">
           </video>
         </div>
-        <p class="phone-hint">Een snelle blik op VibeNow.</p>
+        <p class="phone-hint" data-i18n="phoneHint">Een snelle blik op VibeNow.</p>
       </div>
     </div>
   </div>
@@ -202,25 +208,25 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 <section class="band">
   <div class="container sec">
     <div class="sec-head">
-      <span class="eyebrow">Waarom VibeNow</span>
-      <h2>De live-laag van je stad</h2>
-      <p class="intro">Reviews vertellen je hoe het ooit was en kunnen teleurstellingen meebrengen. VibeNow laat zien hoe het nú is — van bruine kroeg tot de vlindertuin.</p>
+      <span class="eyebrow" data-i18n="whyEyebrow">Waarom VibeNow</span>
+      <h2 data-i18n="whyH2">De live-laag van je stad</h2>
+      <p class="intro" data-i18n="whyIntro">Reviews vertellen je hoe het ooit was en kunnen teleurstellingen meebrengen. VibeNow laat zien hoe het nú is — van bruine kroeg tot de vlindertuin.</p>
     </div>
     <div class="features">
       <div class="feature">
         <div class="ic">⏱️</div>
-        <h3>Nu, niet toen</h3>
-        <p>Geen reviews of foto's van maanden terug. Je ziet hoe het er op dít moment bij staat.</p>
+        <h3 data-i18n="f1h">Nu, niet toen</h3>
+        <p data-i18n="f1p">Geen reviews of foto's van maanden terug. Je ziet hoe het er op dít moment bij staat.</p>
       </div>
       <div class="feature">
         <div class="ic">🛡️</div>
-        <h3>De plek, niet personen</h3>
-        <p>VibeNow toont de sfeer van een plek — nooit waar jij of anderen precies zijn.</p>
+        <h3 data-i18n="f2h">De plek, niet personen</h3>
+        <p data-i18n="f2p">VibeNow toont de sfeer van een plek — nooit waar jij of anderen precies zijn.</p>
       </div>
       <div class="feature">
         <div class="ic">🧭</div>
-        <h3>Voor elk moment</h3>
-        <p>Een rustig terras, een volle markt of een avond uit: weet vooraf of het de moeite is.</p>
+        <h3 data-i18n="f3h">Voor elk moment</h3>
+        <p data-i18n="f3p">Een rustig terras, een volle markt of een avond uit: weet vooraf of het de moeite is.</p>
       </div>
     </div>
   </div>
@@ -229,25 +235,25 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 <section class="sec" id="faq">
   <div class="container">
     <div class="sec-head">
-      <span class="eyebrow">Veelgestelde vragen</span>
-      <h2>Goed om te weten</h2>
+      <span class="eyebrow" data-i18n="faqEyebrow">Veelgestelde vragen</span>
+      <h2 data-i18n="faqH2">Goed om te weten</h2>
     </div>
     <div class="faq">
       <details>
-        <summary>Wanneer gaat het live?</summary>
-        <div class="ans">We starten binnenkort in Amsterdam. Schrijf je in, dan ben je als eerste die het meemaakt!</div>
+        <summary data-i18n="q1">Wanneer gaat het live?</summary>
+        <div class="ans" data-i18n="a1">We starten binnenkort in Amsterdam. Schrijf je in, dan ben je als eerste die het meemaakt!</div>
       </details>
       <details>
-        <summary>Wat kost het?</summary>
-        <div class="ans">Aanmelden en gebruiken is gratis.</div>
+        <summary data-i18n="q2">Wat kost het?</summary>
+        <div class="ans" data-i18n="a2">Aanmelden en gebruiken is gratis.</div>
       </details>
       <details>
-        <summary>En mijn privacy?</summary>
-        <div class="ans">Je ziet de vibe van een plek, niet waar mensen zijn. We delen nooit individuele locaties.</div>
+        <summary data-i18n="q3">En mijn privacy?</summary>
+        <div class="ans" data-i18n="a3">Je ziet de vibe van een plek, niet waar mensen zijn. We delen nooit individuele locaties.</div>
       </details>
       <details>
-        <summary>Voor wie is VibeNow?</summary>
-        <div class="ans">Voor iedereen die vóór vertrek wil weten of een plek de moeite is en eerlijke foto's/filmpjes wil zien, in elke categorie.</div>
+        <summary data-i18n="q4">Voor wie is VibeNow?</summary>
+        <div class="ans" data-i18n="a4">Voor iedereen die vóór vertrek wil weten of een plek de moeite is en eerlijke foto's/filmpjes wil zien, in elke categorie.</div>
       </details>
     </div>
   </div>
@@ -257,13 +263,81 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   <div class="container">
     <div class="foot-in">
       <div class="foot-brand"><img src="vibenow-pulse-logo.png" alt="VibeNow" style="height:22px;width:auto;display:block"><a class="foot-ig" href="https://www.instagram.com/getthevibe.now/" target="_blank" rel="noopener" aria-label="VibeNow op Instagram"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.4"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor" stroke="none"/></svg></a></div>
-      <div class="foot-meta">getthevibe.now<br>Vragen? <a href="mailto:hello@getthevibe.now">hello@getthevibe.now</a></div>
+      <div class="foot-meta">getthevibe.now<br><span data-i18n="footQuestions">Vragen?</span> <a href="mailto:hello@getthevibe.now">hello@getthevibe.now</a></div>
     </div>
-    <div class="foot-priv">We tonen de vibe van een plek — nooit waar individuele mensen zijn.</div>
+    <div class="foot-priv" data-i18n="footPriv">We tonen de vibe van een plek — nooit waar individuele mensen zijn.</div>
   </div>
 </footer>
 
 <script>
+// ---------- Taalwissel NL/EN ----------
+(function(){
+  var I18N = {
+    nl: {
+      ctaHeader:'Word de eerste', pill:'Binnenkort live in Amsterdam',
+      lede:'Zie hoe het nú is op een plek — druk, rustig, gezellig of ontspannen — vóór je de deur uit gaat.',
+      sub:"Geen oude reviews, geen AI, geen foto's van maanden geleden. Gewoon: wat er nú gebeurt.",
+      formTitle:'Wees er als eerste bij 🔥', labelEmail:'E-mailadres', phEmail:'jij@email.nl',
+      labelHood:'Welke plekken wil je kunnen checken?', optional:'(optioneel)',
+      phHood:'bijv. terrasjes in De Pijp, koffieplekken, uitgaan…',
+      submit:'Hou me op de hoogte', tiny:'We mailen je één keer als VibeNow live gaat. Geen spam.',
+      successH:'Je staat op de lijst!', successP:'Je hoort van ons zodra VibeNow live gaat. Tot snel.',
+      share:'📲 Tip een vriend', phoneHint:'Een snelle blik op VibeNow.',
+      whyEyebrow:'Waarom VibeNow', whyH2:'De live-laag van je stad',
+      whyIntro:'Reviews vertellen je hoe het ooit was en kunnen teleurstellingen meebrengen. VibeNow laat zien hoe het nú is — van bruine kroeg tot de vlindertuin.',
+      f1h:'Nu, niet toen', f1p:"Geen reviews of foto's van maanden terug. Je ziet hoe het er op dít moment bij staat.",
+      f2h:'De plek, niet personen', f2p:'VibeNow toont de sfeer van een plek — nooit waar jij of anderen precies zijn.',
+      f3h:'Voor elk moment', f3p:'Een rustig terras, een volle markt of een avond uit: weet vooraf of het de moeite is.',
+      faqEyebrow:'Veelgestelde vragen', faqH2:'Goed om te weten',
+      q1:'Wanneer gaat het live?', a1:'We starten binnenkort in Amsterdam. Schrijf je in, dan ben je als eerste die het meemaakt!',
+      q2:'Wat kost het?', a2:'Aanmelden en gebruiken is gratis.',
+      q3:'En mijn privacy?', a3:'Je ziet de vibe van een plek, niet waar mensen zijn. We delen nooit individuele locaties.',
+      q4:'Voor wie is VibeNow?', a4:"Voor iedereen die vóór vertrek wil weten of een plek de moeite is en eerlijke foto's/filmpjes wil zien, in elke categorie.",
+      footQuestions:'Vragen?', footPriv:'We tonen de vibe van een plek — nooit waar individuele mensen zijn.',
+      busy:'Bezig…', err:'Er ging iets mis — probeer het nog eens.',
+      shareText:'Check VibeNow — zie hoe het nú is voordat je ergens heen gaat 🔥', toggle:'EN'
+    },
+    en: {
+      ctaHeader:'Be the first', pill:'Launching soon in Amsterdam',
+      lede:'See what a place is like right now — busy, quiet, cosy or relaxed — before you head out the door.',
+      sub:"No old reviews, no AI, no photos from months ago. Just: what's happening right now.",
+      formTitle:'Be the first to know 🔥', labelEmail:'Email address', phEmail:'you@email.com',
+      labelHood:'Which places do you want to check?', optional:'(optional)',
+      phHood:'e.g. terraces in De Pijp, coffee spots, nightlife…',
+      submit:'Keep me posted', tiny:"We'll email you once when VibeNow goes live. No spam.",
+      successH:"You're on the list!", successP:"We'll be in touch as soon as VibeNow goes live. See you soon.",
+      share:'📲 Tell a friend', phoneHint:'A quick look at VibeNow.',
+      whyEyebrow:'Why VibeNow', whyH2:"Your city's live layer",
+      whyIntro:'Reviews tell you how it once was — and can lead to disappointment. VibeNow shows you how it is right now — from cosy pub to butterfly garden.',
+      f1h:'Now, not then', f1p:'No reviews or photos from months ago. You see how it is at this very moment.',
+      f2h:'The place, not people', f2p:'VibeNow shows the vibe of a place — never where you or anyone else exactly is.',
+      f3h:'For every moment', f3p:"A quiet terrace, a packed market or a night out: know in advance whether it's worth it.",
+      faqEyebrow:'Frequently asked questions', faqH2:'Good to know',
+      q1:'When does it launch?', a1:"We're starting soon in Amsterdam. Sign up and you'll be among the first to experience it!",
+      q2:'What does it cost?', a2:'Signing up and using it is free.',
+      q3:'What about my privacy?', a3:'You see the vibe of a place, not where people are. We never share individual locations.',
+      q4:'Who is VibeNow for?', a4:'For anyone who wants to know before heading out whether a place is worth it — and wants to see honest photos/clips, in every category.',
+      footQuestions:'Questions?', footPriv:'We show the vibe of a place — never where individual people are.',
+      busy:'Sending…', err:'Something went wrong — please try again.',
+      shareText:"Check out VibeNow — see what's happening right now before you head somewhere 🔥", toggle:'NL'
+    }
+  };
+  window.__I18N = I18N;
+  function getLang(){ try{ return localStorage.getItem('vn_lang') || 'nl'; }catch(e){ return 'nl'; } }
+  function setLang(lang){
+    var d = I18N[lang] || I18N.nl;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){ var k=el.getAttribute('data-i18n'); if(d[k]!=null) el.textContent = d[k]; });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){ var k=el.getAttribute('data-i18n-ph'); if(d[k]!=null) el.setAttribute('placeholder', d[k]); });
+    document.documentElement.lang = lang;
+    var t = document.getElementById('langToggle'); if(t) t.textContent = d.toggle;
+    window.__lang = lang;
+    try{ localStorage.setItem('vn_lang', lang); }catch(e){}
+  }
+  var toggle = document.getElementById('langToggle');
+  if(toggle) toggle.addEventListener('click', function(){ setLang(window.__lang==='en' ? 'nl' : 'en'); });
+  setLang(getLang());
+})();
+
 (function(){
   // === Supabase (anon key mag publiek; beveiliging zit in RLS) ===
   var SUPABASE_URL = 'https://uwxapldrcmxtkwlxwwnc.supabase.co';
@@ -272,12 +346,13 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   var form = document.getElementById('signup');
   var card = document.getElementById('aanmelden');
   var shareUrl = 'https://getthevibe.now';
-  var shareText = 'Check VibeNow — zie hoe het nú is voordat je ergens heen gaat 🔥 ' + shareUrl;
+  function _d(){ return (window.__I18N && window.__I18N[window.__lang||'nl']) || {}; }
 
   var shareBtn = document.getElementById('shareBtn');
-  shareBtn.setAttribute('href', 'https://wa.me/?text=' + encodeURIComponent(shareText));
   shareBtn.addEventListener('click', function(e){
-    if (navigator.share){ e.preventDefault(); navigator.share({title:'VibeNow', text:'Zie hoe het nú is voordat je ergens heen gaat 🔥', url:shareUrl}).catch(function(){}); }
+    var txt = (_d().shareText || 'Check VibeNow 🔥') + ' ' + shareUrl;
+    if (navigator.share){ e.preventDefault(); navigator.share({title:'VibeNow', text:_d().shareText || 'VibeNow', url:shareUrl}).catch(function(){}); }
+    else { shareBtn.setAttribute('href', 'https://wa.me/?text=' + encodeURIComponent(txt)); }
   });
 
   function done(){ card.classList.add('is-done'); }
@@ -292,22 +367,12 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
     if (!email) return;
     if (!sb){ console.warn('Supabase niet geladen — preview-modus, aanmelding niet opgeslagen.'); done(); return; }
     var btn = form.querySelector('button');
-    var original = btn.textContent; btn.textContent = 'Bezig…'; btn.disabled = true;
+    var original = btn.textContent; btn.textContent = _d().busy || '…'; btn.disabled = true;
     sb.from('signups').insert({ email: email, buurt: buurt || null }).then(function(res){
-      if (res.error){ console.error(res.error); btn.textContent = original; btn.disabled = false; alert('Er ging iets mis — probeer het nog eens.'); }
+      if (res.error){ console.error(res.error); btn.textContent = original; btn.disabled = false; alert(_d().err || 'Error — please try again.'); }
       else { done(); }
     });
   });
-})();
-
-// Schaal de telefoon-preview naar de breedte van z'n kolom.
-(function(){
-  var wrap = document.querySelector('.phone-wrap');
-  if(!wrap) return;
-  var f = wrap.querySelector('iframe');
-  function fit(){ f.style.transform = 'scale(' + (wrap.clientWidth / 408) + ')'; }
-  fit();
-  window.addEventListener('resize', fit);
 })();
 </script>
 </body>
