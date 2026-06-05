@@ -17,3 +17,29 @@ node_modules/
 
 # Per ongeluk geneste kopie van de repo (hoort hier niet)
 /getthevibe/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Gerenderde demo-video's (groot — niet committen)
+/demo/output/
+
+# ── Niet de website (hoort niet in deze repo; blijft alleen lokaal) ──
+/my-app/
+/Social media/
+/Pics/
+/demo/
+/tests/
+/.github/
+/playwright.config.ts
+/package.json
+/package-lock.json
+/LOGO.jpeg
+/app-preview.html
+/app-preview (4).html
+/post1-founding-map (2).html
+/VibeNow - Intro 3 (standalone).html
