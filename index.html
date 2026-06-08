@@ -292,6 +292,20 @@ section{scroll-margin-top:74px}
   .why-track,.cv-track{height:auto}
   .why-stage,.cv-stage{position:static;display:block;height:auto;min-height:0;overflow:visible;padding:56px 0}
   .why .feature,.cv .pcard{transform:none !important;opacity:1 !important}
+
+  /* WHY: tap-to-flip cards — front = coloured header + icon, back = the text */
+  .why .feature{background:transparent;border:none;box-shadow:none;overflow:visible;padding:0;perspective:1100px;cursor:pointer}
+  .why .fcard-inner{position:relative;width:100%;height:196px;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .why .feature.flipped .fcard-inner{transform:rotateY(180deg)}
+  .why .fhead{position:absolute;inset:0;height:auto;border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 38px -22px rgba(120,70,40,.5)}
+  .why .fhead::after{content:"tap ⟳";position:absolute;bottom:12px;left:0;right:0;text-align:center;font-family:var(--body);font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+  .why .feature .ic{width:76px;height:76px;font-size:38px}
+  .why .fbody{position:absolute;inset:0;padding:18px;border-radius:20px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 38px -22px rgba(120,70,40,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg)}
+
+  /* COMMUNITY: the 3 cards stick and stack as you scroll */
+  .cv .proof{display:block;max-width:360px;margin:0 auto}
+  .cv .pcard{position:sticky;margin:0 auto 26px;box-shadow:0 26px 54px -26px rgba(120,70,40,.55)}
+  .cv .c0{top:80px}.cv .c1{top:98px}.cv .c2{top:116px}
 }
 
 /* ---------- FINAL CTA (calm) ---------- */
@@ -708,31 +722,39 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
         </div>
         <div class="features">
           <div class="feature f0">
-            <div class="fhead"><span class="ic">🔖</span></div>
-            <div class="fbody">
-              <h3 data-i18n="fSaveH">Save</h3>
-              <p data-i18n="fSaveP">Save places worth remembering, all in one map you'll actually come back to.</p>
+            <div class="fcard-inner">
+              <div class="fhead"><span class="ic">🔖</span></div>
+              <div class="fbody">
+                <h3 data-i18n="fSaveH">Save</h3>
+                <p data-i18n="fSaveP">Save places worth remembering, all in one map you'll actually come back to.</p>
+              </div>
             </div>
           </div>
           <div class="feature f1">
-            <div class="fhead"><span class="ic">📲</span></div>
-            <div class="fbody">
-              <h3 data-i18n="fShareH">Share</h3>
-              <p data-i18n="fShareP">Send great spots straight to friends — the modern way to give a recommendation.</p>
+            <div class="fcard-inner">
+              <div class="fhead"><span class="ic">📲</span></div>
+              <div class="fbody">
+                <h3 data-i18n="fShareH">Share</h3>
+                <p data-i18n="fShareP">Send great spots straight to friends — the modern way to give a recommendation.</p>
+              </div>
             </div>
           </div>
           <div class="feature f2">
-            <div class="fhead"><span class="ic">✅</span></div>
-            <div class="fbody">
-              <h3 data-i18n="fVerifyH">Verify</h3>
-              <p data-i18n="fVerifyP">The community confirms whether the vibe is real, so the good places rise to the top.</p>
+            <div class="fcard-inner">
+              <div class="fhead"><span class="ic">✅</span></div>
+              <div class="fbody">
+                <h3 data-i18n="fVerifyH">Verify</h3>
+                <p data-i18n="fVerifyP">The community confirms whether the vibe is real, so the good places rise to the top.</p>
+              </div>
             </div>
           </div>
           <div class="feature f3">
-            <div class="fhead"><span class="ic">🧭</span></div>
-            <div class="fbody">
-              <h3 data-i18n="fDiscoverH">Discover</h3>
-              <p data-i18n="fDiscoverP">Find new places through the people you trust — not faceless star ratings.</p>
+            <div class="fcard-inner">
+              <div class="fhead"><span class="ic">🧭</span></div>
+              <div class="fbody">
+                <h3 data-i18n="fDiscoverH">Discover</h3>
+                <p data-i18n="fDiscoverP">Find new places through the people you trust — not faceless star ratings.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -1112,6 +1134,16 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll);
   update();
+})();
+
+// ---------- WHY VIBENOW: tap-to-flip the feature cards (mobile) ----------
+(function(){
+  var cards = document.querySelectorAll('.why .feature');
+  for(var i=0;i<cards.length;i++){
+    (function(card){
+      card.addEventListener('click', function(){ card.classList.toggle('flipped'); });
+    })(cards[i]);
+  }
 })();
 </script>
 </body>
