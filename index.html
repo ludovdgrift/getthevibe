@@ -163,9 +163,12 @@ input::placeholder{color:#a9a8b5}
   .c-agree{top:-1%}
 }
 @media(max-width:520px){
-  .hfc-in{font-size:11px;padding:8px 11px}
-  .c-cafe{top:5%;left:-1%}.c-work{top:35%;left:-2%}.c-gem{bottom:13%;left:-1%}
-  .c-sunset{top:9%;right:-1%}.c-date{top:41%;right:-2%}.c-friends{bottom:11%;right:-1%}
+  .how-head{min-height:158px}
+  .phone-shell{width:clamp(178px,48vw,236px)}
+  .hfc-in{font-size:10.5px;padding:7px 10px}
+  .c-agree{display:none}
+  .c-cafe{top:11%;left:-2%}.c-work{top:39%;left:-3%}.c-gem{bottom:12%;left:-2%}
+  .c-sunset{top:14%;right:-2%}.c-date{top:43%;right:-3%}.c-friends{bottom:10%;right:-2%}
 }
 
 /* ---------- SECTIONS ---------- */
@@ -284,14 +287,18 @@ section{scroll-margin-top:74px}
   .cv-stage{position:relative;height:auto;min-height:0;padding:64px 0}
   .cv .pcard{transform:none;opacity:1}
 }
+/* Phones: unpin the lock-in/deck sections so nothing gets clipped — show them as normal scrolling sections */
+@media(max-width:700px){
+  .why-track,.cv-track{height:auto}
+  .why-stage,.cv-stage{position:static;display:block;height:auto;min-height:0;overflow:visible;padding:56px 0}
+  .why .feature,.cv .pcard{transform:none !important;opacity:1 !important}
+}
 
-/* ---------- FINAL CTA ---------- */
-.final{position:relative;overflow:hidden;background:var(--grad);color:#1a0f06}
-.final-in{padding:60px 0;text-align:center}
-.final h2{font-family:var(--disp);font-weight:800;font-size:clamp(28px,5vw,42px);letter-spacing:-.025em;line-height:1.05;color:#23120a}
-.final p{font-size:16.5px;max-width:30em;margin:14px auto 26px;color:#3a1d10;font-weight:500}
-.final .btn{background:#18171f;color:#fff;box-shadow:0 16px 34px -16px rgba(0,0,0,.6)}
-.final .btn:hover{filter:brightness(1.12)}
+/* ---------- FINAL CTA (calm) ---------- */
+.final{position:relative;overflow:hidden;background:linear-gradient(180deg,#fffaf4,#faf0e4);border-top:1px solid var(--line)}
+.final-in{padding:56px 0;text-align:center}
+.final h2{font-family:var(--disp);font-weight:800;font-size:clamp(26px,5vw,40px);letter-spacing:-.025em;line-height:1.06;color:var(--ink)}
+.final p{font-size:16px;max-width:28em;margin:12px auto 24px;color:var(--muted);font-weight:500}
 
 /* ---------- FAQ ---------- */
 .faq{max-width:720px;margin:0 auto}
@@ -334,7 +341,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 .how-wrap{position:relative;background:linear-gradient(180deg,#fff,#f7f0e7 45%,#fff)}
 .how-track{position:relative;height:640vh}
 .how-stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;perspective:1600px}
-.how-mid{flex:1;width:100%;display:flex;align-items:center;justify-content:center;min-height:0}
+.how-mid{position:relative;flex:1;width:100%;display:flex;align-items:center;justify-content:center;min-height:0}
 .how-stage::before{content:"";position:absolute;inset:0;z-index:0;background:
   radial-gradient(640px 440px at 16% 20%,rgba(255,122,24,.16),transparent 60%),
   radial-gradient(640px 480px at 86% 80%,rgba(255,45,111,.15),transparent 60%)}
@@ -355,7 +362,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 .how-sub{font-size:clamp(14.5px,2vw,18px);color:var(--soft);font-weight:500;max-width:24em;margin:0 auto}
 [data-phase="0"] .how-title.t0,[data-phase="1"] .how-title.t1,[data-phase="2"] .how-title.t2,[data-phase="3"] .how-title.t3{opacity:1;transform:none}
 
-.how-phonewrap{position:relative;z-index:3;width:min(560px,94vw);display:flex;justify-content:center;align-items:center;transform-style:preserve-3d}
+.how-phonewrap{position:relative;z-index:3;width:min(560px,94vw);display:flex;justify-content:center;align-items:center}
 .how-phone{transform:rotateX(var(--rx,7deg)) rotateY(var(--ry,-7deg)) scale(var(--sc,1)) translateY(var(--ty,0));transform-style:preserve-3d;will-change:transform}
 .phone-shell{position:relative;width:clamp(200px,52vw,252px);aspect-ratio:9 / 19.3;border-radius:46px;background:#0b0a11;padding:11px;
   box-shadow:0 60px 100px -38px rgba(40,20,10,.62),0 0 0 2px rgba(255,255,255,.06) inset,0 2px 0 rgba(255,255,255,.08) inset;
@@ -418,15 +425,15 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 .sheet-heart{width:32px;height:32px;flex-shrink:0;border-radius:50%;background:var(--bg);color:var(--heat-3);display:flex;align-items:center;justify-content:center;font-size:15px}
 
 /* floating glass cards */
-.fc{position:absolute;z-index:4;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.7);border-radius:14px;padding:9px 13px;font-size:12.5px;font-weight:700;font-family:var(--disp);color:var(--ink);box-shadow:0 20px 40px -20px rgba(120,70,40,.5);opacity:0;transform:translateY(12px) scale(.92);transition:opacity .55s,transform .55s;pointer-events:none}
+.fc{position:absolute;z-index:7;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.95);border:1px solid rgba(255,255,255,.7);border-radius:14px;padding:9px 13px;font-size:12.5px;font-weight:700;font-family:var(--disp);color:var(--ink);box-shadow:0 20px 40px -20px rgba(120,70,40,.5);opacity:0;transform:translateY(12px) scale(.92);transition:opacity .55s,transform .55s;pointer-events:none}
 .fc .av{width:24px;height:24px;font-size:10px;margin:0;border:none}
 [data-phase="1"] .fc-1a,[data-phase="1"] .fc-1b,[data-phase="2"] .fc-2a,[data-phase="2"] .fc-2b,[data-phase="3"] .fc-3a,[data-phase="3"] .fc-3b{opacity:1;transform:none;animation:floaty 5s ease-in-out infinite}
-.fc-1a{top:24%;left:6%}
-.fc-1b{bottom:25%;right:5%}
-.fc-2a{top:27%;right:6%}
-.fc-2b{bottom:28%;left:7%}
-.fc-3a{top:22%;right:7%;color:#1b9e57}
-.fc-3b{bottom:26%;left:6%}
+.fc-1a{top:22%;left:6%}
+.fc-1b{bottom:22%;right:5%}
+.fc-2a{top:26%;right:6%}
+.fc-2b{bottom:26%;left:7%}
+.fc-3a{top:20%;right:7%;color:#1b9e57}
+.fc-3b{bottom:24%;left:6%}
 
 .how-foot{position:relative;width:100%;height:76px;margin-bottom:3vh;z-index:5}
 .foot-cta{position:absolute;left:50%;top:50%;opacity:0;transform:translate(-50%,calc(-50% + 8px));transition:opacity .45s,transform .45s;pointer-events:none}
@@ -445,9 +452,9 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   .how-titles{height:150px}
   .phone-shell{width:262px}
   .fc{font-size:13px}
-  .fc-1a{top:18%;left:4%}.fc-1b{bottom:20%;right:3%}
-  .fc-2a{top:21%;right:4%}.fc-2b{bottom:23%;left:5%}
-  .fc-3a{top:16%;right:5%}.fc-3b{bottom:20%;left:4%}
+  .fc-1a{top:24%;left:29%}.fc-1b{bottom:24%;right:28%}
+  .fc-2a{top:28%;right:29%}.fc-2b{bottom:29%;left:30%}
+  .fc-3a{top:22%;right:30%}.fc-3b{bottom:26%;left:29%}
 }
 @media(max-width:520px){
   .fc{font-size:11px;padding:8px 11px;max-width:42%}
@@ -606,14 +613,15 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
         <div class="hfc c-friends"><span class="hfc-in" data-i18n="hfSaved">👥 12 friends saved this</span></div>
         <div class="hfc c-gem"><span class="hfc-in" data-i18n="hfGem">📍 Hidden Gem</span></div>
 
-        <!-- step floating glass cards (depth around the phone, phases 1–3) -->
-        <div class="fc fc-1a" data-i18n="fcNearby">📍 New spot nearby</div>
-        <div class="fc fc-1b"><span class="av a1">S</span><span data-i18n="fcSophie">Sophie recommends this</span></div>
-        <div class="fc fc-2a"><span class="av a3">M</span><span data-i18n="fcShared">Shared with Mark</span></div>
-        <div class="fc fc-2b" data-i18n="fcSend">Sending…</div>
-        <div class="fc fc-3a">✓&nbsp;<span data-i18n="fcConfirmed">Vibe confirmed</span></div>
-        <div class="fc fc-3b" data-i18n="fcPlus1">+1 confirmation</div>
       </div>
+
+      <!-- step floating glass cards — flat overlay above the 3D phone (phases 1–3) -->
+      <div class="fc fc-1a" data-i18n="fcNearby">📍 New spot nearby</div>
+      <div class="fc fc-1b"><span class="av a1">S</span><span data-i18n="fcSophie">Sophie recommends this</span></div>
+      <div class="fc fc-2a"><span class="av a3">M</span><span data-i18n="fcShared">Shared with Mark</span></div>
+      <div class="fc fc-2b" data-i18n="fcSend">Sending…</div>
+      <div class="fc fc-3a">✓&nbsp;<span data-i18n="fcConfirmed">Vibe confirmed</span></div>
+      <div class="fc fc-3b" data-i18n="fcPlus1">+1 confirmation</div>
       </div>
 
       <div class="how-foot">
