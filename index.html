@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- Security: Content-Security-Policy beperkt waar scripts/styles/verbindingen vandaan mogen komen.
-     connect-src staat ALLEEN jouw eigen Supabase-project toe. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://uwxapldrcmxtkwlxwwnc.supabase.co; frame-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
+     connect-src: jouw Supabase + (na cookie-consent) Google Analytics/Ads en Meta Pixel. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://connect.facebook.net https://www.googletagmanager.com https://www.google-analytics.com https://www.googleadservices.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.facebook.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://www.google.com https://www.google.nl https://googleads.g.doubleclick.net https://stats.g.doubleclick.net; connect-src https://uwxapldrcmxtkwlxwwnc.supabase.co https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://stats.g.doubleclick.net; frame-src 'self' https://td.doubleclick.net; base-uri 'none'; form-action 'self'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>VibeNow — Discover places with a vibe</title>
 <link rel="icon" type="image/png" href="alt-6-pulse.png">
@@ -92,6 +92,11 @@ input::placeholder{color:#a9a8b5}
 .success h2{font-family:var(--disp);font-weight:800;font-size:22px;margin-bottom:8px}
 .success p{font-size:14px;color:var(--soft);margin-bottom:16px}
 .share{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink);font-weight:700;font-size:14px;background:#f1efeb;border:1px solid var(--line);border-radius:12px;padding:12px 18px}
+.refer{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.refer-reason{font-family:var(--disp);font-weight:700;font-size:15.5px;color:var(--ink);line-height:1.35;margin-bottom:12px}
+.share-btn{width:100%;color:#1a0f06;background:var(--grad);border-radius:13px;padding:14px;font-size:15.5px;box-shadow:0 12px 28px -10px rgba(255,77,90,.6)}
+.share-btn:hover{filter:brightness(1.04)}
+.refer-sub{font-size:11.5px;color:var(--muted);margin-top:9px}
 .is-done .form-live{display:none}
 .is-done .success{display:block}
 
@@ -332,6 +337,16 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 .foot-ig{display:inline-flex;color:var(--muted);transition:color .15s,transform .15s}
 .foot-ig:hover{color:var(--heat-3);transform:translateY(-1px)}
 .foot-priv{width:100%;font-size:12px;color:var(--muted);border-top:1px solid var(--line);margin-top:18px;padding-top:16px}
+
+/* ---------- COOKIE CONSENT ---------- */
+.consent{position:fixed;left:0;right:0;bottom:0;z-index:200;background:#fff;border-top:1px solid var(--line);box-shadow:0 -12px 32px -18px rgba(120,70,40,.45);padding:14px 18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 16px}
+.consent[hidden]{display:none}
+.consent-txt{font-size:13px;color:var(--soft);max-width:46em;margin:0}
+.consent-actions{display:flex;align-items:center;gap:8px}
+.consent-deny{background:none;border:none;font-family:var(--body);font-weight:700;font-size:13.5px;color:var(--muted);cursor:pointer;padding:10px 14px;border-radius:10px}
+.consent-deny:hover{background:var(--bg)}
+.consent-accept{padding:10px 20px;font-size:13.5px}
+@media(max-width:560px){.consent{padding:12px 14px}.consent-txt{font-size:12.5px}.consent-actions{width:100%;justify-content:flex-end}}
 
 /* ---------- DESKTOP ---------- */
 @media(min-width:880px){
@@ -789,8 +804,12 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       <div class="success">
         <div class="big">🔥</div>
         <h2 data-i18n="successH">You're on the list! 🔥</h2>
-        <p data-i18n="successP">We'll be in touch as soon as VibeNow goes live. See you soon.</p>
-        <a class="share" id="shareBtn" href="#" data-i18n="share">📲 Tell a friend</a>
+        <p data-i18n="successP">We'll be in touch as soon as VibeNow goes live.</p>
+        <div class="refer">
+          <div class="refer-reason" data-i18n="referReason">Want in sooner? Move up the list by inviting friends.</div>
+          <a class="btn share-btn" id="shareBtn" href="#" data-i18n="share">📲 Invite friends</a>
+          <div class="refer-sub" data-i18n="referSub">Every friend who joins bumps you up the waitlist.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -842,6 +861,15 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   </div>
 </footer>
 
+<!-- Cookie consent (only appears once analytics IDs are configured) -->
+<div class="consent" id="consentBar" hidden>
+  <p class="consent-txt" data-i18n="consentText">We use cookies for analytics and to measure our ads. Your choice.</p>
+  <div class="consent-actions">
+    <button type="button" class="consent-deny" id="consentDeny" data-i18n="consentDeny">Decline</button>
+    <button type="button" class="btn btn-primary consent-accept" id="consentAccept" data-i18n="consentAccept">Accept</button>
+  </div>
+</div>
+
 <script>
 // ---------- Taalwissel NL/EN ----------
 (function(){
@@ -859,8 +887,10 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       labelHood:'Welke vibe zoek jij?', optional:'(optioneel)',
       phHood:'bijv. knusse cafés, zonnige terrasjes, dateplekken…',
       submit:'Zet me op de wachtlijst', tiny:'We mailen je één keer als VibeNow live gaat. Geen spam.',
-      successH:'Je staat op de lijst! 🔥', successP:'Je hoort van ons zodra VibeNow live gaat. Tot snel.',
-      share:'📲 Tip een vriend',
+      successH:'Je staat op de lijst! 🔥', successP:'Je hoort van ons zodra VibeNow live gaat.',
+      share:'📲 Nodig vrienden uit',
+      referReason:'Eerder erbij? Schuif omhoog op de lijst door vrienden uit te nodigen.',
+      referSub:'Elke vriend die zich aanmeldt schuift jou omhoog op de wachtlijst.',
       mockConfirm:'43 bevestigden de vibe', mockTag1:'☕ Knus café', mockTag2:'💻 Werkvriendelijk',
       mockAgree:'eens', mockFriends:'Aangeraden door 7 vrienden', mockToast:'Sara bewaarde deze plek',
       howEyebrow:'Hoe het werkt', howH2:'In drie stappen naar betere plekken.',
@@ -903,6 +933,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       q4:'En mijn privacy?', a4:'VibeNow gaat over plekken, niet over mensen. De kaart toont de vibe van een plek — nooit waar iemand live is. Jij bepaalt wat je deelt, en met wie.',
       q5:'Voor wie is VibeNow?', a5:'Voor iedereen die klaar is met gokken waar je heen moet — en plekken wil ontdekken, bewaren en delen die écht een vibe hebben.',
       footQuestions:'Vragen?', footPriv:'VibeNow gaat over plekken, niet over het volgen van mensen. Jij bepaalt wat je deelt.',
+      consentText:'We gebruiken cookies voor analytics en om onze advertenties te meten. Jij kiest.', consentAccept:'Accepteren', consentDeny:'Weigeren',
       busy:'Bezig…', err:'Er ging iets mis — probeer het nog eens.',
       shareText:'Check VibeNow — ontdek en deel plekken met een vibe 🔥', toggle:'EN'
     },
@@ -919,8 +950,10 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       labelHood:'What vibe are you looking for?', optional:'(optional)',
       phHood:'e.g. cozy cafés, sunny terraces, date spots…',
       submit:'Join the waitlist', tiny:"We'll email you once when VibeNow goes live. No spam.",
-      successH:"You're on the list! 🔥", successP:"We'll be in touch as soon as VibeNow goes live. See you soon.",
-      share:'📲 Tell a friend',
+      successH:"You're on the list! 🔥", successP:"We'll be in touch as soon as VibeNow goes live.",
+      share:'📲 Invite friends',
+      referReason:'Want in sooner? Move up the list by inviting friends.',
+      referSub:'Every friend who joins bumps you up the waitlist.',
       mockConfirm:'43 confirmed the vibe', mockTag1:'☕ Cozy café', mockTag2:'💻 Work friendly',
       mockAgree:'agree', mockFriends:'Recommended by 7 friends', mockToast:'Sara saved this spot',
       howEyebrow:'How it works', howH2:'Three steps to better places.',
@@ -963,6 +996,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       q4:'What about my privacy?', a4:'VibeNow is about places, not people. The map shows the vibe of a spot — never where any individual is live. You choose what you share, and with whom.',
       q5:'Who is VibeNow for?', a5:"For anyone who's tired of guessing where to go — and wants to discover, save and share places that actually have a vibe.",
       footQuestions:'Questions?', footPriv:'VibeNow is about places, not tracking people. You decide what you share.',
+      consentText:'We use cookies for analytics and to measure our ads. Your choice.', consentAccept:'Accept', consentDeny:'Decline',
       busy:'Sending…', err:'Something went wrong — please try again.',
       shareText:'Check out VibeNow — discover and share places with a vibe 🔥', toggle:'NL'
     }
@@ -994,14 +1028,30 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   var shareUrl = 'https://getthevibe.now';
   function _d(){ return (window.__I18N && window.__I18N[window.__lang||'en']) || {}; }
 
+  // ── Conversion tracking ─────────────────────────────────────────────
+  // Platform-agnostic: fires to whichever pixel/tag is loaded (Meta, Google,
+  // TikTok or GTM). Add your pixel snippet in <head> + allow it in the CSP and
+  // these events start measuring. Safe no-op until then.
+  function track(meta, ga, tiktok, dl){
+    try{
+      if (window.fbq) window.fbq('track', meta);
+      if (window.gtag) window.gtag('event', ga);
+      if (window.ttq) window.ttq.track(tiktok);
+      if (window.dataLayer) window.dataLayer.push({ event: dl });
+    }catch(e){}
+  }
+  function trackLead(){ track('Lead', 'generate_lead', 'SubmitForm', 'lead'); }
+  function trackInvite(){ track('InviteFriends', 'invite_friends', 'ClickButton', 'invite_friends'); }
+
   var shareBtn = document.getElementById('shareBtn');
   shareBtn.addEventListener('click', function(e){
+    trackInvite(); // referral intent — the key signal for a network app
     var txt = (_d().shareText || 'Check VibeNow 🔥') + ' ' + shareUrl;
     if (navigator.share){ e.preventDefault(); navigator.share({title:'VibeNow', text:_d().shareText || 'VibeNow', url:shareUrl}).catch(function(){}); }
     else { shareBtn.setAttribute('href', 'https://wa.me/?text=' + encodeURIComponent(txt)); }
   });
 
-  function done(){ card.classList.add('is-done'); }
+  function done(){ card.classList.add('is-done'); trackLead(); }
 
   var sb = (window.supabase && window.supabase.createClient)
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
@@ -1144,6 +1194,47 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       card.addEventListener('click', function(){ card.classList.toggle('flipped'); });
     })(cards[i]);
   }
+})();
+
+// ---------- Cookie consent + analytics loaders (Meta Pixel + Google) ----------
+(function(){
+  // ╔══════════════════════════════════════════════════════════════════╗
+  // ║  PASTE YOUR IDs HERE to switch tracking on. Empty = fully off:    ║
+  // ║  no cookie banner, no pixels, nothing loads.                      ║
+  // ╚══════════════════════════════════════════════════════════════════╝
+  var ANALYTICS = {
+    metaPixelId: '27619508084320055',  // Meta Events Manager
+    ga4Id:       'G-0ZSVSEGV3E',        // GA4 Data Stream
+    googleAdsId: ''               // optional Google Ads tag, e.g. 'AW-123456789'
+  };
+  if(!(ANALYTICS.metaPixelId || ANALYTICS.ga4Id || ANALYTICS.googleAdsId)) return;
+
+  function getC(){ try{ return localStorage.getItem('vn_consent'); }catch(e){ return null; } }
+  function setC(v){ try{ localStorage.setItem('vn_consent', v); }catch(e){} }
+
+  function loadMeta(id){
+    if(!id || window.fbq) return;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', id); window.fbq('track','PageView');
+  }
+  function loadGoogle(ga4, ads){
+    var first = ga4 || ads; if(!first || window.gtag) return;
+    var s=document.createElement('script'); s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(first); document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[]; window.gtag=function(){ window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    if(ga4) window.gtag('config', ga4);
+    if(ads) window.gtag('config', ads);
+  }
+  function loadPixels(){ loadMeta(ANALYTICS.metaPixelId); loadGoogle(ANALYTICS.ga4Id, ANALYTICS.googleAdsId); }
+
+  var bar = document.getElementById('consentBar');
+  var c = getC();
+  if(c === 'granted'){ loadPixels(); }
+  else if(c !== 'denied' && bar){ bar.hidden = false; }
+
+  var acc = document.getElementById('consentAccept'), den = document.getElementById('consentDeny');
+  if(acc) acc.addEventListener('click', function(){ setC('granted'); if(bar) bar.hidden = true; loadPixels(); });
+  if(den) den.addEventListener('click', function(){ setC('denied'); if(bar) bar.hidden = true; });
 })();
 </script>
 </body>
