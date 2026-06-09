@@ -393,7 +393,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 
 .how-phonewrap{position:relative;z-index:3;width:min(560px,94vw);display:flex;justify-content:center;align-items:center}
 .how-phone{transform:rotateX(var(--rx,7deg)) rotateY(var(--ry,-7deg)) scale(var(--sc,1)) translateY(var(--ty,0));transform-style:preserve-3d;will-change:transform}
-.phone-shell{position:relative;width:clamp(200px,52vw,252px);aspect-ratio:9 / 19.3;border-radius:46px;background:#0b0a11;padding:11px;
+.phone-shell{position:relative;width:clamp(184px,min(52vw,26vh),258px);aspect-ratio:9 / 19.3;border-radius:46px;background:#0b0a11;padding:11px;
   box-shadow:0 60px 100px -38px rgba(40,20,10,.62),0 0 0 2px rgba(255,255,255,.06) inset,0 2px 0 rgba(255,255,255,.08) inset;
   transform-style:preserve-3d;filter:blur(var(--blur,0));transition:filter .22s ease-out}
 .phone-shell::after{content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);width:92px;height:20px;background:#0b0a11;border-radius:0 0 13px 13px;z-index:8}
@@ -479,7 +479,6 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 @media(min-width:880px){
   .how-head{height:24vh}
   .how-titles{height:150px}
-  .phone-shell{width:262px}
   .fc{font-size:13px}
   .fc-1a{top:24%;left:29%}.fc-1b{bottom:24%;right:28%}
   .fc-2a{top:28%;right:29%}.fc-2b{bottom:29%;left:30%}
