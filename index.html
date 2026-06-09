@@ -393,7 +393,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 
 .how-phonewrap{position:relative;z-index:3;width:min(560px,94vw);display:flex;justify-content:center;align-items:center}
 .how-phone{transform:rotateX(var(--rx,7deg)) rotateY(var(--ry,-7deg)) scale(var(--sc,1)) translateY(var(--ty,0));transform-style:preserve-3d;will-change:transform}
-.phone-shell{position:relative;width:clamp(184px,min(52vw,26vh),258px);aspect-ratio:9 / 19.3;border-radius:46px;background:#0b0a11;padding:11px;
+.phone-shell{position:relative;width:clamp(200px,min(52vw,27vh),256px);aspect-ratio:9 / 19.3;border-radius:46px;background:#0b0a11;padding:11px;
   box-shadow:0 60px 100px -38px rgba(40,20,10,.62),0 0 0 2px rgba(255,255,255,.06) inset,0 2px 0 rgba(255,255,255,.08) inset;
   transform-style:preserve-3d;filter:blur(var(--blur,0));transition:filter .22s ease-out}
 .phone-shell::after{content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);width:92px;height:20px;background:#0b0a11;border-radius:0 0 13px 13px;z-index:8}
@@ -494,6 +494,26 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   .how-phone{transform:rotateX(6deg) rotateY(-7deg)!important}
   .how-glow,.fc,.scroll-hint,.sc-check,.hfc-in{animation:none}
   .screen{transition:opacity .3s}
+}
+
+/* short desktop/laptop viewports (e.g. 1366x768 at 100% leaves ~640px): make
+   room by shrinking the HEAD + FOOT (never the phone — its screen content is
+   designed for >=200px), so nothing overlaps */
+@media(min-width:640px) and (max-height:760px){
+  .how-head{height:auto;padding:1.6vh 18px 0;margin-bottom:0}
+  .how-titles{height:88px;margin-top:6px}
+  .how-title.t0 h1{font-size:clamp(22px,3.2vw,30px);margin-bottom:5px}
+  .how-sub{font-size:13px}
+  .how-foot{height:50px;margin-bottom:1.2vh}
+  .c-agree{display:none}
+}
+@media(min-width:640px) and (max-height:600px){
+  /* very short (heavy zoom): trim a bit more, keep the phone untouched */
+  .how-titles{height:76px}
+  .how-title.t0 h1{font-size:23px;line-height:1.04}
+  .how-sub{display:none}
+  .scroll-hint{display:none}
+  .c-cafe,.c-gem{display:none}
 }
 
 /* load reveal */
