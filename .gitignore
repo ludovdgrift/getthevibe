@@ -43,3 +43,6 @@ node_modules/
 /app-preview (4).html
 /post1-founding-map (2).html
 /VibeNow - Intro 3 (standalone).html
+
+# Local Netlify folder
+.netlify
