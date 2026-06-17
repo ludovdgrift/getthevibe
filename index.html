@@ -7,12 +7,12 @@
      connect-src: jouw Supabase + (na cookie-consent) Google Analytics/Ads en Meta Pixel. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://connect.facebook.net https://www.googletagmanager.com https://www.google-analytics.com https://www.googleadservices.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.facebook.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://www.google.com https://www.google.nl https://googleads.g.doubleclick.net https://stats.g.doubleclick.net; connect-src https://uwxapldrcmxtkwlxwwnc.supabase.co https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://stats.g.doubleclick.net; frame-src 'self' https://td.doubleclick.net; base-uri 'none'; form-action 'self'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>VibeNow — Discover places with your vibe</title>
+<title>VibeNow — The places you and your friends love, in one shared list</title>
 <link rel="icon" type="image/png" href="alt-6-pulse.png">
 <link rel="apple-touch-icon" href="alt-6-pulse.png">
-<meta name="description" content="See every place by its features — cozy, wifi, terrace, good for groups — and find the spots that match your vibe. Rated by friends, confirmed by the community. Launching soon.">
-<meta property="og:title" content="VibeNow — Discover places with your vibe">
-<meta property="og:description" content="See every place by its features and find the spots that match your vibe — rated by friends, confirmed by the community. Join the waitlist.">
+<meta name="description" content="Stop losing great places in Maps lists and WhatsApp screenshots. VibeNow keeps the spots your group actually trusts in one shared list you can find again — together. Launching soon.">
+<meta property="og:title" content="VibeNow — The places you and your friends love, in one shared list">
+<meta property="og:description" content="Save a place once and it's there for your whole group, ready to find again in a tap. The places your friends genuinely recommend — in one shared list. Join the waitlist.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://getthevibe.now">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,12 +21,13 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
-  --ink:#18171f; --muted:#76758a; --soft:#3c3b48; --card:#ffffff;
-  --line:rgba(20,18,40,.10); --bg:#faf5ef; --bg2:#f3ece3;
+  --ink:#1d1812; --muted:#8c8170; --soft:#473f33; --card:#fffdf7;
+  --line:rgba(34,24,10,.18); --bg:#f0e7d6; --bg2:#e7dcc7;
   --heat-1:#ffc02e; --heat-2:#ff7a18; --heat-3:#ff2d6f; --cool:#1aa7d0;
+  --accent:#dd4318; --accent-deep:#a8300c; --accent-soft:#f6e2d6;
   --disp:"Bricolage Grotesque",sans-serif; --body:"Schibsted Grotesk",sans-serif;
-  --grad:linear-gradient(95deg,var(--heat-1),var(--heat-2) 45%,var(--heat-3));
-  --grad-soft:linear-gradient(135deg,#fff3e0,#ffe6ef);
+  --grad:var(--accent);           /* solid accent — no more rainbow gradient */
+  --grad-soft:var(--accent-soft);
   --maxw:1120px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -38,24 +39,25 @@ img{max-width:100%}
 
 /* ---------- BUTTONS ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--disp);font-weight:700;cursor:pointer;text-decoration:none;border:none;transition:transform .12s,filter .15s,background .15s,border-color .15s}
-.btn-primary{color:#1a0f06;background:var(--grad);border-radius:12px;padding:11px 18px;font-size:14.5px;box-shadow:0 10px 24px -10px rgba(255,77,90,.6)}
-.btn-primary:hover{filter:brightness(1.04)}
-.btn-primary:active{transform:scale(.98)}
-.btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line);border-radius:12px;padding:13px 18px;font-size:15px}
-.btn-ghost:hover{border-color:var(--heat-2)}
-.btn-lg{padding:15px 24px;font-size:16.5px;border-radius:14px}
+.btn-primary{color:#fff;background:var(--accent);border:1.5px solid var(--accent-deep);border-radius:9px;padding:11px 18px;font-size:14.5px;box-shadow:0 3px 0 var(--accent-deep)}
+.btn-primary:hover{filter:brightness(1.06)}
+.btn-primary:active{transform:translateY(2px);box-shadow:0 1px 0 var(--accent-deep)}
+.btn-ghost{background:var(--card);color:var(--ink);border:1.5px solid var(--ink);border-radius:9px;padding:13px 18px;font-size:15px}
+.btn-ghost:hover{background:var(--ink);color:var(--card)}
+.btn-lg{padding:15px 24px;font-size:16.5px;border-radius:10px}
 .nav .btn{padding:9px 15px;font-size:13.5px}
 
 /* ---------- HEADER ---------- */
-header{position:sticky;top:0;z-index:100;background:rgba(250,245,239,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+header{position:sticky;top:0;z-index:100;background:rgba(240,231,214,.96);backdrop-filter:blur(10px);border-bottom:1.5px solid var(--ink)}
 .nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-height:62px;padding:7px 0}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
 .nav-right{display:flex;align-items:center;gap:12px}
-.lang-toggle{background:none;border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;font-family:var(--body);letter-spacing:.03em;transition:background .15s,border-color .15s}
+.lang-toggle{background:none;border:1.5px solid var(--ink);border-radius:7px;padding:6px 11px;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;font-family:var(--body);letter-spacing:.03em;transition:background .15s,border-color .15s}
+.lang-toggle:hover{background:var(--ink);color:var(--card)}
 .nav-signup{display:flex;align-items:center;gap:8px}
-.nav-email{width:176px;border:1px solid var(--line);border-radius:11px;padding:9px 12px;font-family:var(--body);font-size:13.5px;color:var(--ink);background:#fff;transition:border-color .15s,box-shadow .15s}
+.nav-email{width:176px;border:1.5px solid var(--ink);border-radius:7px;padding:9px 12px;font-family:var(--body);font-size:13.5px;color:var(--ink);background:var(--card);transition:border-color .15s,box-shadow .15s}
 .nav-email::placeholder{color:var(--muted)}
-.nav-email:focus{outline:none;border-color:var(--heat-2);box-shadow:0 0 0 3px rgba(255,122,24,.15)}
+.nav-email:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,122,24,.15)}
 .nav-done{display:none;align-items:center;font-family:var(--disp);font-weight:800;font-size:13.5px;color:#1b9e57}
 .nav-signup.is-done .nav-email,.nav-signup.is-done .nav-cta{display:none}
 .nav-signup.is-done .nav-done{display:inline-flex}
@@ -64,16 +66,54 @@ header{position:sticky;top:0;z-index:100;background:rgba(250,245,239,.95);backdr
   .nav-email{flex:1 1 auto;width:auto}
   .nav .nav-cta{padding:9px 13px;flex:0 0 auto}
 }
-.lang-toggle:hover{background:#fff;border-color:var(--heat-2)}
+.lang-toggle:hover{background:#fff;border-color:var(--accent)}
 
 /* ---------- HERO ---------- */
 .hero{position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:
-  radial-gradient(820px 460px at 8% -12%, rgba(255,122,24,.20), transparent 60%),
-  radial-gradient(760px 520px at 110% -6%, rgba(255,45,111,.18), transparent 55%);}
+.hero::before{content:none}
 .hero-grid{display:grid;grid-template-columns:1fr;gap:42px;align-items:center;padding:40px 0 52px}
-.pill{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600;box-shadow:0 6px 20px -10px rgba(120,70,40,.3);margin-bottom:20px}
-.pill .live{width:8px;height:8px;border-radius:50%;background:var(--heat-3);animation:pulse 1.7s infinite}
+.pill{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;background:var(--card);border:1.5px solid var(--ink);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:700;font-family:var(--disp);letter-spacing:.02em;text-transform:uppercase;box-shadow:none;margin-bottom:20px}
+.center{text-align:center}
+
+/* ---------- HERO (simple) ---------- */
+.hero{position:relative;overflow:hidden;background:var(--bg);border-bottom:1.5px solid var(--ink)}
+.hero-in{max-width:780px;text-align:center;padding:clamp(40px,8vh,86px) 20px clamp(38px,7vh,72px)}
+.hero .pill{margin-bottom:8px}
+.hero h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,6vw,56px);letter-spacing:-.03em;line-height:1.04;margin:14px auto 0;max-width:15ch}
+.hero h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{font-size:clamp(15px,2.2vw,19px);color:var(--soft);font-weight:500;max-width:36em;margin:16px auto 0;line-height:1.5}
+.hero-form{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:520px;margin:26px auto 0}
+.hero-form input{flex:1 1 240px;min-width:0;border:1.5px solid var(--ink);border-radius:8px;padding:14px 16px;font-family:var(--body);font-size:16px;color:var(--ink);background:var(--card);transition:border-color .15s,box-shadow .15s}
+.hero-form input::placeholder{color:var(--muted)}
+.hero-form input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,122,24,.15)}
+.hero-form .btn-lg{flex:0 0 auto}
+.hero-done{display:none;align-items:center;justify-content:center;width:100%;font-family:var(--disp);font-weight:800;font-size:16px;color:#1b9e57}
+.hero-form.is-done input,.hero-form.is-done .btn{display:none}
+.hero-form.is-done .hero-done{display:flex}
+.hero-tiny{margin:12px auto 0}
+
+/* ---------- TRUSTED, NOT RATED ---------- */
+.trust-in{display:grid;grid-template-columns:1fr;gap:30px;align-items:center;max-width:920px;margin:0 auto;text-align:center}
+.trust-copy .mini-note{font-size:14px;color:var(--muted);margin-top:14px}
+.trust-vis{display:flex;flex-direction:column;gap:14px;max-width:380px;width:100%;margin:0 auto}
+.trust-card{display:flex;align-items:center;gap:13px;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:15px 18px;box-shadow:0 1px 2px rgba(29,24,18,.06);text-align:left}
+.trust-card.faded{opacity:.6}
+.trust-stars{font-size:21px;color:#c9c3b8;letter-spacing:2px;flex:none}
+.trust-card.hot{border:1.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--grad) border-box;box-shadow:0 18px 40px -22px rgba(255,77,90,.5)}
+.trust-card-t{font-family:var(--disp);font-weight:700;font-size:14.5px;color:var(--ink)}
+.trust-card.faded .trust-card-t{font-weight:600;color:var(--muted)}
+@media(min-width:760px){
+  .trust-in{grid-template-columns:1.05fr .95fr;gap:48px;text-align:left}
+  .trust-vis{margin:0}
+}
+
+/* ---------- PHONE MOCKUP (static eye-candy) ---------- */
+.phone-sec{background:var(--bg2)}
+.phone-sec-h{font-family:var(--disp);font-weight:800;font-size:clamp(22px,4vw,34px);letter-spacing:-.02em;margin-bottom:30px}
+.phone-static{display:flex;justify-content:center}
+.phone-static .phone-shell{width:clamp(232px,72vw,290px)}
+.screen-static{position:absolute;inset:0;display:flex;flex-direction:column;background:#fff}
+.pill .live{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 1.7s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,45,111,.55)}70%{box-shadow:0 0 0 8px rgba(255,45,111,0)}100%{box-shadow:0 0 0 0 rgba(255,45,111,0)}}
 h1{font-family:var(--disp);font-weight:800;font-size:clamp(38px,8.2vw,58px);line-height:1.02;letter-spacing:-.03em;margin-bottom:16px}
 h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -83,21 +123,21 @@ h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;c
 .hero-proof .avatars{display:flex}
 .av{width:30px;height:30px;border-radius:50%;border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:700;font-size:12px;color:#fff;margin-left:-9px}
 .av:first-child{margin-left:0}
-.av.a1{background:linear-gradient(135deg,#ff7a18,#ff2d6f)}
-.av.a2{background:linear-gradient(135deg,#1aa7d0,#6a5cff)}
-.av.a3{background:linear-gradient(135deg,#ffc02e,#ff7a18)}
-.av.a4{background:linear-gradient(135deg,#34c77b,#1aa7d0)}
-.av.a5{background:linear-gradient(135deg,#ff2d6f,#a23cff)}
+.av.a1{background:#dd4318}
+.av.a2{background:#2b7f93}
+.av.a3{background:#e0a32e}
+.av.a4{background:#4f9d6b}
+.av.a5{background:#7d5bbe}
 
 /* ---------- SIGNUP FORM ---------- */
-.form-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 24px 60px -30px rgba(120,70,40,.4);max-width:440px;margin-top:8px}
+.form-card{background:var(--card);border:1.5px solid var(--ink);border-radius:12px;padding:18px;box-shadow:6px 6px 0 var(--accent);max-width:440px;margin:8px auto 0}
 .form-card .ft{font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:14px}
 label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin:0 0 6px 2px}
-input{width:100%;font-family:var(--body);font-size:16px;color:var(--ink);background:#f7f5f2;border:1.5px solid var(--line);border-radius:13px;padding:13px 14px;outline:none;transition:border-color .15s,background .15s}
-input:focus{border-color:var(--heat-2);background:#fff}
+input{width:100%;font-family:var(--body);font-size:16px;color:var(--ink);background:var(--bg);border:1.5px solid var(--ink);border-radius:8px;padding:13px 14px;outline:none;transition:border-color .15s,background .15s}
+input:focus{border-color:var(--accent);background:#fff}
 input::placeholder{color:#a9a8b5}
 .field{margin-bottom:11px}
-.cta-form{width:100%;color:#1a0f06;background:var(--grad);border-radius:13px;padding:15px;font-size:16px;margin-top:4px;box-shadow:0 12px 28px -10px rgba(255,77,90,.6)}
+.cta-form{width:100%;color:#fff;background:var(--accent);border:1.5px solid var(--accent-deep);border-radius:9px;padding:15px;font-size:16px;margin-top:4px;box-shadow:0 3px 0 var(--accent-deep)}
 .tiny{font-size:11.5px;color:var(--muted);text-align:center;margin-top:10px}
 .success{display:none;text-align:center;padding:6px 4px 2px}
 .success .big{font-size:40px;line-height:1;margin-bottom:12px}
@@ -106,7 +146,7 @@ input::placeholder{color:#a9a8b5}
 .share{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink);font-weight:700;font-size:14px;background:#f1efeb;border:1px solid var(--line);border-radius:12px;padding:12px 18px}
 .refer{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
 .refer-reason{font-family:var(--disp);font-weight:700;font-size:15.5px;color:var(--ink);line-height:1.35;margin-bottom:12px}
-.share-btn{width:100%;color:#1a0f06;background:var(--grad);border-radius:13px;padding:14px;font-size:15.5px;box-shadow:0 12px 28px -10px rgba(255,77,90,.6)}
+.share-btn{width:100%;color:#fff;background:var(--accent);border:1.5px solid var(--accent-deep);border-radius:9px;padding:14px;font-size:15.5px;box-shadow:0 3px 0 var(--accent-deep)}
 .share-btn:hover{filter:brightness(1.04)}
 .refer-sub{font-size:11.5px;color:var(--muted);margin-top:9px}
 .is-done .form-live{display:none}
@@ -119,7 +159,7 @@ input::placeholder{color:#a9a8b5}
   radial-gradient(120% 90% at 70% 10%, rgba(255,255,255,.55), transparent 55%),
   linear-gradient(150deg,#ffd27a,#ff8a3c 48%,#ff4f8b);display:flex;align-items:flex-end}
 .vphoto-emoji{position:absolute;top:50%;left:50%;transform:translate(-50%,-58%);font-size:74px;filter:drop-shadow(0 8px 14px rgba(120,40,10,.3))}
-.vsave{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,.92);color:var(--heat-3);font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px -8px rgba(0,0,0,.4);cursor:default}
+.vsave{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,.92);color:var(--accent);font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px -8px rgba(0,0,0,.4);cursor:default}
 .vtags{display:flex;gap:7px;padding:12px;flex-wrap:wrap}
 .vtag{background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-radius:999px;padding:6px 11px;font-size:12px;font-weight:700;font-family:var(--disp);color:var(--ink);box-shadow:0 6px 14px -8px rgba(0,0,0,.4)}
 .vbody{padding:16px 18px 18px}
@@ -136,7 +176,7 @@ input::placeholder{color:#a9a8b5}
 .friends-txt{font-size:12.5px;color:var(--soft);font-weight:600}
 .float{position:absolute;z-index:3;background:#fff;border:1px solid var(--line);border-radius:14px;padding:9px 13px;display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;box-shadow:0 18px 38px -18px rgba(120,70,40,.5)}
 .float b{font-family:var(--disp);font-weight:700}
-.float .fdot{width:9px;height:9px;border-radius:50%;background:var(--heat-3);box-shadow:0 0 0 4px rgba(255,45,111,.16)}
+.float .fdot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(255,45,111,.16)}
 .float-top{top:8px;left:2px;animation:floaty 4.2s ease-in-out infinite}
 .float-bot{bottom:6px;right:0;animation:floaty 5s ease-in-out infinite reverse}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
@@ -195,7 +235,48 @@ section{scroll-margin-top:74px}
 .band{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .band-soft{background:var(--bg2)}
 .sec{padding:56px 0}
-.eyebrow{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--heat-2)}
+#search{padding:52px 0 44px}
+#search .vsearch{margin-bottom:8px}
+
+/* how it works — 3 visual steps */
+.steps{display:grid;grid-template-columns:1fr;gap:18px;max-width:940px;margin:8px auto 0}
+@media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr);gap:20px}}
+.step{position:relative;background:var(--card);border:1.5px solid var(--ink);border-radius:12px;padding:20px 18px;box-shadow:4px 4px 0 rgba(29,24,18,.08);text-align:left}
+.step-n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:7px;background:var(--accent);color:#fff;font-family:var(--disp);font-weight:800;font-size:15px;border:1.5px solid var(--accent-deep);box-shadow:0 2px 0 var(--accent-deep);margin-bottom:14px}
+.step-card{display:flex;align-items:center;gap:10px;background:var(--bg);border:1.5px solid var(--line);border-radius:9px;padding:8px;margin-bottom:14px}
+.step-thumb{width:46px;height:46px;border-radius:7px;object-fit:cover;flex:none;border:1.5px solid var(--line)}
+.step-pname{font-family:var(--disp);font-weight:700;font-size:13.5px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step-save{flex:none;display:inline-flex;align-items:center;background:var(--accent);color:#fff;border:1.5px solid var(--accent-deep);border-radius:6px;padding:5px 9px;font-family:var(--disp);font-weight:800;font-size:12px;box-shadow:0 2px 0 var(--accent-deep)}
+.step-card .mini-avs{flex:none}
+.step-pin{flex:none;font-size:20px;line-height:1}
+.step h3{font-family:var(--disp);font-weight:800;font-size:18px;margin:0 0 5px}
+.step p{font-size:14px;color:var(--soft);line-height:1.45}
+/* auto-playing walkthrough: the highlight travels 1 → 2 → 3 by itself */
+.steps[data-auto] .step{transition:border-color .35s,box-shadow .35s,transform .35s}
+.steps[data-auto] .step.is-on{border-color:var(--accent);box-shadow:5px 5px 0 var(--accent);transform:translateY(-5px)}
+.steps[data-auto] .step.is-on .step-save{animation:savePulse 1s ease-in-out infinite}
+.steps[data-auto] .step.is-on .step-cam{animation:savePulse 1s ease-in-out infinite}
+.steps[data-auto] .step.is-on .mini-avs .av{animation:avPop .45s backwards}
+.steps[data-auto] .step.is-on .mini-avs .av:nth-child(2){animation-delay:.12s}
+.steps[data-auto] .step.is-on .mini-avs .av:nth-child(3){animation-delay:.24s}
+.steps[data-auto] .step.is-on .step-pin{animation:pinDrop .55s}
+@keyframes savePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+@keyframes avPop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes pinDrop{0%{transform:translateY(-12px);opacity:0}60%{transform:translateY(3px)}100%{transform:translateY(0);opacity:1}}
+@media(prefers-reduced-motion:reduce){.steps[data-auto] .step.is-on{transform:none}.steps[data-auto] .step.is-on *{animation:none!important}}
+.step-thumb-wrap{position:relative;flex:none;width:46px;height:46px}
+.step-cam{position:absolute;right:-5px;bottom:-5px;width:21px;height:21px;border-radius:50%;background:var(--accent);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;box-shadow:0 2px 4px rgba(0,0,0,.25)}
+
+/* search result — place + category, swaps per typed query */
+.sr{display:flex;align-items:center;gap:12px;max-width:540px;margin:14px auto 0;background:var(--card);border:1.5px solid var(--line);border-radius:9px;padding:10px 12px;box-shadow:0 2px 4px rgba(29,24,18,.07);opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s}
+.sr.show{opacity:1;transform:none}
+.sr-thumb{width:48px;height:48px;border-radius:7px;object-fit:cover;flex:none;border:1.5px solid var(--line)}
+.sr-name{font-family:var(--disp);font-weight:800;font-size:15px}
+.sr-cats{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap}
+.sr-cats .ft{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:4px 8px;font-family:var(--disp);font-weight:700;font-size:11.5px;color:var(--ink);line-height:1}
+.sr-save{margin-left:auto;font-size:18px;flex:none}
+@media(prefers-reduced-motion:reduce){.sr{transition:none}}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
 .sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(26px,4.6vw,38px);letter-spacing:-.02em;margin:8px 0 0;line-height:1.06}
 .sec .intro{color:var(--muted);font-size:15.5px;max-width:34em;margin-top:12px}
 .sec-head{margin-bottom:34px}
@@ -211,12 +292,12 @@ section{scroll-margin-top:74px}
 
 /* ---------- CATEGORIES ---------- */
 /* Search your vibe — animated typewriter search bar */
-.vsearch{display:flex;align-items:center;gap:12px;max-width:540px;margin:0 auto 26px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:15px 18px;box-shadow:0 14px 34px -22px rgba(120,70,40,.42);text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s,transform .12s}
-.vsearch:hover{border-color:var(--heat-2);box-shadow:0 18px 40px -22px rgba(255,122,24,.5);transform:translateY(-2px)}
+.vsearch{display:flex;align-items:center;gap:12px;max-width:540px;margin:0 auto 26px;background:var(--card);border:1.5px solid var(--ink);border-radius:9px;padding:15px 18px;box-shadow:0 2px 0 rgba(29,24,18,.1);text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s,transform .12s}
+.vsearch:hover{border-color:var(--accent);box-shadow:0 18px 40px -22px rgba(255,122,24,.5);transform:translateY(-2px)}
 .vsearch-ic{color:var(--muted);flex:none}
 .vsearch-text{font-family:var(--body);font-size:16px;font-weight:500;color:var(--soft);display:inline-flex;align-items:center;min-height:22px;overflow:hidden}
 #vsType{white-space:pre}
-.vsearch-caret{display:inline-block;width:2px;height:19px;background:var(--heat-3);margin-left:2px;border-radius:1px;animation:vblink 1s steps(1) infinite}
+.vsearch-caret{display:inline-block;width:2px;height:19px;background:var(--accent);margin-left:2px;border-radius:1px;animation:vblink 1s steps(1) infinite}
 @keyframes vblink{50%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.vsearch-caret{animation:none}}
 /* search row: bar + clickable category dropdown beside it */
@@ -224,7 +305,7 @@ section{scroll-margin-top:74px}
 .search-row .vsearch{flex:1 1 240px;max-width:none;margin:0}
 .vcat-wrap{position:relative;flex:0 0 auto}
 .vcat{display:inline-flex;align-items:center;gap:7px;height:100%;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:0 14px;font-family:var(--disp);font-weight:700;font-size:13.5px;color:var(--ink);cursor:pointer;white-space:nowrap;transition:border-color .15s,box-shadow .15s}
-.vcat:hover{border-color:var(--heat-2);box-shadow:0 14px 30px -22px rgba(255,122,24,.5)}
+.vcat:hover{border-color:var(--accent);box-shadow:0 14px 30px -22px rgba(255,122,24,.5)}
 .vcat-ic{font-size:15px}
 .vcat-chev{color:var(--muted);transition:transform .2s;flex:none}
 .vcat[aria-expanded="true"] .vcat-chev{transform:rotate(180deg)}
@@ -235,27 +316,32 @@ section{scroll-margin-top:74px}
 .vcat-e{width:22px;text-align:center;font-size:16px;flex:none}
 
 /* Search result — one matching place card, swapping in place */
-.recs{display:grid;grid-template-columns:1fr;gap:16px;max-width:430px;margin:0 auto 26px}
-.rec{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 18px 42px -28px rgba(120,70,40,.45);display:flex;flex-direction:column}
+.recs{display:grid;grid-template-columns:1fr;gap:16px;max-width:400px;margin:0 auto}
+@media(min-width:760px){.recs{grid-template-columns:repeat(3,1fr);max-width:880px}}
+.rec{background:var(--card);border:1.5px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 2px 4px rgba(29,24,18,.07);display:flex;flex-direction:column}
 .rec-photo{position:relative;height:130px}
 .rec-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.rec-badge{position:absolute;top:10px;left:10px;border-radius:999px;padding:6px 11px;font-family:var(--disp);font-weight:800;font-size:11.5px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 8px 16px -8px rgba(0,0,0,.35)}
-.b-rec{background:rgba(255,255,255,.94);color:var(--ink)}
-.b-saved{background:var(--heat-3);color:#fff}
+.rec-badge{position:absolute;top:10px;left:10px;border-radius:6px;padding:5px 10px;font-family:var(--disp);font-weight:800;font-size:11.5px;display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--ink);box-shadow:1px 1px 0 var(--ink)}
+.b-rec{background:var(--card);color:var(--ink)}
+.b-saved{background:var(--accent);color:#fff}
 .rec-body{padding:14px 15px 15px}
 .rec-name{font-family:var(--disp);font-weight:800;font-size:16.5px;letter-spacing:-.01em;margin-bottom:9px}
 .rec-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
-.rec-tags .ft{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-family:var(--disp);font-weight:700;font-size:12px;color:var(--ink);line-height:1}
+.rec-tags .ft{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:5px 9px;font-family:var(--disp);font-weight:700;font-size:12px;color:var(--ink);line-height:1}
 .rec-meta{font-size:12.5px;color:var(--muted);font-weight:500}
 #decoded.seq .recs{display:block;position:relative;min-height:266px}
 #decoded.seq .rec{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(16px) scale(.98);transition:opacity .45s cubic-bezier(.2,.7,.2,1),transform .45s cubic-bezier(.2,.7,.2,1)}
 #decoded.seq .rec.show{opacity:1;transform:none}
 
 /* Capability cards — share / add photo / see on map */
-.caps-h{text-align:center;font-family:var(--disp);font-weight:800;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--heat-2);margin:6px 0 16px}
+.caps-h{text-align:center;font-family:var(--disp);font-weight:800;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:6px 0 16px}
 .caps{display:grid;grid-template-columns:1fr;gap:16px;max-width:760px;margin:0 auto 30px}
 .cap{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 18px 42px -28px rgba(120,70,40,.45)}
 .cap-vis{position:relative;height:152px;overflow:hidden;background:#eaf0e6}
+.cap-search{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff4ea,#ffe9ef)}
+.cap-searchbar{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px 14px;font-family:var(--body);font-size:13.5px;color:var(--soft);box-shadow:0 12px 26px -16px rgba(120,70,40,.45);max-width:88%}
+.cap-searchbar svg{color:var(--muted);flex:none}
+.cap-caret{display:inline-block;width:2px;height:15px;background:var(--accent);border-radius:1px;animation:vblink 1s steps(1) infinite}
 .cap-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .cap-overlay{position:absolute;left:12px;right:12px;bottom:12px;display:flex;align-items:center;justify-content:space-between}
 .cap-overlay .mini-avs{display:flex;background:rgba(255,255,255,.92);border-radius:999px;padding:4px}
@@ -273,6 +359,12 @@ section{scroll-margin-top:74px}
 .map-photopin::after{content:"";position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:9px solid #fff;filter:drop-shadow(0 2px 1px rgba(0,0,0,.3))}
 .gm-mk{position:absolute;width:13px;height:13px;background:#ea4335;border:1.5px solid #fff;border-radius:50% 50% 50% 0;transform:translate(-50%,-100%) rotate(-45deg);box-shadow:0 3px 6px -2px rgba(0,0,0,.45)}
 .sc-map .map-photopin{width:42px;height:42px;z-index:4}
+.sc-map .map-photopin.sc-pin{width:32px;height:32px;z-index:3;padding:0;background:none;border:0;cursor:pointer;animation:none}
+.sc-map .map-photopin.sc-pin.is-sel{width:44px;height:44px;z-index:6;animation:pinBob 2.4s ease-in-out infinite}
+.sc-map .map-photopin.sc-pin:focus-visible{outline:none}
+.sc-map .map-photopin.sc-pin:focus-visible img{box-shadow:0 0 0 3px var(--accent)}
+.sc-map .map-callout{pointer-events:none}
+.sc-tap-hint{display:block;margin-top:9px;font-family:var(--disp);font-weight:700;font-size:10.5px;color:var(--muted);text-align:center}
 .sc-map .map-photopin img{border-width:2.5px}
 .sc-map .map-photopin::after{border-top-width:8px}
 /* photo card — drop your own photo on the round spot */
@@ -282,7 +374,7 @@ section{scroll-margin-top:74px}
 .cap-addphoto{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:92px;height:92px}
 .cap-ring{display:block;width:100%;height:100%;border-radius:50%;border:3px solid #fff;overflow:hidden;box-shadow:0 14px 28px -10px rgba(0,0,0,.55);background:#eee}
 .cap-ring-img{width:100%;height:100%;object-fit:cover;display:block}
-.cap-cam{position:absolute;right:-5px;bottom:-5px;width:34px;height:34px;border-radius:50%;background:var(--heat-3);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;border:3px solid #fff;box-shadow:0 8px 16px -6px rgba(255,45,111,.6)}
+.cap-cam{position:absolute;right:-5px;bottom:-5px;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;border:3px solid #fff;box-shadow:0 8px 16px -6px rgba(255,45,111,.6)}
 .cap-body{padding:15px 16px 17px}
 .cap-h{font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.01em;margin-bottom:4px}
 .cap-p{font-size:13.5px;color:var(--muted);line-height:1.4}
@@ -300,8 +392,10 @@ section{scroll-margin-top:74px}
 @media(min-width:760px){ .caps{grid-template-columns:repeat(3,1fr)} }
 .oneapp{text-align:center;margin:4px 0 0}
 .oneapp span{display:inline-flex;align-items:center;gap:7px;background:var(--grad-soft);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-family:var(--disp);font-weight:800;font-size:14px;color:var(--ink)}
-.cats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.cat{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px 16px;transition:transform .14s,box-shadow .14s,border-color .14s}
+.cats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:760px;margin:0 auto}
+@media(min-width:700px){.cats{grid-template-columns:repeat(4,1fr)}}
+.cat{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px 16px;transition:transform .2s,box-shadow .2s,border-color .2s,background .2s}
+.cat.on{border-color:var(--accent);background:var(--grad-soft);box-shadow:0 14px 28px -14px rgba(255,77,90,.5);transform:translateY(-2px)}
 .cat:hover{transform:translateY(-3px);box-shadow:0 16px 30px -18px rgba(120,70,40,.4);border-color:transparent}
 .cat .e{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:21px;background:var(--grad-soft);flex-shrink:0}
 .cat .cl{font-family:var(--disp);font-weight:700;font-size:14.5px;line-height:1.2}
@@ -425,17 +519,17 @@ section{scroll-margin-top:74px}
 }
 
 /* ---------- FINAL CTA (calm) ---------- */
-.final{position:relative;overflow:hidden;background:linear-gradient(180deg,#fffaf4,#faf0e4);border-top:1px solid var(--line)}
+.final{position:relative;overflow:hidden;background:var(--ink);border-top:1.5px solid var(--ink)}
 .final-in{padding:56px 0;text-align:center}
-.final h2{font-family:var(--disp);font-weight:800;font-size:clamp(26px,5vw,40px);letter-spacing:-.025em;line-height:1.06;color:var(--ink)}
-.final p{font-size:16px;max-width:28em;margin:12px auto 24px;color:var(--muted);font-weight:500}
+.final h2{font-family:var(--disp);font-weight:800;font-size:clamp(26px,5vw,40px);letter-spacing:-.025em;line-height:1.06;color:#fffdf7}
+.final p{font-size:16px;max-width:28em;margin:12px auto 24px;color:rgba(255,253,247,.74);font-weight:500}
 
 /* ---------- FAQ ---------- */
 .faq{max-width:720px;margin:0 auto}
-.faq details{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:10px;overflow:hidden}
+.faq details{border:1.5px solid var(--line);border-radius:9px;background:var(--card);margin-bottom:10px;overflow:hidden}
 .faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-family:var(--disp);font-weight:700;font-size:15px;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";color:var(--heat-2);font-size:22px;font-weight:700;line-height:1}
+.faq summary::after{content:"+";color:var(--accent);font-size:22px;font-weight:700;line-height:1}
 .faq details[open] summary::after{content:"\2013"}
 .faq .ans{padding:0 18px 16px;font-size:14.5px;color:var(--soft);line-height:1.6}
 
@@ -446,7 +540,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 .foot-meta{font-size:12.5px;color:var(--muted);text-align:right}
 .foot-meta a{text-decoration:underline;text-underline-offset:2px}
 .foot-ig{display:inline-flex;color:var(--muted);transition:color .15s,transform .15s}
-.foot-ig:hover{color:var(--heat-3);transform:translateY(-1px)}
+.foot-ig:hover{color:var(--accent);transform:translateY(-1px)}
 .foot-priv{width:100%;font-size:12px;color:var(--muted);border-top:1px solid var(--line);margin-top:18px;padding-top:16px}
 
 /* ---------- COOKIE CONSENT ---------- */
@@ -486,7 +580,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   radial-gradient(640px 440px at 16% 20%,rgba(255,122,24,.16),transparent 60%),
   radial-gradient(640px 480px at 86% 80%,rgba(255,45,111,.15),transparent 60%)}
 .how-glow{position:absolute;width:540px;height:540px;border-radius:50%;z-index:0;
-  background:conic-gradient(from 0deg,var(--heat-1),var(--heat-2),var(--heat-3),var(--cool),var(--heat-1));
+  background:conic-gradient(from 0deg,var(--heat-1),var(--accent),var(--accent),var(--cool),var(--heat-1));
   filter:blur(130px);opacity:.20;animation:spin 30s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -518,7 +612,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 .sc-photo.p-cafe{background:radial-gradient(120% 90% at 70% 12%,rgba(255,255,255,.5),transparent 55%),linear-gradient(150deg,#ffd27a,#ff8a3c 50%,#ff4f8b)}
 .sc-photo.sm{height:34%}
 .sc-emoji{position:absolute;top:50%;left:50%;transform:translate(-50%,-58%);font-size:56px;filter:drop-shadow(0 8px 14px rgba(120,40,10,.3))}
-.sc-heart{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--heat-3);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 8px 16px -8px rgba(0,0,0,.4)}
+.sc-heart{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 8px 16px -8px rgba(0,0,0,.4)}
 .sc-chip{background:rgba(255,255,255,.94);border-radius:999px;padding:6px 11px;font-size:12px;font-weight:700;font-family:var(--disp);box-shadow:0 6px 14px -8px rgba(0,0,0,.4)}
 .sc-pad{padding:13px 15px 15px;display:flex;flex-direction:column;gap:5px;flex:1}
 .sc-pad2{padding:15px;display:flex;flex-direction:column;gap:12px;flex:1;justify-content:center}
@@ -550,11 +644,12 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 /* screen 1 — discover on a map (inside the phone) */
 .sc-map{position:relative;height:56%;overflow:hidden;background:#eaf0e6}
 .sc-map .map-streets{position:absolute;inset:0;width:100%;height:100%}
+.sc-map.gm-style{background:#e9eae4}
 .map-park{position:absolute;left:-8%;top:7%;width:46%;height:42%;background:#cfe6c4;border-radius:46% 54% 50% 50%/50%}
 .map-water{position:absolute;right:-12%;bottom:-10%;width:55%;height:46%;background:#bfe0ef;border-radius:50% 50% 40% 60%;transform:rotate(-12deg)}
 .map-pin{position:absolute;width:13px;height:13px;border-radius:50%;background:#c7c1b7;border:2px solid #fff;box-shadow:0 4px 8px -3px rgba(0,0,0,.35);transform:translate(-50%,-50%)}
-.map-pin.hot{background:var(--heat-2)}
-.map-pin.sel{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:17px;background:#fff;border:2.5px solid var(--heat-3);z-index:3;box-shadow:0 8px 16px -6px rgba(255,45,111,.5)}
+.map-pin.hot{background:var(--accent)}
+.map-pin.sel{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:17px;background:#fff;border:2.5px solid var(--accent);z-index:3;box-shadow:0 8px 16px -6px rgba(255,45,111,.5)}
 .map-pin.sel::before{content:"";position:absolute;inset:-7px;border-radius:50%;border:2px solid rgba(255,45,111,.4);animation:pingp 2s ease-out infinite}
 @keyframes pingp{0%{transform:scale(.7);opacity:.7}100%{transform:scale(1.55);opacity:0}}
 .map-me{position:absolute;width:14px;height:14px;border-radius:50%;background:var(--cool);border:2px solid #fff;transform:translate(-50%,-50%);box-shadow:0 0 0 4px rgba(26,167,208,.25)}
@@ -562,7 +657,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 .sc-sheet{position:relative;flex:1;background:#fff;border-radius:18px 18px 0 0;margin-top:-16px;padding:14px 15px;display:flex;flex-direction:column;gap:6px;box-shadow:0 -8px 20px -12px rgba(0,0,0,.2);z-index:5}
 .sc-grip{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:34px;height:4px;border-radius:999px;background:var(--line)}
 .sc-sheet-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-top:8px}
-.sheet-heart{width:32px;height:32px;flex-shrink:0;border-radius:50%;background:var(--bg);color:var(--heat-3);display:flex;align-items:center;justify-content:center;font-size:15px}
+.sheet-heart{width:32px;height:32px;flex-shrink:0;border-radius:50%;background:var(--bg);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:15px}
 
 /* floating glass cards */
 .fc{position:absolute;z-index:7;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.95);border:1px solid rgba(255,255,255,.7);border-radius:14px;padding:9px 13px;font-size:12.5px;font-weight:700;font-family:var(--disp);color:var(--ink);box-shadow:0 20px 40px -20px rgba(120,70,40,.5);opacity:0;transform:translateY(12px) scale(.92);transition:opacity .55s,transform .55s;pointer-events:none}
@@ -651,319 +746,160 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 </header>
 
 <a id="top"></a>
-<!-- ---------- HERO + HOW IT WORKS: one continuous scroll-driven phone ---------- -->
-<section class="how-wrap" id="how">
-  <div class="how-track">
-    <div class="how-stage" id="howStage" data-phase="0">
-      <div class="how-glow" aria-hidden="true"></div>
-
-      <div class="how-head">
-        <span class="pill how-pill"><span class="live"></span><span data-i18n="pill">Launching soon</span></span>
-        <div class="how-titles">
-          <div class="how-title t0">
-            <h1 data-i18n-html="headline">Discover places with your <span class="g">vibe</span>.</h1>
-            <p class="how-sub" data-i18n="lede">See every place by its features — and find the spots that match your vibe, rated by friends.</p>
-          </div>
-          <h2 class="how-title t1" data-i18n-html="hStep1">Find them on the <span class="g">map</span>, loved by friends.</h2>
-          <h2 class="how-title t2" data-i18n-html="hStep2">Share your favorite <span class="g">spots</span>.</h2>
-          <h2 class="how-title t3" data-i18n-html="hStep3">The community <span class="g">confirms</span> the vibe.</h2>
-        </div>
-      </div>
-
-      <div class="how-mid">
-      <div class="how-phonewrap" aria-hidden="true">
-        <div class="how-phone" id="howPhone">
-          <div class="phone-shell">
-            <div class="phone-screen-area">
-              <!-- Screen 0 — Hero place detail -->
-              <div class="screen s0">
-                <div class="hs-photo">
-                  <img class="hs-photo-img" src="img/proof-coffee.png" alt="" aria-hidden="true">
-                  <span class="sc-heart">♥</span>
-                  <span class="sc-chip hs-onephoto" data-i18n="tagCozy">☕ Cozy Café</span>
-                </div>
-                <div class="hs-body">
-                  <div class="hs-row">
-                    <div>
-                      <div class="sc-name">CT Coffee &amp; Coconuts</div>
-                      <div class="sc-sub">De Pijp · Amsterdam</div>
-                    </div>
-                    <div class="hs-score"><b>92%</b><span data-i18n="mockAgree">agree</span></div>
-                  </div>
-                  <div class="hs-feat">
-                    <span class="ft" data-i18n="featCozy">☕ Cozy</span>
-                    <span class="ft" data-i18n="featWifi">💻 Wifi</span>
-                    <span class="ft" data-i18n="featTerrace">⛅ Terrace</span>
-                    <span class="ft" data-i18n="featGroups">👥 Groups</span>
-                  </div>
-                  <div class="hs-friends">
-                    <span class="mini-avs"><span class="av a1">S</span><span class="av a2">M</span><span class="av a3">J</span><span class="av a4">+9</span></span>
-                    <span class="sc-rec-t" data-i18n="hsFriends">12 friends saved this</span>
-                  </div>
-                  <button type="button" class="hs-cta" data-i18n="hsConfirm">❤️ Confirm the vibe</button>
-                </div>
-              </div>
-              <!-- Screen 1 — Discover (on a map) -->
-              <div class="screen s1">
-                <div class="sc-map">
-                  <div class="map-park"></div>
-                  <div class="map-water"></div>
-                  <svg class="map-streets" viewBox="0 0 200 120" preserveAspectRatio="none" aria-hidden="true">
-                    <g stroke="#d8d3c9" stroke-width="3.2" fill="none" stroke-linecap="round">
-                      <path d="M-5 34 H205"/><path d="M-5 82 H205"/>
-                      <path d="M44 -5 V125"/><path d="M132 -5 V125"/>
-                      <path d="M-5 58 L132 58"/><path d="M132 58 L210 96"/>
-                    </g>
-                  </svg>
-                  <span class="map-me" style="left:30%;top:71%"></span>
-                  <span class="map-pin hot" style="left:22%;top:30%"></span>
-                  <span class="map-pin" style="left:71%;top:26%"></span>
-                  <span class="map-pin hot" style="left:79%;top:64%"></span>
-                  <span class="map-pin" style="left:46%;top:80%"></span>
-                  <span class="map-callout" style="left:52%;top:40%" data-i18n="tagCozy">☕ Cozy Café</span>
-                  <span class="map-photopin sc-photopin" style="left:52%;top:58%"><img src="img/proof-coffee.png" alt="" aria-hidden="true"></span>
-                </div>
-                <div class="sc-sheet">
-                  <span class="sc-grip"></span>
-                  <div class="sc-sheet-head">
-                    <div>
-                      <div class="sc-name">CT Coffee &amp; Coconuts</div>
-                      <div class="sc-sub">De Pijp · Amsterdam</div>
-                    </div>
-                    <span class="sheet-heart">♥</span>
-                  </div>
-                  <div class="sc-rec">
-                    <span class="mini-avs"><span class="av a1">S</span><span class="av a3">M</span><span class="av a2">12+</span></span>
-                    <span class="sc-rec-t" data-i18n="recBy">Recommended by Sophie, Mark and 12 others</span>
-                  </div>
-                </div>
-              </div>
-              <!-- Screen 2 — Share -->
-              <div class="screen s2">
-                <div class="sc-pad2">
-                  <div class="sc-mini">
-                    <span class="sc-mini-emoji">☕</span>
-                    <div><div class="sc-name sm">CT Coffee &amp; Coconuts</div><div class="sc-sub">De Pijp</div></div>
-                  </div>
-                  <div class="sc-tags">
-                    <span class="t" data-i18n="tagCozy">☕ Cozy Café</span>
-                    <span class="t" data-i18n="tagSunset">🌅 Sunset Spot</span>
-                    <span class="t" data-i18n="tagWork">💻 Work Friendly</span>
-                  </div>
-                  <div class="sc-friends-label" data-i18n="shareWith">Share with</div>
-                  <div class="sc-share-avs"><span class="av a1">S</span><span class="av a2">M</span><span class="av a3">J</span><span class="av a4">L</span><span class="av a5">+</span></div>
-                  <button type="button" class="sc-share-btn" data-i18n="shareCta">Share with friends</button>
-                </div>
-              </div>
-              <!-- Screen 3 — Confirm -->
-              <div class="screen s3">
-                <div class="sc-photo sm"><img class="sc-photo-img" src="img/koffie-to-go.webp" alt="" aria-hidden="true"></div>
-                <div class="sc-pad">
-                  <div class="sc-check">✓</div>
-                  <div class="sc-score">92%</div>
-                  <div class="sc-score-l" data-i18n="confAgree">agree it has a vibe</div>
-                  <div class="sc-stats">
-                    <div><b>43</b><span data-i18n="confCount">confirmations</span></div>
-                    <div><b>5</b><span data-i18n="confFriends">friends recommend</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- phase-0 chips that converge into the phone as you scroll -->
-        <div class="hfc c-cafe"><span class="hfc-in" data-i18n="hfCafe">☕ Cozy Café</span></div>
-        <div class="hfc c-sunset"><span class="hfc-in" data-i18n="hfSunset">🌅 Sunset Spot</span></div>
-        <div class="hfc c-work"><span class="hfc-in" data-i18n="hfWork">💻 Work Friendly</span></div>
-        <div class="hfc c-date"><span class="hfc-in" data-i18n="hfDate">🍷 Date Spot</span></div>
-        <div class="hfc c-agree"><span class="hfc-in" data-i18n="hfAgree">❤️ 92% agree</span></div>
-        <div class="hfc c-friends"><span class="hfc-in" data-i18n="hfSaved">👥 12 friends saved this</span></div>
-        <div class="hfc c-gem"><span class="hfc-in" data-i18n="hfGem">📍 Hidden Gem</span></div>
-
-      </div>
-
-      <!-- step floating glass cards — flat overlay above the 3D phone (phases 1–3) -->
-      <div class="fc fc-1a" data-i18n="fcNearby">📍 New spot nearby</div>
-      <div class="fc fc-1b"><span class="av a1">S</span><span data-i18n="fcSophie">Sophie recommends this</span></div>
-      <div class="fc fc-2a"><span class="av a3">M</span><span data-i18n="fcShared">Shared with Mark</span></div>
-      <div class="fc fc-2b" data-i18n="fcSend">Sending…</div>
-      <div class="fc fc-3a">✓&nbsp;<span data-i18n="fcConfirmed">Vibe confirmed</span></div>
-      <div class="fc fc-3b" data-i18n="fcPlus1">+1 confirmation</div>
-      </div>
-
-      <div class="how-foot">
-        <a class="btn btn-primary btn-lg foot-cta" href="#waitlist" data-i18n="ctaPrimary">Join waitlist</a>
-        <div class="foot-steps">
-          <div class="how-steps"><span class="hs d1"></span><span class="hs d2"></span><span class="hs d3"></span></div>
-          <div class="scroll-hint" data-i18n="scrollHint">Scroll to explore ↓</div>
-        </div>
-      </div>
-    </div>
+<!-- ---------- HERO ---------- -->
+<section class="hero">
+  <div class="container hero-in">
+    <span class="pill"><span class="live"></span><span data-i18n="pill">Launching soon</span></span>
+    <h1 data-i18n-html="headline">All the places you and your friends love, <span class="g">in one shared list</span> you can find again.</h1>
+    <p class="hero-sub" data-i18n="lede">No more digging through Maps lists, WhatsApp screenshots and your memory. VibeNow keeps the places your group trusts in one app — and helps you discover new ones, through friends.</p>
+    <form id="heroSignup" class="hero-form" novalidate>
+      <input type="email" id="heroEmail" inputmode="email" autocomplete="email" placeholder="you@email.com" data-i18n-ph="phEmail" required aria-label="Email address">
+      <button type="submit" class="btn btn-primary btn-lg" data-i18n="ctaPrimary">Join the waitlist</button>
+      <span class="hero-done" data-i18n="navDone">✓ You're in 🔥</span>
+    </form>
+    <p class="tiny hero-tiny" data-i18n="tiny">We'll email you once when VibeNow goes live. No spam.</p>
   </div>
 </section>
 
-<!-- ---------- EVERY PLACE, DECODED (features showcase) ---------- -->
-<section class="sec" id="decoded">
+<!-- ---------- SAVED & SHARED (the heart) ---------- -->
+<section class="sec" id="how">
   <div class="container">
     <div class="sec-head center">
-      <span class="eyebrow" data-i18n="catEyebrow">Search your vibe</span>
-      <h2 data-i18n="catH2">Type what you're after. Find your place.</h2>
-      <p class="intro" data-i18n="catIntro">Search any vibe — and see every place by its features, so you know in a glance whether it's for you.</p>
+      <span class="eyebrow" data-i18n="savedEyebrow">How it works</span>
+      <h2 data-i18n="savedH2">Save it. Share it. Find it again.</h2>
+      <p class="intro" data-i18n="savedIntro">No more lost screenshots or forgotten Maps lists. Three taps and a great place is yours — and your group's — for good.</p>
     </div>
-
-    <div class="search-row">
-      <a class="vsearch" href="#waitlist" aria-label="Search your vibe">
-        <svg class="vsearch-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <span class="vsearch-text"><span id="vsType"></span><span class="vsearch-caret"></span></span>
-      </a>
-      <div class="vcat-wrap">
-        <button class="vcat" type="button" id="vcatBtn" aria-haspopup="true" aria-expanded="false">
-          <span class="vcat-ic" aria-hidden="true">🏷️</span>
-          <span class="vcat-label" data-i18n="vcatAll">All categories</span>
-          <svg class="vcat-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="vcat-menu" id="vcatMenu" hidden>
-          <button type="button" class="vcat-opt"><span class="vcat-e">☕</span><span data-i18n="cat1">Cozy Café</span></button>
-          <button type="button" class="vcat-opt"><span class="vcat-e">🕯️</span><span data-i18n="cat2">Date Spot</span></button>
-          <button type="button" class="vcat-opt"><span class="vcat-e">⛅</span><span data-i18n="cat3">Sunny Terrace</span></button>
-          <button type="button" class="vcat-opt"><span class="vcat-e">💎</span><span data-i18n="cat4">Hidden Gem</span></button>
-          <button type="button" class="vcat-opt"><span class="vcat-e">💻</span><span data-i18n="cat5">Work Friendly</span></button>
-          <button type="button" class="vcat-opt"><span class="vcat-e">🏖️</span><span data-i18n="cat6">Beach Vibes</span></button>
-          <button type="button" class="vcat-opt"><span class="vcat-e">🎉</span><span data-i18n="cat7">Social Spot</span></button>
-          <button type="button" class="vcat-opt"><span class="vcat-e">📍</span><span data-i18n="cat8">Local Favorite</span></button>
+    <div class="steps">
+      <article class="step">
+        <span class="step-n">1</span>
+        <div class="step-card">
+          <span class="step-thumb-wrap"><img class="step-thumb" src="img/proof-coffee.png" alt="" aria-hidden="true"><span class="step-cam" aria-hidden="true">📷</span></span>
+          <span class="step-pname">Café de Jaren</span>
+          <span class="step-save">🔖&nbsp;<span data-i18n="stepSave">Save</span></span>
         </div>
-      </div>
-    </div>
-
-    <div class="recs">
-      <article class="rec">
-        <div class="rec-photo"><img src="img/proof-coffee.png" alt="" aria-hidden="true"><span class="rec-badge b-rec" data-i18n="recBadgeRec">👤 Recommended</span></div>
-        <div class="rec-body">
-          <div class="rec-name">Café de Jaren</div>
-          <div class="rec-tags"><span class="ft" data-i18n="featCozy">☕ Cozy</span><span class="ft" data-i18n="featWifi">💻 Wifi</span><span class="ft" data-i18n="featTerrace">⛅ Terrace</span></div>
-          <div class="rec-meta" data-i18n="recMeta1">Recommended by Sophie + 2 friends</div>
-        </div>
+        <h3 data-i18n="step1H">Save a spot</h3>
+        <p data-i18n="step1P">Save it in one tap — add a photo so your friends feel the vibe.</p>
       </article>
-      <article class="rec">
-        <div class="rec-photo"><img src="img/proof-troost.jpg" alt="" aria-hidden="true"><span class="rec-badge b-rec" data-i18n="recBadgeRec">👤 Recommended</span></div>
-        <div class="rec-body">
-          <div class="rec-name">Brouwerij Troost</div>
-          <div class="rec-tags"><span class="ft" data-i18n="recDrinks">🍺 Drinks</span><span class="ft" data-i18n="featGroups">👥 Groups</span><span class="ft" data-i18n="recSocial">🎉 Social</span></div>
-          <div class="rec-meta" data-i18n="recMeta2">Recommended by Mark + 4 friends</div>
+      <article class="step">
+        <span class="step-n">2</span>
+        <div class="step-card">
+          <img class="step-thumb" src="img/proof-coffee.png" alt="" aria-hidden="true">
+          <span class="step-pname">Café de Jaren</span>
+          <span class="mini-avs"><span class="av a1">S</span><span class="av a2">M</span><span class="av a3">J</span></span>
         </div>
+        <h3 data-i18n="step2H">Your group gets it</h3>
+        <p data-i18n="step2P">It lands in everyone's shared list, instantly.</p>
       </article>
-      <article class="rec">
-        <div class="rec-photo"><img src="img/proof-sarphatipark.jpg" alt="" aria-hidden="true"><span class="rec-badge b-saved" data-i18n="recBadgeSaved">🔖 Saved</span></div>
-        <div class="rec-body">
-          <div class="rec-name">Sarphatipark</div>
-          <div class="rec-tags"><span class="ft" data-i18n="featTerrace">⛅ Terrace</span><span class="ft" data-i18n="recPark">🌳 Park</span><span class="ft" data-i18n="recLocal">📍 Local favorite</span></div>
-          <div class="rec-meta" data-i18n="recMeta3">Saved in your collection</div>
+      <article class="step">
+        <span class="step-n">3</span>
+        <div class="step-card">
+          <img class="step-thumb" src="img/proof-coffee.png" alt="" aria-hidden="true">
+          <span class="step-pname">Café de Jaren</span>
+          <span class="step-pin">📍</span>
         </div>
+        <h3 data-i18n="step3H">Find it again</h3>
+        <p data-i18n="step3P">Tap it back weeks later — on the map or in search.</p>
       </article>
     </div>
-
-    <div class="caps-h" data-i18n="capsH">Then, with any place:</div>
-    <div class="caps">
-      <article class="cap">
-        <div class="cap-vis cap-map">
-          <div class="gm-water"></div>
-          <div class="gm-park"></div>
-          <span class="gm-blk" style="left:5%;top:7%;width:20%;height:22%"></span>
-          <span class="gm-blk" style="left:62%;top:62%;width:26%;height:28%"></span>
-          <span class="gm-blk" style="left:7%;top:62%;width:15%;height:17%"></span>
-          <span class="gm-blk" style="left:78%;top:6%;width:18%;height:16%"></span>
-          <svg class="gm-roads" viewBox="0 0 240 152" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <g stroke="#d7d4ca" fill="none" stroke-linecap="round">
-              <path d="M-20 58 H260" stroke-width="13"/>
-              <path d="M152 -20 L74 172" stroke-width="14"/>
-              <path d="M44 -20 V172" stroke-width="8"/>
-              <path d="M-20 116 H260" stroke-width="8"/>
-            </g>
-            <g fill="none" stroke-linecap="round">
-              <path d="M-20 58 H260" stroke="#fff" stroke-width="9.5"/>
-              <path d="M152 -20 L74 172" stroke="#faedaa" stroke-width="10.5"/>
-              <path d="M44 -20 V172" stroke="#fff" stroke-width="5"/>
-              <path d="M-20 116 H260" stroke="#fff" stroke-width="5"/>
-            </g>
-          </svg>
-          <span class="gm-mk" style="left:24%;top:74%"></span>
-          <span class="gm-mk" style="left:85%;top:22%"></span>
-          <span class="map-photopin" style="left:53%;top:50%"><img src="img/proof-coffee.png" alt="" aria-hidden="true"></span>
-        </div>
-        <div class="cap-body">
-          <h3 class="cap-h" data-i18n="capMapH">See it on the map</h3>
-          <p class="cap-p" data-i18n="capMapP">Every place, pinned where it is.</p>
-        </div>
-      </article>
-      <article class="cap">
-        <div class="cap-vis cap-photo">
-          <img class="cap-img cap-photo-bg" src="img/proof-coffee.png" alt="" aria-hidden="true">
-          <span class="cap-pin-dot" aria-hidden="true"></span>
-          <span class="cap-addphoto">
-            <span class="cap-ring"><img class="cap-ring-img" src="img/koffie-to-go.webp" alt="" aria-hidden="true"></span>
-            <span class="cap-cam" aria-hidden="true">📷</span>
-          </span>
-        </div>
-        <div class="cap-body">
-          <h3 class="cap-h" data-i18n="capPhotoH">Add your own photos</h3>
-          <p class="cap-p" data-i18n="capPhotoP">Tap the spot and drop your own photo right on it.</p>
-        </div>
-      </article>
-      <article class="cap">
-        <div class="cap-vis cap-share">
-          <img class="cap-img" src="img/proof-troost.jpg" alt="" aria-hidden="true">
-          <div class="cap-overlay">
-            <span class="mini-avs"><span class="av a1">S</span><span class="av a2">M</span><span class="av a3">J</span></span>
-            <span class="cap-send" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></span>
-          </div>
-        </div>
-        <div class="cap-body">
-          <h3 class="cap-h" data-i18n="capShareH">Share with friends</h3>
-          <p class="cap-p" data-i18n="capShareP">Send your favourite spots in a tap.</p>
-        </div>
-      </article>
-    </div>
-
-    <div class="oneapp"><span data-i18n="oneApp">📱 It's all in one app</span></div>
-
   </div>
 </section>
 
-<!-- ---------- SOCIAL PROOF (scroll-driven deck fan-out) ---------- -->
-<section class="cv" id="cv">
-  <div class="cv-track">
-    <div class="cv-stage" id="cvStage">
-      <div class="container">
-        <div class="sec-head center">
-          <span class="eyebrow" data-i18n="spEyebrow">Community-verified</span>
-          <h2 data-i18n="spH2">A vibe is only real when people agree.</h2>
-          <p class="intro" data-i18n="spIntro">Anyone can claim a place is great. On VibeNow, the community decides — so you can trust what you see.</p>
+<!-- ---------- TRUSTED, NOT RATED ---------- -->
+<section class="sec trust" id="trust">
+  <div class="container">
+    <div class="trust-in">
+      <div class="trust-copy">
+        <span class="eyebrow" data-i18n="trustEyebrow">Why VibeNow</span>
+        <h2 data-i18n="trustH2">Trusted, not rated.</h2>
+        <p class="intro" data-i18n="trustIntro">These are the places your friends genuinely recommend — not a wall of anonymous star ratings from strangers.</p>
+        <p class="mini-note" data-i18n="discoverLine">And you'll stumble on new spots through the people you trust.</p>
+      </div>
+      <div class="trust-vis" aria-hidden="true">
+        <div class="trust-card faded">
+          <div class="trust-stars">★★★★☆</div>
+          <div class="trust-card-t" data-i18n="trustStars">312 reviews · from strangers</div>
         </div>
-        <div class="proof">
-          <div class="pcard c0">
-            <div class="pthumb t1"><img class="pthumb-art" src="img/proof-sarphatipark.jpg" alt="Sarphatipark, De Pijp" loading="lazy"><span class="pbadge"><span class="fdot" style="width:8px;height:8px;border-radius:50%;background:var(--heat-3);display:inline-block"></span><span data-i18n="proof1badge">43 confirmed the vibe</span></span></div>
-        <div class="pbody">
-          <div class="pname">Sarphatipark</div>
-          <div class="pmeta" data-i18n="proof1meta">Sunny terrace · Local favorite</div>
-          <div class="pquote" data-i18n="proof1quote">“Best spot in De Pijp when the sun is out. Confirmed.”</div>
+        <div class="trust-card hot">
+          <span class="mini-avs"><span class="av a1">S</span><span class="av a2">M</span><span class="av a3">J</span></span>
+          <div class="trust-card-t" data-i18n="trustFriends">Recommended by Sophie + 2 friends</div>
         </div>
       </div>
-          <div class="pcard c1">
-        <div class="pthumb t2"><img class="pthumb-art" src="img/proof-coffee.png" alt="CT Coffee &amp; Coconuts" loading="lazy"><span class="pbadge">👥 <span data-i18n="proof2badge">Recommended by 7 friends</span></span></div>
-        <div class="pbody">
-          <div class="pname">CT Coffee &amp; Coconuts</div>
-          <div class="pmeta" data-i18n="proof2meta">Cozy café · Work friendly</div>
-          <div class="pquote" data-i18n="proof2quote">“My whole group already saved this one. Great for laptops.”</div>
-        </div>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- SEARCH YOUR VIBE (browse by category) ---------- -->
+<section class="sec" id="search">
+  <div class="container">
+    <div class="sec-head center">
+      <span class="eyebrow" data-i18n="searchEyebrow">Find your vibe</span>
+      <h2 data-i18n="searchH2">Search your vibe.</h2>
+      <p class="intro" data-i18n="searchIntro">Cozy café, sunny terrace or a late-night spot — search the places you and your friends saved by name or by vibe.</p>
+    </div>
+    <a class="vsearch vsearch-solo" href="#waitlist" aria-label="Search your vibe">
+      <svg class="vsearch-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span class="vsearch-text"><span id="searchType">cozy café with a terrace</span><span class="vsearch-caret"></span></span>
+    </a>
+    <div class="sr" id="searchResult" aria-hidden="true">
+      <img class="sr-thumb" id="srThumb" src="img/proof-coffee.png" alt="" aria-hidden="true">
+      <div class="sr-body">
+        <div class="sr-name" id="srName">Café de Jaren</div>
+        <div class="sr-cats" id="srCats"></div>
       </div>
-          <div class="pcard c2">
-        <div class="pthumb t3"><img class="pthumb-art" src="img/proof-troost.jpg" alt="Brouwerij Troost" loading="lazy"><span class="pbadge">✅ <span data-i18n="proof3badge">92% agree</span></span></div>
-        <div class="pbody">
-          <div class="pname">Brouwerij Troost</div>
-          <div class="pmeta" data-i18n="proof3meta">Social spot · Great for groups</div>
-          <div class="pquote" data-i18n="proof3quote">“The vibe score doesn't lie — busy, buzzing, worth it.”</div>
-        </div>
+      <span class="sr-save" aria-hidden="true">🔖</span>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- PHONE MOCKUP (eye-candy) ---------- -->
+<section class="sec phone-sec">
+  <div class="container center">
+    <h2 class="phone-sec-h" data-i18n="phoneH">Your group's places, in your pocket.</h2>
+    <div class="phone-static">
+      <div class="phone-shell">
+        <div class="phone-screen-area">
+          <div class="screen-static">
+            <div class="sc-map gm-style">
+              <div class="gm-water"></div>
+              <div class="gm-park"></div>
+              <span class="gm-blk" style="left:6%;top:9%;width:20%;height:19%"></span>
+              <span class="gm-blk" style="left:60%;top:60%;width:26%;height:22%"></span>
+              <span class="gm-blk" style="left:8%;top:58%;width:15%;height:15%"></span>
+              <span class="gm-blk" style="left:76%;top:9%;width:18%;height:13%"></span>
+              <svg class="gm-roads" viewBox="0 0 240 152" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <g stroke="#d7d4ca" fill="none" stroke-linecap="round">
+                  <path d="M-20 58 H260" stroke-width="13"/>
+                  <path d="M152 -20 L74 172" stroke-width="14"/>
+                  <path d="M44 -20 V172" stroke-width="8"/>
+                  <path d="M-20 116 H260" stroke-width="8"/>
+                </g>
+                <g fill="none" stroke-linecap="round">
+                  <path d="M-20 58 H260" stroke="#fff" stroke-width="9.5"/>
+                  <path d="M152 -20 L74 172" stroke="#faedaa" stroke-width="10.5"/>
+                  <path d="M44 -20 V172" stroke="#fff" stroke-width="5"/>
+                  <path d="M-20 116 H260" stroke="#fff" stroke-width="5"/>
+                </g>
+              </svg>
+              <button type="button" class="map-photopin sc-pin" data-i="1" aria-label="Brouwerij Troost" style="left:25%;top:31%"><img src="img/proof-troost.jpg" alt="" aria-hidden="true"></button>
+              <button type="button" class="map-photopin sc-pin" data-i="2" aria-label="Sarphatipark" style="left:80%;top:62%"><img src="img/proof-sarphatipark.jpg" alt="" aria-hidden="true"></button>
+              <span class="map-callout" style="left:50%;top:31%" data-i18n="phoneCallout">🔖 Your saved spots</span>
+              <button type="button" class="map-photopin sc-pin is-sel" data-i="0" aria-label="Café de Jaren" style="left:52%;top:57%"><img src="img/proof-coffee.png" alt="" aria-hidden="true"></button>
+            </div>
+            <div class="sc-sheet">
+              <span class="sc-grip"></span>
+              <div class="sc-sheet-head">
+                <div>
+                  <div class="sc-name" id="scName">Café de Jaren</div>
+                  <div class="sc-sub" id="scSub">De Pijp · Amsterdam</div>
+                </div>
+                <span class="sheet-heart">♥</span>
+              </div>
+              <div class="sc-rec">
+                <span class="mini-avs"><span class="av a1">S</span><span class="av a3">M</span><span class="av a2">12+</span></span>
+                <span class="sc-rec-t" id="scRec" data-i18n="recBy">Recommended by Sophie, Mark and 12 others</span>
+              </div>
+              <span class="sc-tap-hint" data-i18n="scTap">👆 Tap a spot on the map</span>
+            </div>
           </div>
         </div>
       </div>
@@ -971,57 +907,6 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   </div>
 </section>
 
-<!-- ---------- FEATURES (scroll-driven lock-in grid) ---------- -->
-<section class="why" id="why">
-  <div class="why-track">
-    <div class="why-stage" id="whyStage">
-      <div class="container">
-        <div class="sec-head center">
-          <span class="eyebrow" data-i18n="featEyebrow">Why VibeNow</span>
-          <h2 data-i18n="featH2">Everything you need to find places worth going to.</h2>
-        </div>
-        <div class="features">
-          <div class="feature f0">
-            <div class="fcard-inner">
-              <div class="fhead"><span class="ic">🔖</span></div>
-              <div class="fbody">
-                <h3 data-i18n="fSaveH">Save</h3>
-                <p data-i18n="fSaveP">Save places worth remembering, all in one map you'll actually come back to.</p>
-              </div>
-            </div>
-          </div>
-          <div class="feature f1">
-            <div class="fcard-inner">
-              <div class="fhead"><span class="ic">📲</span></div>
-              <div class="fbody">
-                <h3 data-i18n="fShareH">Share</h3>
-                <p data-i18n="fShareP">Send great spots straight to friends — the modern way to give a recommendation.</p>
-              </div>
-            </div>
-          </div>
-          <div class="feature f2">
-            <div class="fcard-inner">
-              <div class="fhead"><span class="ic">✅</span></div>
-              <div class="fbody">
-                <h3 data-i18n="fVerifyH">Verify</h3>
-                <p data-i18n="fVerifyP">The community confirms whether the vibe is real, so the good places rise to the top.</p>
-              </div>
-            </div>
-          </div>
-          <div class="feature f3">
-            <div class="fcard-inner">
-              <div class="fhead"><span class="ic">🧭</span></div>
-              <div class="fbody">
-                <h3 data-i18n="fDiscoverH">Discover</h3>
-                <p data-i18n="fDiscoverP">Find new places through the people you trust — not faceless star ratings.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ---------- FINAL CTA ---------- -->
 <section class="final" id="waitlist">
@@ -1070,11 +955,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       </details>
       <details>
         <summary data-i18n="q6">How is it different from Google Maps or reviews?</summary>
-        <div class="ans" data-i18n="a6">Reviews tell you how a place once was. VibeNow shows you the spots real people — and your friends — genuinely recommend right now, with a community vibe score instead of anonymous stars.</div>
-      </details>
-      <details>
-        <summary data-i18n="q3">How does the vibe score work?</summary>
-        <div class="ans" data-i18n="a3">When someone marks a place, others can confirm or disagree with the vibe. Those votes add up into a community-driven score, so the genuinely good places rise to the top.</div>
+        <div class="ans" data-i18n="a6">Reviews are anonymous strangers, and a Maps list gets lost and isn't really shared. VibeNow is the places your friends genuinely recommend, in one shared list your whole group can find again.</div>
       </details>
       <details>
         <summary data-i18n="q2">What does it cost?</summary>
@@ -1082,11 +963,11 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       </details>
       <details>
         <summary data-i18n="q4">What about my privacy?</summary>
-        <div class="ans" data-i18n="a4">VibeNow is about places, not people. The map shows the vibe of a spot — never where any individual is live. You choose what you share, and with whom.</div>
+        <div class="ans" data-i18n="a4">VibeNow is about places, not people — it never shows where anyone is. You choose what you save and which lists you share, and with whom.</div>
       </details>
       <details>
         <summary data-i18n="q5">Who is VibeNow for?</summary>
-        <div class="ans" data-i18n="a5">For anyone who's tired of guessing where to go — and wants to discover, save and share places that actually have a vibe.</div>
+        <div class="ans" data-i18n="a5">Anyone with a group of friends who keep losing track of the places they love — and want one shared list to save and find them again.</div>
       </details>
     </div>
   </div>
@@ -1117,8 +998,8 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   var I18N = {
     nl: {
       ctaHeader:'Op de wachtlijst', navDone:'✓ Je staat erop 🔥', pill:'Binnenkort live',
-      headline:'Ontdek plekken met jouw <span class="g">vibe</span>.',
-      lede:'Zie elke plek aan z\'n kenmerken — en vind de plekken die bij jouw vibe passen, aangeraden door vrienden.',
+      headline:'Alle plekken die jij en je vrienden top vinden, <span class="g">op één gedeelde lijst</span> die je terugvindt.',
+      lede:'Geen gezoek meer in Maps-lijstjes, WhatsApp-screenshots en je geheugen. VibeNow bewaart de plekken die jouw groep vertrouwt in één app — én laat je nieuwe plekken ontdekken via vrienden.',
       ctaPrimary:'Op de wachtlijst', ctaSecondary:'Bekijk hoe het werkt',
       hfCafe:'☕ Knus café', hfSunset:'🌅 Zonsondergang', hfWork:'💻 Werkvriendelijk', hfDate:'🍷 Dateplek',
       hfAgree:'❤️ 92% is het eens', hfSaved:'👥 12 vrienden bewaarden dit', hfGem:'📍 Verborgen pareltje',
@@ -1155,7 +1036,11 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       capMapH:'Zie het op de kaart', capMapP:'Elke plek, gepind waar die is.',
       recsH:'Zoek in jouw plekken', recBadgeRec:'👤 Aangeraden', recBadgeSaved:'🔖 Bewaard', recBadgeShared:'👥 Gedeeld', recBadgePhoto:'📷 Eigen foto',
       vfSaved:'🔖 Bewaard', vfShared:'👥 Gedeeld met vrienden', vfPhoto:'📷 Eigen foto\'s', vfCategory:'🏷️ Per categorie',
-      recMeta1:'Aangeraden door Sophie + 2 vrienden', recMeta2:'Aangeraden door Mark + 4 vrienden', recMeta3:'Bewaard in je collectie', capsH:'En met elke plek:', oneApp:'📱 Alles in één app',
+      recMeta1:'Aangeraden door Sophie + 2 vrienden', recMeta2:'Bewaard door 12 van je vrienden', recMeta3:'Bewaard in de lijst van je groep',
+      savedEyebrow:'Hoe het werkt', savedH2:'Bewaar \'m. Deel \'m. Vind \'m terug.', savedIntro:'Geen verloren screenshots of vergeten Maps-lijstjes meer. Drie tikken en een goeie plek is van jou — en van je groep — voorgoed.', recBadgeFriends:'👥 Bewaard door 12 vrienden',
+      stepSave:'Bewaar', step1H:'Bewaar een plek', step1P:'Bewaar \'m met één tik — en zet er eventueel een foto bij, zodat je vrienden de sfeer voelen.', step2H:'Je groep krijgt \'m', step2P:'Hij verschijnt meteen in ieders gedeelde lijst.', step3H:'Vind \'m terug', step3P:'Weken later in één tik terug — op de kaart of via zoeken.',
+      trustEyebrow:'Waarom VibeNow', trustH2:'Vertrouwd, niet beoordeeld.', trustIntro:'Dit zijn de plekken die je vrienden écht aanraden — geen muur van anonieme sterren van vreemden.', discoverLine:'En je stuit op nieuwe plekken via de mensen die je vertrouwt.', trustStars:'312 reviews · van vreemden', trustFriends:'Aangeraden door Sophie + 2 vrienden', phoneH:'De plekken van je groep, in je zak.', phoneCallout:'🔖 Jouw bewaarde plekken', scTap:'👆 Tik op een plek op de kaart',
+      searchEyebrow:'Vind jouw vibe', searchH2:'Zoek jouw vibe.', searchIntro:'Knus café, zonnig terras of een late-night plek — zoek de plekken die jij en je vrienden bewaarden, op naam of op vibe.', searchEx:'knus café met terras',
       recDrinks:'🍺 Drankjes', recSocial:'🎉 Sociaal', recPark:'🌳 Park', recLocal:'📍 Lokale favoriet',
       dcLoc:'· terras aan de gracht', dcWifi:'💻 Gratis wifi', dcTerrace:'⛅ Zonnig terras', dcGroups:'👥 Top voor groepen', dcDogs:'🐕 Honden welkom', dcOutlets:'🔌 Stopcontacten', dcWork:'💻 Laptopvriendelijk', dcSunset:'🌅 Mooi bij zonsondergang', dcQuiet:'🤫 Rustige hoekjes',
       dcConfirmed:'58 bevestigd', dcFriends:'Aangeraden door Sophie + 3 vrienden', browseH:'Of blader op wat je zoekt',
@@ -1174,15 +1059,15 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       fShareH:'Delen', fShareP:'Stuur toffe plekken direct naar vrienden — dé moderne manier om iets aan te raden.',
       fVerifyH:'Bevestigen', fVerifyP:'De community bevestigt of de vibe echt is, zodat de goede plekken bovendrijven.',
       fDiscoverH:'Ontdekken', fDiscoverP:'Vind nieuwe plekken via de mensen die je vertrouwt — niet via anonieme sterren.',
-      finalH:'Klaar om je volgende favoriete plek te vinden?', finalP:'Zet je op de wachtlijst en wees een van de eersten met VibeNow.',
+      finalH:'Jouw plekken, eindelijk op één gedeelde lijst.', finalP:'Zet je op de wachtlijst en wees een van de eersten met VibeNow.',
       finalBtn:'Zet me op de wachtlijst',
       faqEyebrow:'Veelgestelde vragen', faqH2:'Goed om te weten',
       q1:'Wanneer gaat het live?', a1:'We starten binnenkort. Schrijf je in, dan ben je er als eerste bij!',
-      q6:'Hoe verschilt het van Google Maps of reviews?', a6:'Reviews vertellen je hoe een plek ooit was. VibeNow laat de plekken zien die echte mensen — en je vrienden — nu écht aanraden, met een community-vibe-score in plaats van anonieme sterren.',
+      q6:'Hoe verschilt het van Google Maps of reviews?', a6:'Reviews zijn anonieme vreemden, en een Maps-lijst raakt zoek en wordt niet echt gedeeld. VibeNow zijn de plekken die je vrienden écht aanraden, op één gedeelde lijst die je hele groep terugvindt.',
       q3:'Hoe werkt de vibe-score?', a3:'Als iemand een plek markeert, kunnen anderen de vibe bevestigen of er tegenin gaan. Die stemmen vormen samen een community-score, zodat de echt goede plekken bovendrijven.',
       q2:'Wat kost het?', a2:'Aanmelden voor de wachtlijst en VibeNow gebruiken is gratis.',
-      q4:'En mijn privacy?', a4:'VibeNow gaat over plekken, niet over mensen. De kaart toont de vibe van een plek — nooit waar iemand live is. Jij bepaalt wat je deelt, en met wie.',
-      q5:'Voor wie is VibeNow?', a5:'Voor iedereen die klaar is met gokken waar je heen moet — en plekken wil ontdekken, bewaren en delen die écht een vibe hebben.',
+      q4:'En mijn privacy?', a4:'VibeNow gaat over plekken, niet over mensen — het laat nooit zien waar iemand is. Jij kiest wat je bewaart en welke lijsten je deelt, en met wie.',
+      q5:'Voor wie is VibeNow?', a5:'Iedereen met een groep vrienden die de plekken die ze leuk vinden steeds kwijtraakt — en één gedeelde lijst wil om ze te bewaren en terug te vinden.',
       footQuestions:'Vragen?', footPriv:'VibeNow gaat over plekken, niet over het volgen van mensen. Jij bepaalt wat je deelt.',
       consentText:'We gebruiken cookies voor analytics en om onze advertenties te meten. Jij kiest.', consentAccept:'Accepteren', consentDeny:'Weigeren',
       busy:'Bezig…', err:'Er ging iets mis — probeer het nog eens.',
@@ -1190,9 +1075,9 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
     },
     en: {
       ctaHeader:'Join the waitlist', navDone:"✓ You're in 🔥", pill:'Launching soon',
-      headline:'Discover places with your <span class="g">vibe</span>.',
-      lede:'See every place by its features — and find the spots that match your vibe, rated by friends.',
-      ctaPrimary:'Join waitlist', ctaSecondary:'See how it works',
+      headline:'All the places you and your friends love, <span class="g">in one shared list</span> you can find again.',
+      lede:'No more digging through Maps lists, WhatsApp screenshots and your memory. VibeNow keeps the places your group trusts in one app — and helps you discover new ones, through friends.',
+      ctaPrimary:'Join the waitlist', ctaSecondary:'See how it works',
       hfCafe:'☕ Cozy Café', hfSunset:'🌅 Sunset Spot', hfWork:'💻 Work Friendly', hfDate:'🍷 Date Spot',
       hfAgree:'❤️ 92% agree', hfSaved:'👥 12 friends saved this', hfGem:'📍 Hidden Gem',
       hsFriends:'12 friends saved this', hsConfirm:'❤️ Confirm the vibe',
@@ -1228,7 +1113,11 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       capMapH:'See it on the map', capMapP:'Every place, pinned where it is.',
       recsH:'Search across your places', recBadgeRec:'👤 Recommended', recBadgeSaved:'🔖 Saved', recBadgeShared:'👥 Shared', recBadgePhoto:'📷 Your photo',
       vfSaved:'🔖 Saved', vfShared:'👥 Shared with friends', vfPhoto:'📷 Your photos', vfCategory:'🏷️ By category',
-      recMeta1:'Recommended by Sophie + 2 friends', recMeta2:'Recommended by Mark + 4 friends', recMeta3:'Saved in your collection', capsH:'Then, with any place:', oneApp:'📱 It\'s all in one app',
+      recMeta1:'Recommended by Sophie + 2 friends', recMeta2:'Saved by 12 of your friends', recMeta3:'Saved in your group\'s list',
+      savedEyebrow:'How it works', savedH2:'Save it. Share it. Find it again.', savedIntro:'No more lost screenshots or forgotten Maps lists. Three taps and a great place is yours — and your group\'s — for good.', recBadgeFriends:'👥 Saved by 12 friends',
+      stepSave:'Save', step1H:'Save a spot', step1P:'Save it in one tap — and you can add a photo too, so your friends feel the vibe.', step2H:'Your group gets it', step2P:'It lands in everyone\'s shared list, instantly.', step3H:'Find it again', step3P:'Tap it back weeks later — on the map or in search.',
+      trustEyebrow:'Why VibeNow', trustH2:'Trusted, not rated.', trustIntro:'These are the places your friends genuinely recommend — not a wall of anonymous star ratings from strangers.', discoverLine:'And you\'ll stumble on new spots through the people you trust.', trustStars:'312 reviews · from strangers', trustFriends:'Recommended by Sophie + 2 friends', phoneH:'Your group\'s places, in your pocket.', phoneCallout:'🔖 Your saved spots', scTap:'👆 Tap a spot on the map',
+      searchEyebrow:'Find your vibe', searchH2:'Search your vibe.', searchIntro:'Cozy café, sunny terrace or a late-night spot — search the places you and your friends saved by name or by vibe.', searchEx:'cozy café with a terrace',
       recDrinks:'🍺 Drinks', recSocial:'🎉 Social', recPark:'🌳 Park', recLocal:'📍 Local favorite',
       dcLoc:'· canal terrace', dcWifi:'💻 Free wifi', dcTerrace:'⛅ Sunny terrace', dcGroups:'👥 Good for groups', dcDogs:'🐕 Dog-friendly', dcOutlets:'🔌 Outlets', dcWork:'💻 Laptop-friendly', dcSunset:'🌅 Best at sunset', dcQuiet:'🤫 Quiet corners',
       dcConfirmed:'58 confirmed', dcFriends:'Recommended by Sophie + 3 friends', browseH:"Or browse by what you're after",
@@ -1247,15 +1136,15 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       fShareH:'Share', fShareP:'Send great spots straight to friends — the modern way to give a recommendation.',
       fVerifyH:'Verify', fVerifyP:'The community confirms whether the vibe is real, so the good places rise to the top.',
       fDiscoverH:'Discover', fDiscoverP:'Find new places through the people you trust — not faceless star ratings.',
-      finalH:'Ready to find your next favorite spot?', finalP:'Join the waitlist and be one of the first to use VibeNow.',
+      finalH:'Your places, finally in one shared list.', finalP:'Join the waitlist and be one of the first to use VibeNow.',
       finalBtn:'Join the waitlist',
       faqEyebrow:'Frequently asked questions', faqH2:'Good to know',
       q1:'When does it launch?', a1:"We're starting soon. Join the waitlist and you'll be among the first in.",
-      q6:'How is it different from Google Maps or reviews?', a6:'Reviews tell you how a place once was. VibeNow shows you the spots real people — and your friends — genuinely recommend right now, with a community vibe score instead of anonymous stars.',
+      q6:'How is it different from Google Maps or reviews?', a6:'Reviews are anonymous strangers, and a Maps list gets lost and isn\'t really shared. VibeNow is the places your friends genuinely recommend, in one shared list your whole group can find again.',
       q3:'How does the vibe score work?', a3:'When someone marks a place, others can confirm or disagree with the vibe. Those votes add up into a community-driven score, so the genuinely good places rise to the top.',
       q2:'What does it cost?', a2:'Joining the waitlist and using VibeNow is free.',
-      q4:'What about my privacy?', a4:'VibeNow is about places, not people. The map shows the vibe of a spot — never where any individual is live. You choose what you share, and with whom.',
-      q5:'Who is VibeNow for?', a5:"For anyone who's tired of guessing where to go — and wants to discover, save and share places that actually have a vibe.",
+      q4:'What about my privacy?', a4:'VibeNow is about places, not people — it never shows where anyone is. You choose what you save and which lists you share, and with whom.',
+      q5:'Who is VibeNow for?', a5:'Anyone with a group of friends who keep losing track of the places they love — and want one shared list to save and find them again.',
       footQuestions:'Questions?', footPriv:'VibeNow is about places, not tracking people. You decide what you share.',
       consentText:'We use cookies for analytics and to measure our ads. Your choice.', consentAccept:'Accept', consentDeny:'Decline',
       busy:'Sending…', err:'Something went wrong — please try again.',
@@ -1350,6 +1239,19 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       insertEmail(email, navBtn, function(){ trackLead(); navForm.classList.add('is-done'); });
     });
   }
+
+  // ── Same signup, in the hero ────────────────────────────────────────
+  var heroForm = document.getElementById('heroSignup');
+  if (heroForm){
+    var heroEmail = document.getElementById('heroEmail');
+    var heroBtn = heroForm.querySelector('button');
+    heroForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email = (heroEmail && heroEmail.value || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ if (heroEmail){ heroEmail.focus(); } return; }
+      insertEmail(email, heroBtn, function(){ trackLead(); heroForm.classList.add('is-done'); });
+    });
+  }
 })();
 
 // ---------- Measure sticky header height → --navh (keeps content clear of the bar) ----------
@@ -1361,6 +1263,53 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   window.addEventListener('resize', setNav, { passive:true });
   window.addEventListener('orientationchange', setNav);
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(setNav); }
+})();
+
+// ---------- Search bar typewriter — types a search, reveals the matching place + category ----------
+(function(){
+  var el = document.getElementById('searchType');
+  var res = document.getElementById('searchResult');
+  var thumb = document.getElementById('srThumb'), nm = document.getElementById('srName'), catsEl = document.getElementById('srCats');
+  if(!el) return;
+  // each query reveals one matching place with its category tags
+  var Q = {
+    en: [
+      { t:'cozy café to work from',    img:'proof-coffee.png',      name:'Café de Jaren',    cats:['☕ Cozy Café','💻 Work Friendly'] },
+      { t:'sunny terrace for a date',  img:'proof-sarphatipark.jpg', name:'Sarphatipark',     cats:['⛅ Sunny Terrace','🌳 Park'] },
+      { t:'lively social spot nearby', img:'proof-troost.jpg',      name:'Brouwerij Troost', cats:['🎉 Social Spot','🍺 Drinks'] }
+    ],
+    nl: [
+      { t:'knus café om te werken',          img:'proof-coffee.png',      name:'Café de Jaren',    cats:['☕ Knus café','💻 Werkplek'] },
+      { t:'zonnig terras voor een date',     img:'proof-sarphatipark.jpg', name:'Sarphatipark',     cats:['⛅ Zonnig terras','🌳 Park'] },
+      { t:'levendige sociale plek dichtbij', img:'proof-troost.jpg',      name:'Brouwerij Troost', cats:['🎉 Sociale plek','🍺 Drankjes'] }
+    ]
+  };
+  var list = function(){ return Q[window.__lang === 'nl' ? 'nl' : 'en']; };
+  function showResult(q){
+    if(thumb) thumb.src = 'img/' + q.img;
+    if(nm) nm.textContent = q.name;
+    if(catsEl){ catsEl.innerHTML = ''; q.cats.forEach(function(c){ var s = document.createElement('span'); s.className = 'ft'; s.textContent = c; catsEl.appendChild(s); }); }
+    if(res) res.classList.add('show');
+  }
+  function hideResult(){ if(res) res.classList.remove('show'); }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ el.textContent = list()[0].t; showResult(list()[0]); return; }
+  var pi = 0, ci = 0, del = false;
+  function tick(){
+    var arr = list(), q = arr[pi % arr.length], word = q.t;
+    if(!del){
+      ci++; el.textContent = word.slice(0, ci);
+      if(ci === word.length){ showResult(q); del = true; return setTimeout(tick, 2000); }
+      setTimeout(tick, 58 + (ci%3)*16);
+    } else {
+      if(ci === word.length) hideResult();
+      ci--; el.textContent = word.slice(0, ci);
+      if(ci === 0){ del = false; pi++; return setTimeout(tick, 360); }
+      setTimeout(tick, 28);
+    }
+  }
+  el.textContent = '';
+  setTimeout(tick, 600);
 })();
 
 // ---------- HERO + HOW IT WORKS: one continuous scroll-driven phone ----------
@@ -1541,6 +1490,52 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   })(opts[i]); }
   document.addEventListener('click', function(e){ if(!menu.hidden && !btn.parentNode.contains(e.target)) close(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+})();
+
+// ---------- How-it-works: the walkthrough auto-plays 1 → 2 → 3 (pauses on hover) ----------
+(function(){
+  var wrap = document.querySelector('.steps');
+  if(!wrap) return;
+  var steps = Array.prototype.slice.call(wrap.querySelectorAll('.step'));
+  if(steps.length < 2) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  wrap.setAttribute('data-auto','');
+  function show(n){ for(var k=0;k<steps.length;k++) steps[k].classList.toggle('is-on', k === n); }
+  if(reduce){ show(0); return; }
+  var i = 0, timer;
+  function tick(){ i = (i + 1) % steps.length; show(i); }
+  function play(){ clearInterval(timer); timer = setInterval(tick, 2200); }
+  function startVisible(){ show(0); i = 0; play(); }
+  wrap.addEventListener('mouseenter', function(){ clearInterval(timer); });
+  wrap.addEventListener('mouseleave', play);
+  // begin only once it scrolls into view
+  if('IntersectionObserver' in window){
+    var started = false;
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && !started){ started = true; startVisible(); io.disconnect(); } }); }, { threshold: 0.3 });
+    io.observe(wrap);
+  } else { startVisible(); }
+})();
+
+// ---------- Phone mockup: tap a saved spot to see its info ----------
+(function(){
+  var map = document.querySelector('.phone-static .sc-map');
+  if(!map) return;
+  var pins = Array.prototype.slice.call(map.querySelectorAll('.sc-pin'));
+  var nm = document.getElementById('scName'), sub = document.getElementById('scSub'), rec = document.getElementById('scRec');
+  if(!pins.length || !nm) return;
+  var PLACES = [
+    { name:'Café de Jaren',    sub:'De Pijp · Amsterdam', rec:{ en:'Recommended by Sophie, Mark and 12 others', nl:'Aangeraden door Sophie, Mark en 12 anderen' } },
+    { name:'Brouwerij Troost', sub:'De Pijp · Amsterdam', rec:{ en:'Saved by 12 of your friends',               nl:'Bewaard door 12 van je vrienden' } },
+    { name:'Sarphatipark',     sub:'De Pijp · Amsterdam', rec:{ en:"Saved in your group's list",                 nl:'Bewaard in de lijst van je groep' } }
+  ];
+  function select(idx){
+    var pl = PLACES[idx]; if(!pl) return;
+    for(var k=0;k<pins.length;k++) pins[k].classList.toggle('is-sel', +pins[k].getAttribute('data-i') === idx);
+    nm.textContent = pl.name;
+    if(sub) sub.textContent = pl.sub;
+    if(rec){ rec.removeAttribute('data-i18n'); rec.textContent = pl.rec[window.__lang === 'nl' ? 'nl' : 'en'] || pl.rec.en; }
+  }
+  pins.forEach(function(p){ p.addEventListener('click', function(){ select(+p.getAttribute('data-i')); }); });
 })();
 
 // ---------- Cookie consent + analytics loaders (Meta Pixel + Google) ----------
