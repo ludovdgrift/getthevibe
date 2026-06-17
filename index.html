@@ -7,12 +7,12 @@
      connect-src: jouw Supabase + (na cookie-consent) Google Analytics/Ads en Meta Pixel. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://connect.facebook.net https://www.googletagmanager.com https://www.google-analytics.com https://www.googleadservices.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.facebook.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://www.google.com https://www.google.nl https://googleads.g.doubleclick.net https://stats.g.doubleclick.net; connect-src https://uwxapldrcmxtkwlxwwnc.supabase.co https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://stats.g.doubleclick.net; frame-src 'self' https://td.doubleclick.net; base-uri 'none'; form-action 'self'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>VibeNow — The places you and your friends love, in one shared list</title>
+<title>VibeNow - The places you and your friends love, in one shared list</title>
 <link rel="icon" type="image/png" href="alt-6-pulse.png">
 <link rel="apple-touch-icon" href="alt-6-pulse.png">
-<meta name="description" content="Stop losing great places in Maps lists and WhatsApp screenshots. VibeNow keeps the spots your group actually trusts in one shared list you can find again — together. Launching soon.">
-<meta property="og:title" content="VibeNow — The places you and your friends love, in one shared list">
-<meta property="og:description" content="Save a place once and it's there for your whole group, ready to find again in a tap. The places your friends genuinely recommend — in one shared list. Join the waitlist.">
+<meta name="description" content="Stop losing great places in Maps lists and WhatsApp screenshots. VibeNow keeps the spots your group actually trusts in one shared list you can find again - together. Launching soon.">
+<meta property="og:title" content="VibeNow - The places you and your friends love, in one shared list">
+<meta property="og:description" content="Save a place once and it's there for your whole group, ready to find again in a tap. The places your friends genuinely recommend - in one shared list. Join the waitlist.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://getthevibe.now">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,7 @@
   --heat-1:#ffc02e; --heat-2:#ff7a18; --heat-3:#ff2d6f; --cool:#1aa7d0;
   --accent:#dd4318; --accent-deep:#a8300c; --accent-soft:#f6e2d6;
   --disp:"Bricolage Grotesque",sans-serif; --body:"Schibsted Grotesk",sans-serif;
-  --grad:var(--accent);           /* solid accent — no more rainbow gradient */
+  --grad:var(--accent);           /* solid accent - no more rainbow gradient */
   --grad-soft:var(--accent-soft);
   --maxw:1120px;
 }
@@ -52,6 +52,8 @@ header{position:sticky;top:0;z-index:100;background:rgba(240,231,214,.96);backdr
 .nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-height:62px;padding:7px 0}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
 .nav-right{display:flex;align-items:center;gap:12px}
+.nav-link{font-family:var(--disp);font-weight:700;font-size:13px;color:var(--ink);text-decoration:none;border:1.5px solid var(--ink);border-radius:7px;padding:6px 11px;white-space:nowrap;transition:background .15s,color .15s}
+.nav-link:hover{background:var(--ink);color:var(--card)}
 .lang-toggle{background:none;border:1.5px solid var(--ink);border-radius:7px;padding:6px 11px;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;font-family:var(--body);letter-spacing:.03em;transition:background .15s,border-color .15s}
 .lang-toggle:hover{background:var(--ink);color:var(--card)}
 .nav-signup{display:flex;align-items:center;gap:8px}
@@ -238,7 +240,7 @@ section{scroll-margin-top:74px}
 #search{padding:52px 0 44px}
 #search .vsearch{margin-bottom:8px}
 
-/* how it works — 3 visual steps */
+/* how it works - 3 visual steps */
 .steps{display:grid;grid-template-columns:1fr;gap:18px;max-width:940px;margin:8px auto 0}
 @media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr);gap:20px}}
 .step{position:relative;background:var(--card);border:1.5px solid var(--ink);border-radius:12px;padding:20px 18px;box-shadow:4px 4px 0 rgba(29,24,18,.08);text-align:left}
@@ -267,7 +269,7 @@ section{scroll-margin-top:74px}
 .step-thumb-wrap{position:relative;flex:none;width:46px;height:46px}
 .step-cam{position:absolute;right:-5px;bottom:-5px;width:21px;height:21px;border-radius:50%;background:var(--accent);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;box-shadow:0 2px 4px rgba(0,0,0,.25)}
 
-/* search result — place + category, swaps per typed query */
+/* search result - place + category, swaps per typed query */
 .sr{display:flex;align-items:center;gap:12px;max-width:540px;margin:14px auto 0;background:var(--card);border:1.5px solid var(--line);border-radius:9px;padding:10px 12px;box-shadow:0 2px 4px rgba(29,24,18,.07);opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s}
 .sr.show{opacity:1;transform:none}
 .sr-thumb{width:48px;height:48px;border-radius:7px;object-fit:cover;flex:none;border:1.5px solid var(--line)}
@@ -291,7 +293,7 @@ section{scroll-margin-top:74px}
 .step p{font-size:14.5px;color:var(--muted)}
 
 /* ---------- CATEGORIES ---------- */
-/* Search your vibe — animated typewriter search bar */
+/* Search your vibe - animated typewriter search bar */
 .vsearch{display:flex;align-items:center;gap:12px;max-width:540px;margin:0 auto 26px;background:var(--card);border:1.5px solid var(--ink);border-radius:9px;padding:15px 18px;box-shadow:0 2px 0 rgba(29,24,18,.1);text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s,transform .12s}
 .vsearch:hover{border-color:var(--accent);box-shadow:0 18px 40px -22px rgba(255,122,24,.5);transform:translateY(-2px)}
 .vsearch-ic{color:var(--muted);flex:none}
@@ -315,7 +317,7 @@ section{scroll-margin-top:74px}
 .vcat-opt:hover{background:var(--bg)}
 .vcat-e{width:22px;text-align:center;font-size:16px;flex:none}
 
-/* Search result — one matching place card, swapping in place */
+/* Search result - one matching place card, swapping in place */
 .recs{display:grid;grid-template-columns:1fr;gap:16px;max-width:400px;margin:0 auto}
 @media(min-width:760px){.recs{grid-template-columns:repeat(3,1fr);max-width:880px}}
 .rec{background:var(--card);border:1.5px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 2px 4px rgba(29,24,18,.07);display:flex;flex-direction:column}
@@ -333,7 +335,7 @@ section{scroll-margin-top:74px}
 #decoded.seq .rec{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(16px) scale(.98);transition:opacity .45s cubic-bezier(.2,.7,.2,1),transform .45s cubic-bezier(.2,.7,.2,1)}
 #decoded.seq .rec.show{opacity:1;transform:none}
 
-/* Capability cards — share / add photo / see on map */
+/* Capability cards - share / add photo / see on map */
 .caps-h{text-align:center;font-family:var(--disp);font-weight:800;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:6px 0 16px}
 .caps{display:grid;grid-template-columns:1fr;gap:16px;max-width:760px;margin:0 auto 30px}
 .cap{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 18px 42px -28px rgba(120,70,40,.45)}
@@ -348,7 +350,7 @@ section{scroll-margin-top:74px}
 .cap-overlay .av{width:27px;height:27px;font-size:10px;border:2px solid #fff;margin-left:-9px}
 .cap-overlay .av:first-child{margin-left:0}
 .cap-send{width:36px;height:36px;border-radius:50%;background:var(--grad);color:#1a0f06;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 20px -8px rgba(255,77,90,.6)}
-/* map card — Google-Maps look with a round photo marker */
+/* map card - Google-Maps look with a round photo marker */
 .cap-map{background:#e9eae4}
 .gm-water{position:absolute;right:-12%;top:-20%;width:52%;height:62%;background:#a8cdec;border-radius:0 0 0 55%;transform:rotate(7deg)}
 .gm-park{position:absolute;left:-10%;bottom:-16%;width:48%;height:58%;background:#c0e1ad;border-radius:0 52% 38% 0}
@@ -367,7 +369,7 @@ section{scroll-margin-top:74px}
 .sc-tap-hint{display:block;margin-top:9px;font-family:var(--disp);font-weight:700;font-size:10.5px;color:var(--muted);text-align:center}
 .sc-map .map-photopin img{border-width:2.5px}
 .sc-map .map-photopin::after{border-top-width:8px}
-/* photo card — drop your own photo on the round spot */
+/* photo card - drop your own photo on the round spot */
 .cap-photo{background:#cfc6bb}
 .cap-photo-bg{filter:brightness(.62) saturate(.92)}
 .cap-pin-dot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:120px;height:120px;border-radius:50%;border:2px dashed rgba(255,255,255,.9);box-shadow:0 0 0 6px rgba(255,255,255,.1)}
@@ -422,7 +424,7 @@ section{scroll-margin-top:74px}
 .feature h3{font-family:var(--disp);font-weight:800;font-size:19px;margin-bottom:6px;letter-spacing:-.01em}
 .feature p{font-size:14.5px;color:var(--muted)}
 
-/* ---------- WHY VIBENOW — scroll-driven lock-in grid ---------- */
+/* ---------- WHY VIBENOW - scroll-driven lock-in grid ---------- */
 .why{position:relative;background:linear-gradient(180deg,#fff,#faf5ef 50%,#fff)}
 .why-track{position:relative;height:460vh}
 .why-stage{position:sticky;top:0;height:100vh;min-height:560px;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -442,7 +444,7 @@ section{scroll-margin-top:74px}
   .why .f2{--sx:-92px;--sy:100px}
   .why .f3{--sx:112px;--sy:84px}
 }
-/* Why VibeNow: split cards — coloured header + floating icon badge straddling the split + white body */
+/* Why VibeNow: split cards - coloured header + floating icon badge straddling the split + white body */
 .why .feature{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:20px;padding:0;box-shadow:0 20px 44px -28px rgba(120,70,40,.45)}
 .why .fhead{position:relative;height:108px;background:var(--accent,#ff8a1e);overflow:hidden;display:flex;align-items:center;justify-content:center}
 .why .fhead::before{content:"";position:absolute;inset:0;background:radial-gradient(130% 130% at 28% 0%,rgba(255,255,255,.38),transparent 58%)}
@@ -460,7 +462,7 @@ section{scroll-margin-top:74px}
   .why .feature{transform:none;opacity:1}
 }
 
-/* ---------- COMMUNITY-VERIFIED — scroll-driven deck fan-out ---------- */
+/* ---------- COMMUNITY-VERIFIED - scroll-driven deck fan-out ---------- */
 .cv{position:relative;background:var(--bg2)}
 .cv-track{position:relative;height:460vh}
 .cv-stage{position:sticky;top:0;height:100vh;min-height:560px;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -490,13 +492,13 @@ section{scroll-margin-top:74px}
   .cv-stage{position:relative;height:auto;min-height:0;padding:64px 0}
   .cv .pcard{transform:none;opacity:1}
 }
-/* Phones: unpin the lock-in/deck sections so nothing gets clipped — show them as normal scrolling sections */
+/* Phones: unpin the lock-in/deck sections so nothing gets clipped - show them as normal scrolling sections */
 @media(max-width:700px){
   .why-track,.cv-track{height:auto}
   .why-stage,.cv-stage{position:static;display:block;height:auto;min-height:0;overflow:visible;padding:56px 0}
   .why .feature,.cv .pcard{transform:none !important;opacity:1 !important}
 
-  /* WHY: tap-to-flip cards — front = coloured header + icon, back = the text */
+  /* WHY: tap-to-flip cards - front = coloured header + icon, back = the text */
   .why .feature{background:transparent;border:none;box-shadow:none;overflow:visible;padding:0;perspective:1100px;cursor:pointer}
   .why .fcard-inner{position:relative;width:100%;height:196px;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
   .why .feature.flipped .fcard-inner{transform:rotateY(180deg)}
@@ -544,14 +546,14 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 .foot-priv{width:100%;font-size:12px;color:var(--muted);border-top:1px solid var(--line);margin-top:18px;padding-top:16px}
 
 /* ---------- COOKIE CONSENT ---------- */
-.consent{position:fixed;left:0;right:0;bottom:0;z-index:200;background:#fff;border-top:1px solid var(--line);box-shadow:0 -12px 32px -18px rgba(120,70,40,.45);padding:14px 18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 16px}
+.consent{position:fixed;left:0;right:0;bottom:0;z-index:200;background:var(--card);border-top:1.5px solid var(--ink);box-shadow:0 -12px 32px -18px rgba(40,28,12,.45);padding:20px 22px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 26px}
 .consent[hidden]{display:none}
-.consent-txt{font-size:13px;color:var(--soft);max-width:46em;margin:0}
-.consent-actions{display:flex;align-items:center;gap:8px}
-.consent-deny{background:none;border:none;font-family:var(--body);font-weight:700;font-size:13.5px;color:var(--muted);cursor:pointer;padding:10px 14px;border-radius:10px}
+.consent-txt{font-size:15px;font-weight:500;line-height:1.45;color:var(--soft);max-width:52em;margin:0}
+.consent-actions{display:flex;align-items:center;gap:12px}
+.consent-deny{background:none;border:none;font-family:var(--body);font-weight:700;font-size:15px;color:var(--muted);cursor:pointer;padding:12px 16px;border-radius:8px}
 .consent-deny:hover{background:var(--bg)}
-.consent-accept{padding:10px 20px;font-size:13.5px}
-@media(max-width:560px){.consent{padding:12px 14px}.consent-txt{font-size:12.5px}.consent-actions{width:100%;justify-content:flex-end}}
+.consent-accept{padding:13px 26px;font-size:15px}
+@media(max-width:560px){.consent{padding:16px 16px;gap:12px}.consent-txt{font-size:14px}.consent-actions{width:100%;justify-content:flex-end}}
 
 /* ---------- DESKTOP ---------- */
 @media(min-width:880px){
@@ -571,7 +573,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   .proof{grid-template-columns:repeat(2,1fr)}
 }
 
-/* ========== HERO + HOW IT WORKS — one continuous scroll-driven phone ========== */
+/* ========== HERO + HOW IT WORKS - one continuous scroll-driven phone ========== */
 .how-wrap{position:relative;background:linear-gradient(180deg,#fff,#f7f0e7 45%,#fff)}
 .how-track{position:relative;height:640vh}
 .how-stage{position:sticky;top:0;height:calc(100vh + var(--navh,64px));min-height:600px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;perspective:1600px;padding-top:var(--navh,64px);box-sizing:border-box}
@@ -641,7 +643,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 .sc-stats span{font-size:11px;color:var(--muted);font-weight:600}
 @keyframes pop{0%{transform:scale(.4);opacity:0}60%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
 
-/* screen 1 — discover on a map (inside the phone) */
+/* screen 1 - discover on a map (inside the phone) */
 .sc-map{position:relative;height:56%;overflow:hidden;background:#eaf0e6}
 .sc-map .map-streets{position:absolute;inset:0;width:100%;height:100%}
 .sc-map.gm-style{background:#e9eae4}
@@ -705,7 +707,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 }
 
 /* short desktop/laptop viewports (e.g. 1366x768 at 100% leaves ~640px): make
-   room by shrinking the HEAD + FOOT (never the phone — its screen content is
+   room by shrinking the HEAD + FOOT (never the phone - its screen content is
    designed for >=200px), so nothing overlaps */
 @media(min-width:640px) and (max-height:760px){
   .how-head{height:auto;padding:1.6vh 18px 0;margin-bottom:0}
@@ -736,6 +738,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 <header>
   <div class="container nav">
     <a class="logo" href="#top"><img src="vibenow-pulse-logo.png" alt="VibeNow" style="height:28px;width:auto;display:block"></a>
+    <a class="nav-link" href="/partners" data-i18n="forPlaces">For places</a>
     <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">EN</button>
     <form id="navSignup" class="nav-signup" novalidate>
       <input type="email" id="navEmail" class="nav-email" inputmode="email" autocomplete="email" placeholder="you@email.com" data-i18n-ph="phEmail" required aria-label="Email address">
@@ -751,7 +754,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   <div class="container hero-in">
     <span class="pill"><span class="live"></span><span data-i18n="pill">Launching soon</span></span>
     <h1 data-i18n-html="headline">All the places you and your friends love, <span class="g">in one shared list</span> you can find again.</h1>
-    <p class="hero-sub" data-i18n="lede">No more digging through Maps lists, WhatsApp screenshots and your memory. VibeNow keeps the places your group trusts in one app — and helps you discover new ones, through friends.</p>
+    <p class="hero-sub" data-i18n="lede">No more digging through Maps lists, WhatsApp screenshots and your memory. VibeNow keeps the places your group trusts in one app - and helps you discover new ones, through friends.</p>
     <form id="heroSignup" class="hero-form" novalidate>
       <input type="email" id="heroEmail" inputmode="email" autocomplete="email" placeholder="you@email.com" data-i18n-ph="phEmail" required aria-label="Email address">
       <button type="submit" class="btn btn-primary btn-lg" data-i18n="ctaPrimary">Join the waitlist</button>
@@ -767,7 +770,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
     <div class="sec-head center">
       <span class="eyebrow" data-i18n="savedEyebrow">How it works</span>
       <h2 data-i18n="savedH2">Save it. Share it. Find it again.</h2>
-      <p class="intro" data-i18n="savedIntro">No more lost screenshots or forgotten Maps lists. Three taps and a great place is yours — and your group's — for good.</p>
+      <p class="intro" data-i18n="savedIntro">No more lost screenshots or forgotten Maps lists. Three taps and a great place is yours - and your group's - for good.</p>
     </div>
     <div class="steps">
       <article class="step">
@@ -778,7 +781,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
           <span class="step-save">🔖&nbsp;<span data-i18n="stepSave">Save</span></span>
         </div>
         <h3 data-i18n="step1H">Save a spot</h3>
-        <p data-i18n="step1P">Save it in one tap — add a photo so your friends feel the vibe.</p>
+        <p data-i18n="step1P">Save it in one tap - add a photo so your friends feel the vibe.</p>
       </article>
       <article class="step">
         <span class="step-n">2</span>
@@ -798,7 +801,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
           <span class="step-pin">📍</span>
         </div>
         <h3 data-i18n="step3H">Find it again</h3>
-        <p data-i18n="step3P">Tap it back weeks later — on the map or in search.</p>
+        <p data-i18n="step3P">Tap it back weeks later - on the map or in search.</p>
       </article>
     </div>
   </div>
@@ -811,7 +814,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       <div class="trust-copy">
         <span class="eyebrow" data-i18n="trustEyebrow">Why VibeNow</span>
         <h2 data-i18n="trustH2">Trusted, not rated.</h2>
-        <p class="intro" data-i18n="trustIntro">These are the places your friends genuinely recommend — not a wall of anonymous star ratings from strangers.</p>
+        <p class="intro" data-i18n="trustIntro">These are the places your friends genuinely recommend - not a wall of anonymous star ratings from strangers.</p>
         <p class="mini-note" data-i18n="discoverLine">And you'll stumble on new spots through the people you trust.</p>
       </div>
       <div class="trust-vis" aria-hidden="true">
@@ -834,7 +837,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
     <div class="sec-head center">
       <span class="eyebrow" data-i18n="searchEyebrow">Find your vibe</span>
       <h2 data-i18n="searchH2">Search your vibe.</h2>
-      <p class="intro" data-i18n="searchIntro">Cozy café, sunny terrace or a late-night spot — search the places you and your friends saved by name or by vibe.</p>
+      <p class="intro" data-i18n="searchIntro">Cozy café, sunny terrace or a late-night spot - search the places you and your friends saved by name or by vibe.</p>
     </div>
     <a class="vsearch vsearch-solo" href="#waitlist" aria-label="Search your vibe">
       <svg class="vsearch-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -963,11 +966,11 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       </details>
       <details>
         <summary data-i18n="q4">What about my privacy?</summary>
-        <div class="ans" data-i18n="a4">VibeNow is about places, not people — it never shows where anyone is. You choose what you save and which lists you share, and with whom.</div>
+        <div class="ans" data-i18n="a4">VibeNow is about places, not people - it never shows where anyone is. You choose what you save and which lists you share, and with whom.</div>
       </details>
       <details>
         <summary data-i18n="q5">Who is VibeNow for?</summary>
-        <div class="ans" data-i18n="a5">Anyone with a group of friends who keep losing track of the places they love — and want one shared list to save and find them again.</div>
+        <div class="ans" data-i18n="a5">Anyone with a group of friends who keep losing track of the places they love - and want one shared list to save and find them again.</div>
       </details>
     </div>
   </div>
@@ -997,9 +1000,9 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 (function(){
   var I18N = {
     nl: {
-      ctaHeader:'Op de wachtlijst', navDone:'✓ Je staat erop 🔥', pill:'Binnenkort live',
+      ctaHeader:'Op de wachtlijst', navDone:'✓ Je staat erop 🔥', forPlaces:'Voor plekken', pill:'Binnenkort live',
       headline:'Alle plekken die jij en je vrienden top vinden, <span class="g">op één gedeelde lijst</span> die je terugvindt.',
-      lede:'Geen gezoek meer in Maps-lijstjes, WhatsApp-screenshots en je geheugen. VibeNow bewaart de plekken die jouw groep vertrouwt in één app — én laat je nieuwe plekken ontdekken via vrienden.',
+      lede:'Geen gezoek meer in Maps-lijstjes, WhatsApp-screenshots en je geheugen. VibeNow bewaart de plekken die jouw groep vertrouwt in één app - én laat je nieuwe plekken ontdekken via vrienden.',
       ctaPrimary:'Op de wachtlijst', ctaSecondary:'Bekijk hoe het werkt',
       hfCafe:'☕ Knus café', hfSunset:'🌅 Zonsondergang', hfWork:'💻 Werkvriendelijk', hfDate:'🍷 Dateplek',
       hfAgree:'❤️ 92% is het eens', hfSaved:'👥 12 vrienden bewaarden dit', hfGem:'📍 Verborgen pareltje',
@@ -1026,39 +1029,39 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       fcNearby:'📍 Nieuwe plek dichtbij', fcSophie:'Sophie raadt dit aan', fcShared:'Gedeeld met Mark',
       fcSend:'Versturen…', fcConfirmed:'Vibe bevestigd', fcPlus1:'+1 bevestiging',
       scrollHint:'Scroll om te ontdekken ↓',
-      s1h:'Vind een plek met een vibe.', s1p:'Zie je ergens een goede sfeer — een café, een terras, een verborgen pareltje — zet \'m op de kaart.',
+      s1h:'Vind een plek met een vibe.', s1p:'Zie je ergens een goede sfeer - een café, een terras, een verborgen pareltje - zet \'m op de kaart.',
       s2h:'Deel \'m met vrienden.', s2p:'Bewaar de plek en stuur \'m naar de mensen wiens smaak je écht vertrouwt.',
       s3h:'Anderen bevestigen de vibe.', s3p:'De community is het eens of oneens, en zo bouwt een echte vibe-score op.',
       catEyebrow:'Zoek jouw vibe', catH2:'Typ waar je zin in hebt. Vind je plek.',
-      catIntro:'Zoek elke vibe en vind je plek — deel \'m met vrienden, zet er je eigen foto bij, of bekijk \'m op de kaart.',
+      catIntro:'Zoek elke vibe en vind je plek - deel \'m met vrienden, zet er je eigen foto bij, of bekijk \'m op de kaart.',
       capShareH:'Deel met vrienden', capShareP:'Stuur je favoriete plekken in één tik.',
       capPhotoTag:'📷 Eigen foto', capPhotoH:'Zet je eigen foto erbij', capPhotoP:'Tik op de plek en zet je eigen foto er zo bovenop.', vcatAll:'Alle categorieën',
       capMapH:'Zie het op de kaart', capMapP:'Elke plek, gepind waar die is.',
       recsH:'Zoek in jouw plekken', recBadgeRec:'👤 Aangeraden', recBadgeSaved:'🔖 Bewaard', recBadgeShared:'👥 Gedeeld', recBadgePhoto:'📷 Eigen foto',
       vfSaved:'🔖 Bewaard', vfShared:'👥 Gedeeld met vrienden', vfPhoto:'📷 Eigen foto\'s', vfCategory:'🏷️ Per categorie',
       recMeta1:'Aangeraden door Sophie + 2 vrienden', recMeta2:'Bewaard door 12 van je vrienden', recMeta3:'Bewaard in de lijst van je groep',
-      savedEyebrow:'Hoe het werkt', savedH2:'Bewaar \'m. Deel \'m. Vind \'m terug.', savedIntro:'Geen verloren screenshots of vergeten Maps-lijstjes meer. Drie tikken en een goeie plek is van jou — en van je groep — voorgoed.', recBadgeFriends:'👥 Bewaard door 12 vrienden',
-      stepSave:'Bewaar', step1H:'Bewaar een plek', step1P:'Bewaar \'m met één tik — en zet er eventueel een foto bij, zodat je vrienden de sfeer voelen.', step2H:'Je groep krijgt \'m', step2P:'Hij verschijnt meteen in ieders gedeelde lijst.', step3H:'Vind \'m terug', step3P:'Weken later in één tik terug — op de kaart of via zoeken.',
-      trustEyebrow:'Waarom VibeNow', trustH2:'Vertrouwd, niet beoordeeld.', trustIntro:'Dit zijn de plekken die je vrienden écht aanraden — geen muur van anonieme sterren van vreemden.', discoverLine:'En je stuit op nieuwe plekken via de mensen die je vertrouwt.', trustStars:'312 reviews · van vreemden', trustFriends:'Aangeraden door Sophie + 2 vrienden', phoneH:'De plekken van je groep, in je zak.', phoneCallout:'🔖 Jouw bewaarde plekken', scTap:'👆 Tik op een plek op de kaart',
-      searchEyebrow:'Vind jouw vibe', searchH2:'Zoek jouw vibe.', searchIntro:'Knus café, zonnig terras of een late-night plek — zoek de plekken die jij en je vrienden bewaarden, op naam of op vibe.', searchEx:'knus café met terras',
+      savedEyebrow:'Hoe het werkt', savedH2:'Bewaar \'m. Deel \'m. Vind \'m terug.', savedIntro:'Geen verloren screenshots of vergeten Maps-lijstjes meer. Drie tikken en een goeie plek is van jou - en van je groep - voorgoed.', recBadgeFriends:'👥 Bewaard door 12 vrienden',
+      stepSave:'Bewaar', step1H:'Bewaar een plek', step1P:'Bewaar \'m met één tik - en zet er eventueel een foto bij, zodat je vrienden de sfeer voelen.', step2H:'Je groep krijgt \'m', step2P:'Hij verschijnt meteen in ieders gedeelde lijst.', step3H:'Vind \'m terug', step3P:'Weken later in één tik terug - op de kaart of via zoeken.',
+      trustEyebrow:'Waarom VibeNow', trustH2:'Vertrouwd, niet beoordeeld.', trustIntro:'Dit zijn de plekken die je vrienden écht aanraden - geen muur van anonieme sterren van vreemden.', discoverLine:'En je stuit op nieuwe plekken via de mensen die je vertrouwt.', trustStars:'312 reviews · van vreemden', trustFriends:'Aangeraden door Sophie + 2 vrienden', phoneH:'De plekken van je groep, in je zak.', phoneCallout:'🔖 Jouw bewaarde plekken', scTap:'👆 Tik op een plek op de kaart',
+      searchEyebrow:'Vind jouw vibe', searchH2:'Zoek jouw vibe.', searchIntro:'Knus café, zonnig terras of een late-night plek - zoek de plekken die jij en je vrienden bewaarden, op naam of op vibe.', searchEx:'knus café met terras',
       recDrinks:'🍺 Drankjes', recSocial:'🎉 Sociaal', recPark:'🌳 Park', recLocal:'📍 Lokale favoriet',
       dcLoc:'· terras aan de gracht', dcWifi:'💻 Gratis wifi', dcTerrace:'⛅ Zonnig terras', dcGroups:'👥 Top voor groepen', dcDogs:'🐕 Honden welkom', dcOutlets:'🔌 Stopcontacten', dcWork:'💻 Laptopvriendelijk', dcSunset:'🌅 Mooi bij zonsondergang', dcQuiet:'🤫 Rustige hoekjes',
       dcConfirmed:'58 bevestigd', dcFriends:'Aangeraden door Sophie + 3 vrienden', browseH:'Of blader op wat je zoekt',
       cat1:'Knus café', cat2:'Dateplek', cat3:'Zonnig terras', cat4:'Verborgen pareltje',
       cat5:'Werkvriendelijk', cat6:'Strandvibes', cat7:'Sociale plek', cat8:'Lokale favoriet',
       spEyebrow:'Door de community bevestigd', spH2:'Een vibe is pas echt als anderen het bevestigen.',
-      spIntro:'Iedereen kan zeggen dat een plek top is. Op VibeNow bepaalt de community — zo kun je vertrouwen op wat je ziet.',
+      spIntro:'Iedereen kan zeggen dat een plek top is. Op VibeNow bepaalt de community - zo kun je vertrouwen op wat je ziet.',
       proof1badge:'43 bevestigden de vibe', proof1meta:'Zonnig terras · Lokale favoriet',
       proof1quote:'“De beste plek in De Pijp als de zon schijnt. Bevestigd.”',
       proof2badge:'Aangeraden door 7 vrienden', proof2meta:'Knus café · Werkvriendelijk',
       proof2quote:'“Mijn hele groep had \'m al bewaard. Ideaal met de laptop.”',
       proof3badge:'92% is het eens', proof3meta:'Sociale plek · Top voor groepen',
-      proof3quote:'“De vibe-score liegt niet — druk, bruisend, de moeite waard.”',
+      proof3quote:'“De vibe-score liegt niet - druk, bruisend, de moeite waard.”',
       featEyebrow:'Waarom VibeNow', featH2:'Alles om plekken te vinden die de moeite waard zijn.',
       fSaveH:'Bewaren', fSaveP:'Bewaar plekken die je wilt onthouden, in één kaart waar je echt op terugkomt.',
-      fShareH:'Delen', fShareP:'Stuur toffe plekken direct naar vrienden — dé moderne manier om iets aan te raden.',
+      fShareH:'Delen', fShareP:'Stuur toffe plekken direct naar vrienden - dé moderne manier om iets aan te raden.',
       fVerifyH:'Bevestigen', fVerifyP:'De community bevestigt of de vibe echt is, zodat de goede plekken bovendrijven.',
-      fDiscoverH:'Ontdekken', fDiscoverP:'Vind nieuwe plekken via de mensen die je vertrouwt — niet via anonieme sterren.',
+      fDiscoverH:'Ontdekken', fDiscoverP:'Vind nieuwe plekken via de mensen die je vertrouwt - niet via anonieme sterren.',
       finalH:'Jouw plekken, eindelijk op één gedeelde lijst.', finalP:'Zet je op de wachtlijst en wees een van de eersten met VibeNow.',
       finalBtn:'Zet me op de wachtlijst',
       faqEyebrow:'Veelgestelde vragen', faqH2:'Goed om te weten',
@@ -1066,17 +1069,17 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       q6:'Hoe verschilt het van Google Maps of reviews?', a6:'Reviews zijn anonieme vreemden, en een Maps-lijst raakt zoek en wordt niet echt gedeeld. VibeNow zijn de plekken die je vrienden écht aanraden, op één gedeelde lijst die je hele groep terugvindt.',
       q3:'Hoe werkt de vibe-score?', a3:'Als iemand een plek markeert, kunnen anderen de vibe bevestigen of er tegenin gaan. Die stemmen vormen samen een community-score, zodat de echt goede plekken bovendrijven.',
       q2:'Wat kost het?', a2:'Aanmelden voor de wachtlijst en VibeNow gebruiken is gratis.',
-      q4:'En mijn privacy?', a4:'VibeNow gaat over plekken, niet over mensen — het laat nooit zien waar iemand is. Jij kiest wat je bewaart en welke lijsten je deelt, en met wie.',
-      q5:'Voor wie is VibeNow?', a5:'Iedereen met een groep vrienden die de plekken die ze leuk vinden steeds kwijtraakt — en één gedeelde lijst wil om ze te bewaren en terug te vinden.',
+      q4:'En mijn privacy?', a4:'VibeNow gaat over plekken, niet over mensen - het laat nooit zien waar iemand is. Jij kiest wat je bewaart en welke lijsten je deelt, en met wie.',
+      q5:'Voor wie is VibeNow?', a5:'Iedereen met een groep vrienden die de plekken die ze leuk vinden steeds kwijtraakt - en één gedeelde lijst wil om ze te bewaren en terug te vinden.',
       footQuestions:'Vragen?', footPriv:'VibeNow gaat over plekken, niet over het volgen van mensen. Jij bepaalt wat je deelt.',
       consentText:'We gebruiken cookies voor analytics en om onze advertenties te meten. Jij kiest.', consentAccept:'Accepteren', consentDeny:'Weigeren',
-      busy:'Bezig…', err:'Er ging iets mis — probeer het nog eens.',
-      shareText:'Check VibeNow — ontdek en deel plekken met een vibe 🔥', toggle:'EN'
+      busy:'Bezig…', err:'Er ging iets mis - probeer het nog eens.',
+      shareText:'Check VibeNow - ontdek en deel plekken met een vibe 🔥', toggle:'EN'
     },
     en: {
-      ctaHeader:'Join the waitlist', navDone:"✓ You're in 🔥", pill:'Launching soon',
+      ctaHeader:'Join the waitlist', navDone:"✓ You're in 🔥", forPlaces:'For places', pill:'Launching soon',
       headline:'All the places you and your friends love, <span class="g">in one shared list</span> you can find again.',
-      lede:'No more digging through Maps lists, WhatsApp screenshots and your memory. VibeNow keeps the places your group trusts in one app — and helps you discover new ones, through friends.',
+      lede:'No more digging through Maps lists, WhatsApp screenshots and your memory. VibeNow keeps the places your group trusts in one app - and helps you discover new ones, through friends.',
       ctaPrimary:'Join the waitlist', ctaSecondary:'See how it works',
       hfCafe:'☕ Cozy Café', hfSunset:'🌅 Sunset Spot', hfWork:'💻 Work Friendly', hfDate:'🍷 Date Spot',
       hfAgree:'❤️ 92% agree', hfSaved:'👥 12 friends saved this', hfGem:'📍 Hidden Gem',
@@ -1103,39 +1106,39 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       fcNearby:'📍 New spot nearby', fcSophie:'Sophie recommends this', fcShared:'Shared with Mark',
       fcSend:'Sending…', fcConfirmed:'Vibe confirmed', fcPlus1:'+1 confirmation',
       scrollHint:'Scroll to explore ↓',
-      s1h:'Find a place with a vibe.', s1p:'Spot somewhere with great atmosphere — a café, a terrace, a hidden gem — and mark it on the map.',
+      s1h:'Find a place with a vibe.', s1p:'Spot somewhere with great atmosphere - a café, a terrace, a hidden gem - and mark it on the map.',
       s2h:'Share it with friends.', s2p:'Save it and send it to the people whose taste you actually trust.',
       s3h:'Others confirm the vibe.', s3p:'The community agrees or disagrees, and a real vibe score builds over time.',
       catEyebrow:'Search your vibe', catH2:"Type what you're after. Find your place.",
-      catIntro:'Search any vibe to find your place — then share it with friends, add your own photo, or see it on the map.',
+      catIntro:'Search any vibe to find your place - then share it with friends, add your own photo, or see it on the map.',
       capShareH:'Share with friends', capShareP:'Send your favourite spots in a tap.',
       capPhotoTag:'📷 Your photo', capPhotoH:'Add your own photos', capPhotoP:'Tap the spot and drop your own photo right on it.', vcatAll:'All categories',
       capMapH:'See it on the map', capMapP:'Every place, pinned where it is.',
       recsH:'Search across your places', recBadgeRec:'👤 Recommended', recBadgeSaved:'🔖 Saved', recBadgeShared:'👥 Shared', recBadgePhoto:'📷 Your photo',
       vfSaved:'🔖 Saved', vfShared:'👥 Shared with friends', vfPhoto:'📷 Your photos', vfCategory:'🏷️ By category',
       recMeta1:'Recommended by Sophie + 2 friends', recMeta2:'Saved by 12 of your friends', recMeta3:'Saved in your group\'s list',
-      savedEyebrow:'How it works', savedH2:'Save it. Share it. Find it again.', savedIntro:'No more lost screenshots or forgotten Maps lists. Three taps and a great place is yours — and your group\'s — for good.', recBadgeFriends:'👥 Saved by 12 friends',
-      stepSave:'Save', step1H:'Save a spot', step1P:'Save it in one tap — and you can add a photo too, so your friends feel the vibe.', step2H:'Your group gets it', step2P:'It lands in everyone\'s shared list, instantly.', step3H:'Find it again', step3P:'Tap it back weeks later — on the map or in search.',
-      trustEyebrow:'Why VibeNow', trustH2:'Trusted, not rated.', trustIntro:'These are the places your friends genuinely recommend — not a wall of anonymous star ratings from strangers.', discoverLine:'And you\'ll stumble on new spots through the people you trust.', trustStars:'312 reviews · from strangers', trustFriends:'Recommended by Sophie + 2 friends', phoneH:'Your group\'s places, in your pocket.', phoneCallout:'🔖 Your saved spots', scTap:'👆 Tap a spot on the map',
-      searchEyebrow:'Find your vibe', searchH2:'Search your vibe.', searchIntro:'Cozy café, sunny terrace or a late-night spot — search the places you and your friends saved by name or by vibe.', searchEx:'cozy café with a terrace',
+      savedEyebrow:'How it works', savedH2:'Save it. Share it. Find it again.', savedIntro:'No more lost screenshots or forgotten Maps lists. Three taps and a great place is yours - and your group\'s - for good.', recBadgeFriends:'👥 Saved by 12 friends',
+      stepSave:'Save', step1H:'Save a spot', step1P:'Save it in one tap - and you can add a photo too, so your friends feel the vibe.', step2H:'Your group gets it', step2P:'It lands in everyone\'s shared list, instantly.', step3H:'Find it again', step3P:'Tap it back weeks later - on the map or in search.',
+      trustEyebrow:'Why VibeNow', trustH2:'Trusted, not rated.', trustIntro:'These are the places your friends genuinely recommend - not a wall of anonymous star ratings from strangers.', discoverLine:'And you\'ll stumble on new spots through the people you trust.', trustStars:'312 reviews · from strangers', trustFriends:'Recommended by Sophie + 2 friends', phoneH:'Your group\'s places, in your pocket.', phoneCallout:'🔖 Your saved spots', scTap:'👆 Tap a spot on the map',
+      searchEyebrow:'Find your vibe', searchH2:'Search your vibe.', searchIntro:'Cozy café, sunny terrace or a late-night spot - search the places you and your friends saved by name or by vibe.', searchEx:'cozy café with a terrace',
       recDrinks:'🍺 Drinks', recSocial:'🎉 Social', recPark:'🌳 Park', recLocal:'📍 Local favorite',
       dcLoc:'· canal terrace', dcWifi:'💻 Free wifi', dcTerrace:'⛅ Sunny terrace', dcGroups:'👥 Good for groups', dcDogs:'🐕 Dog-friendly', dcOutlets:'🔌 Outlets', dcWork:'💻 Laptop-friendly', dcSunset:'🌅 Best at sunset', dcQuiet:'🤫 Quiet corners',
       dcConfirmed:'58 confirmed', dcFriends:'Recommended by Sophie + 3 friends', browseH:"Or browse by what you're after",
       cat1:'Cozy Café', cat2:'Date Spot', cat3:'Sunny Terrace', cat4:'Hidden Gem',
       cat5:'Work Friendly', cat6:'Beach Vibes', cat7:'Social Spot', cat8:'Local Favorite',
       spEyebrow:'Community-verified', spH2:'A vibe is only real when people agree.',
-      spIntro:'Anyone can claim a place is great. On VibeNow, the community decides — so you can trust what you see.',
+      spIntro:'Anyone can claim a place is great. On VibeNow, the community decides - so you can trust what you see.',
       proof1badge:'43 confirmed the vibe', proof1meta:'Sunny terrace · Local favorite',
       proof1quote:'“Best spot in De Pijp when the sun is out. Confirmed.”',
       proof2badge:'Recommended by 7 friends', proof2meta:'Cozy café · Work friendly',
       proof2quote:'“My whole group already saved this one. Great for laptops.”',
       proof3badge:'92% agree', proof3meta:'Social spot · Great for groups',
-      proof3quote:'“The vibe score doesn\'t lie — busy, buzzing, worth it.”',
+      proof3quote:'“The vibe score doesn\'t lie - busy, buzzing, worth it.”',
       featEyebrow:'Why VibeNow', featH2:'Everything you need to find places worth going to.',
       fSaveH:'Save', fSaveP:"Save places worth remembering, all in one map you'll actually come back to.",
-      fShareH:'Share', fShareP:'Send great spots straight to friends — the modern way to give a recommendation.',
+      fShareH:'Share', fShareP:'Send great spots straight to friends - the modern way to give a recommendation.',
       fVerifyH:'Verify', fVerifyP:'The community confirms whether the vibe is real, so the good places rise to the top.',
-      fDiscoverH:'Discover', fDiscoverP:'Find new places through the people you trust — not faceless star ratings.',
+      fDiscoverH:'Discover', fDiscoverP:'Find new places through the people you trust - not faceless star ratings.',
       finalH:'Your places, finally in one shared list.', finalP:'Join the waitlist and be one of the first to use VibeNow.',
       finalBtn:'Join the waitlist',
       faqEyebrow:'Frequently asked questions', faqH2:'Good to know',
@@ -1143,12 +1146,12 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
       q6:'How is it different from Google Maps or reviews?', a6:'Reviews are anonymous strangers, and a Maps list gets lost and isn\'t really shared. VibeNow is the places your friends genuinely recommend, in one shared list your whole group can find again.',
       q3:'How does the vibe score work?', a3:'When someone marks a place, others can confirm or disagree with the vibe. Those votes add up into a community-driven score, so the genuinely good places rise to the top.',
       q2:'What does it cost?', a2:'Joining the waitlist and using VibeNow is free.',
-      q4:'What about my privacy?', a4:'VibeNow is about places, not people — it never shows where anyone is. You choose what you save and which lists you share, and with whom.',
-      q5:'Who is VibeNow for?', a5:'Anyone with a group of friends who keep losing track of the places they love — and want one shared list to save and find them again.',
+      q4:'What about my privacy?', a4:'VibeNow is about places, not people - it never shows where anyone is. You choose what you save and which lists you share, and with whom.',
+      q5:'Who is VibeNow for?', a5:'Anyone with a group of friends who keep losing track of the places they love - and want one shared list to save and find them again.',
       footQuestions:'Questions?', footPriv:'VibeNow is about places, not tracking people. You decide what you share.',
       consentText:'We use cookies for analytics and to measure our ads. Your choice.', consentAccept:'Accept', consentDeny:'Decline',
-      busy:'Sending…', err:'Something went wrong — please try again.',
-      shareText:'Check out VibeNow — discover and share places with a vibe 🔥', toggle:'NL'
+      busy:'Sending…', err:'Something went wrong - please try again.',
+      shareText:'Check out VibeNow - discover and share places with a vibe 🔥', toggle:'NL'
     }
   };
   window.__I18N = I18N;
@@ -1195,7 +1198,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
 
   var shareBtn = document.getElementById('shareBtn');
   shareBtn.addEventListener('click', function(e){
-    trackInvite(); // referral intent — the key signal for a network app
+    trackInvite(); // referral intent - the key signal for a network app
     var txt = (_d().shareText || 'Check VibeNow 🔥') + ' ' + shareUrl;
     if (navigator.share){ e.preventDefault(); navigator.share({title:'VibeNow', text:_d().shareText || 'VibeNow', url:shareUrl}).catch(function(){}); }
     else { shareBtn.setAttribute('href', 'https://wa.me/?text=' + encodeURIComponent(txt)); }
@@ -1207,10 +1210,10 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
   function insertEmail(email, btn, onSuccess){
-    if (!sb){ console.warn('Supabase niet geladen — preview-modus, aanmelding niet opgeslagen.'); onSuccess(); return; }
+    if (!sb){ console.warn('Supabase niet geladen - preview-modus, aanmelding niet opgeslagen.'); onSuccess(); return; }
     var original = btn.textContent; btn.textContent = _d().busy || '…'; btn.disabled = true;
     sb.from('signups').insert({ email: email }).then(function(res){
-      if (res.error){ console.error(res.error); btn.textContent = original; btn.disabled = false; alert(_d().err || 'Error — please try again.'); }
+      if (res.error){ console.error(res.error); btn.textContent = original; btn.disabled = false; alert(_d().err || 'Error - please try again.'); }
       else { onSuccess(); }
     });
   }
@@ -1265,7 +1268,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(setNav); }
 })();
 
-// ---------- Search bar typewriter — types a search, reveals the matching place + category ----------
+// ---------- Search bar typewriter - types a search, reveals the matching place + category ----------
 (function(){
   var el = document.getElementById('searchType');
   var res = document.getElementById('searchResult');
@@ -1342,7 +1345,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px}
     if(reduce) return;
 
     // the phone turns a consistent amount each phase, alternating side (≈±30°),
-    // swinging through flat at every screen change — no single phase over-rotated.
+    // swinging through flat at every screen change - no single phase over-rotated.
     var ry = 30*Math.sin(p*Math.PI*4);
     var rx = lerp(9, 4, p);
     var sc = 0.9 + 0.10*Math.sin(p*Math.PI);

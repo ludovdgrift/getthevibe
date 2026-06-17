@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://connect.facebook.net https://www.googletagmanager.com https://www.google-analytics.com https://www.googleadservices.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.facebook.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://www.google.com https://www.google.nl https://googleads.g.doubleclick.net https://stats.g.doubleclick.net; connect-src https://uwxapldrcmxtkwlxwwnc.supabase.co https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://stats.g.doubleclick.net; frame-src 'self' https://td.doubleclick.net; base-uri 'none'; form-action 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>VibeNow for places - reach the people who saved you</title>
+<link rel="icon" type="image/png" href="/alt-6-pulse.png">
+<link rel="apple-touch-icon" href="/alt-6-pulse.png">
+<meta name="description" content="When people save your café, bar or restaurant on VibeNow, they choose you. Bring them back with a reminder, and keep them posted when something new happens. Join the partner waitlist.">
+<meta property="og:title" content="VibeNow for places - reach the people who saved you">
+<meta property="og:description" content="Your savers are a warm, opt-in audience. Remind them, tell them what's new, and grow by word of mouth - never ads. Claim your spot.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://getthevibe.now/partners">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1d1812; --muted:#8c8170; --soft:#473f33; --card:#fffdf7;
+  --line:rgba(34,24,10,.18); --bg:#f0e7d6; --bg2:#e7dcc7;
+  --accent:#dd4318; --accent-deep:#a8300c; --accent-soft:#f6e2d6;
+  --disp:"Bricolage Grotesque",sans-serif; --body:"Schibsted Grotesk",sans-serif;
+  --maxw:1080px;
+}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:var(--body);color:var(--ink);line-height:1.55;background:var(--bg);overflow-x:hidden}
+.container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 22px}
+a{color:inherit} img{max-width:100%}
+.center{text-align:center}
+.g{color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--disp);font-weight:700;cursor:pointer;text-decoration:none;border:none;transition:filter .15s,transform .1s,box-shadow .1s}
+.btn-primary{color:#fff;background:var(--accent);border:1.5px solid var(--accent-deep);border-radius:9px;padding:11px 18px;font-size:14.5px;box-shadow:0 3px 0 var(--accent-deep)}
+.btn-primary:hover{filter:brightness(1.06)} .btn-primary:active{transform:translateY(2px);box-shadow:0 1px 0 var(--accent-deep)}
+.btn-lg{padding:15px 24px;font-size:16.5px;border-radius:10px}
+header{position:sticky;top:0;z-index:100;background:rgba(240,231,214,.96);backdrop-filter:blur(10px);border-bottom:1.5px solid var(--ink)}
+.nav{display:flex;align-items:center;gap:14px;flex-wrap:wrap;min-height:62px;padding:8px 0}
+.logo{display:flex;align-items:center;margin-right:auto;text-decoration:none}
+.nav-link{font-family:var(--disp);font-weight:700;font-size:13.5px;color:var(--ink);text-decoration:none;border-bottom:2px solid transparent;padding-bottom:1px}
+.nav-link:hover{border-bottom-color:var(--accent)}
+.lang-toggle{background:none;border:1.5px solid var(--ink);border-radius:7px;padding:6px 11px;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;font-family:var(--body);letter-spacing:.03em}
+.lang-toggle:hover{background:var(--ink);color:var(--card)}
+.nav .btn{padding:9px 15px;font-size:13.5px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--ink);border-radius:6px;padding:6px 12px;font-family:var(--disp);font-weight:700;font-size:12px;letter-spacing:.03em;text-transform:uppercase}
+.eyebrow{display:inline-block;font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.hero{background:var(--bg);border-bottom:1.5px solid var(--ink)}
+.hero-in{max-width:800px;margin:0 auto;text-align:center;padding:clamp(40px,8vh,84px) 20px clamp(40px,7vh,70px)}
+.hero h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,6vw,54px);letter-spacing:-.03em;line-height:1.05;margin:16px auto 0;max-width:17ch}
+.hero-sub{font-size:clamp(15px,2.2vw,18.5px);color:var(--soft);font-weight:500;max-width:42em;margin:16px auto 0;line-height:1.5}
+.hero-form{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:540px;margin:26px auto 0}
+.hero-form input{flex:1 1 250px;min-width:0;border:1.5px solid var(--ink);border-radius:8px;padding:14px 16px;font-family:var(--body);font-size:16px;color:var(--ink);background:var(--card)}
+.hero-form input:focus{outline:none;box-shadow:0 0 0 3px rgba(221,67,24,.16)}
+.hero-done{display:none;width:100%;justify-content:center;align-items:center;font-family:var(--disp);font-weight:800;font-size:16px;color:#1b9e57}
+.hero-form.is-done input,.hero-form.is-done .btn{display:none} .hero-form.is-done .hero-done{display:flex}
+.tiny{font-size:12.5px;color:var(--muted)} .hero-tiny{margin:12px auto 0}
+.sec{padding:58px 0}
+.sec-head{max-width:700px;margin:0 auto 32px;text-align:center}
+.sec-head h2{font-family:var(--disp);font-weight:800;font-size:clamp(26px,4.6vw,40px);letter-spacing:-.025em;line-height:1.07;margin-top:8px}
+.sec-head .intro{font-size:16px;color:var(--soft);margin-top:12px;line-height:1.5}
+.psteps{display:grid;grid-template-columns:1fr;gap:18px;max-width:960px;margin:0 auto}
+@media(min-width:760px){.psteps{grid-template-columns:repeat(3,1fr);gap:20px}}
+.pstep{background:var(--card);border:1.5px solid var(--ink);border-radius:12px;padding:22px 20px;box-shadow:4px 4px 0 rgba(29,24,18,.08)}
+.pstep-n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:7px;background:var(--accent);color:#fff;font-family:var(--disp);font-weight:800;font-size:15px;border:1.5px solid var(--accent-deep);box-shadow:0 2px 0 var(--accent-deep);margin-bottom:14px}
+.pstep h3{font-family:var(--disp);font-weight:800;font-size:18px;margin-bottom:6px}
+.pstep p{font-size:14px;color:var(--soft);line-height:1.45}
+.vals{display:grid;grid-template-columns:1fr;gap:16px;max-width:960px;margin:0 auto}
+@media(min-width:760px){.vals{grid-template-columns:repeat(3,1fr)}}
+.val{background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:22px 20px;box-shadow:0 1px 2px rgba(29,24,18,.06)}
+.val-ic{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:var(--accent-soft);border:1.5px solid var(--ink);margin-bottom:14px}
+.val-ic svg{width:26px;height:26px;display:block;shape-rendering:crispEdges}
+.val-ic svg rect{fill:var(--accent)}
+.val-ic svg .sh{fill:var(--accent-deep)}
+.val h3{font-family:var(--disp);font-weight:800;font-size:17px;margin-bottom:5px}
+.val p{font-size:14px;color:var(--soft);line-height:1.45}
+.final{background:var(--ink);border-top:1.5px solid var(--ink)}
+.final-in{padding:58px 0;text-align:center}
+.final h2{font-family:var(--disp);font-weight:800;font-size:clamp(26px,5vw,40px);letter-spacing:-.025em;line-height:1.06;color:#fffdf7}
+.final p{font-size:16px;max-width:32em;margin:12px auto 24px;color:rgba(255,253,247,.74)}
+.form-card{background:var(--card);border:1.5px solid var(--ink);border-radius:12px;padding:18px;box-shadow:6px 6px 0 var(--accent);max-width:440px;margin:8px auto 0;text-align:left}
+.form-card .ft{font-family:var(--disp);font-weight:800;font-size:16px;margin-bottom:12px}
+.field{margin-bottom:10px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--soft);margin-bottom:6px}
+input{width:100%;font-family:var(--body);font-size:16px;color:var(--ink);background:var(--bg);border:1.5px solid var(--ink);border-radius:8px;padding:13px 14px;outline:none}
+input:focus{box-shadow:0 0 0 3px rgba(221,67,24,.16)}
+.cta-form{width:100%;color:#fff;background:var(--accent);border:1.5px solid var(--accent-deep);border-radius:9px;padding:15px;font-size:16px;font-family:var(--disp);font-weight:700;cursor:pointer;box-shadow:0 3px 0 var(--accent-deep);margin-top:4px}
+.form-card .tiny{margin-top:10px}
+.success{display:none;text-align:center;padding:6px 4px 4px}
+.form-card.is-done .form-live{display:none} .form-card.is-done .success{display:block}
+.success .big{font-size:40px} .success h2{font-family:var(--disp);font-weight:800;font-size:22px;margin:6px 0} .success p{color:var(--soft);font-size:15px}
+.faq{max-width:740px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.faq details{border:1.5px solid var(--line);border-radius:9px;background:var(--card);overflow:hidden}
+.faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-family:var(--disp);font-weight:700;font-size:15.5px;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent);font-weight:800}
+.faq details[open] summary::after{content:"-"}
+.faq .ans{padding:0 18px 16px;color:var(--soft);font-size:14.5px;line-height:1.5}
+footer{background:var(--bg2);border-top:1.5px solid var(--ink);padding:30px 0}
+.foot-in{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;justify-content:space-between;font-size:13px;color:var(--muted)}
+.foot-in nav{display:flex;gap:18px}
+.foot-in a{color:var(--ink);font-weight:600;text-decoration:none;border-bottom:2px solid transparent}
+.foot-in a:hover{border-bottom-color:var(--accent)}
+.consent{position:fixed;left:0;right:0;bottom:0;z-index:200;background:var(--ink);color:#fffdf7;padding:20px 22px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;justify-content:center}
+.consent-txt{font-size:15px;font-weight:500;line-height:1.45;max-width:64ch}
+.consent-actions{display:flex;gap:14px;align-items:center}
+.consent .deny{background:none;border:none;color:rgba(255,253,247,.74);font-weight:600;cursor:pointer;font-family:var(--body);font-size:14.5px}
+.consent .accept{background:var(--accent);color:#fff;border:1.5px solid var(--accent-deep);border-radius:8px;padding:12px 24px;font-family:var(--disp);font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 3px 0 var(--accent-deep)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="logo" href="/"><img src="/vibenow-pulse-logo.png" alt="VibeNow" style="height:28px;width:auto;display:block"></a>
+    <a class="nav-link" href="/" data-i18n="forPeople">For people</a>
+    <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">EN</button>
+    <a class="btn btn-primary" href="#waitlist" data-i18n="becomePartner">Become a partner</a>
+  </div>
+</header>
+
+<!-- ---------- HERO ---------- -->
+<section class="hero">
+  <div class="hero-in">
+    <span class="pill" data-i18n="pPill">For places</span>
+    <h1 data-i18n-html="pH1">The people who saved your spot are your <span class="g">future regulars</span>.</h1>
+    <p class="hero-sub" data-i18n="pLede">When someone saves your café, bar or restaurant on VibeNow, they're choosing you. Bring them back with a reminder, and keep them posted when something new happens - a fresh menu, an event, a quiet-Tuesday treat.</p>
+    <form id="heroSignup" class="hero-form" novalidate>
+      <input type="email" id="heroEmail" inputmode="email" autocomplete="email" placeholder="you@yourplace.com" data-i18n-ph="phEmail" required aria-label="Email address">
+      <button type="submit" class="btn btn-primary btn-lg" data-i18n="pCta">Become a partner</button>
+      <span class="hero-done" data-i18n="navDone">✓ You're in 🔥</span>
+    </form>
+    <p class="tiny hero-tiny" data-i18n="pTiny">Free to join the waitlist - early places get in first.</p>
+  </div>
+</section>
+
+<!-- ---------- HOW IT WORKS (for places) ---------- -->
+<section class="sec">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="p1Eyebrow">How it works for places</span>
+      <h2 data-i18n="p1H2">Turn savers into regulars.</h2>
+      <p class="intro" data-i18n="p1Intro">No ads, no buying reviews. Just the people who already chose your spot - and a simple way to stay in touch.</p>
+    </div>
+    <div class="psteps">
+      <article class="pstep">
+        <span class="pstep-n">1</span>
+        <h3 data-i18n="pstep1H">People save you</h3>
+        <p data-i18n="pstep1P">Guests bookmark your spot and share it with their friends - genuine, not paid.</p>
+      </article>
+      <article class="pstep">
+        <span class="pstep-n">2</span>
+        <h3 data-i18n="pstep2H">You get your savers</h3>
+        <p data-i18n="pstep2P">A warm, opt-in audience of people who actually want to come - and come back.</p>
+      </article>
+      <article class="pstep">
+        <span class="pstep-n">3</span>
+        <h3 data-i18n="pstep3H">Keep them posted</h3>
+        <p data-i18n="pstep3P">Send a reminder, a new-menu ping or an offer - straight to the people who love you.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- VALUE ---------- -->
+<section class="sec" style="background:var(--bg2);border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="p2Eyebrow">Why VibeNow</span>
+      <h2 data-i18n="p2H2">Your warmest audience, in one place.</h2>
+    </div>
+    <div class="vals">
+      <article class="val">
+        <div class="val-ic"><svg viewBox="0 0 8 8" aria-hidden="true"><rect x="1" y="1" width="2" height="1"/><rect x="5" y="1" width="2" height="1"/><rect x="0" y="2" width="8" height="1"/><rect x="0" y="3" width="8" height="1"/><rect x="1" y="4" width="6" height="1"/><rect x="2" y="5" width="4" height="1"/><rect class="sh" x="3" y="6" width="2" height="1"/></svg></div>
+        <h3 data-i18n="val1H">Reach the people who chose you</h3>
+        <p data-i18n="val1P">Not ads to strangers - the people who saved your spot, with their consent.</p>
+      </article>
+      <article class="val">
+        <div class="val-ic"><svg viewBox="0 0 8 8" aria-hidden="true"><rect x="3" y="0" width="2" height="1"/><rect x="2" y="1" width="4" height="1"/><rect x="1" y="2" width="6" height="3"/><rect x="0" y="5" width="8" height="1"/><rect class="sh" x="0" y="6" width="8" height="1"/><rect x="3" y="7" width="2" height="1"/></svg></div>
+        <h3 data-i18n="val2H">Reminders &amp; what's new</h3>
+        <p data-i18n="val2P">Nudge a return, announce a new dish, an event or a deal - right when it matters.</p>
+      </article>
+      <article class="val">
+        <div class="val-ic"><svg viewBox="0 0 9 9" aria-hidden="true"><rect x="1" y="1" width="7" height="1"/><rect x="0" y="2" width="9" height="3"/><rect class="sh" x="1" y="5" width="7" height="1"/><rect x="2" y="6" width="2" height="1"/><rect class="sh" x="2" y="7" width="1" height="1"/></svg></div>
+        <h3 data-i18n="val3H">Grow by word of mouth</h3>
+        <p data-i18n="val3P">Every save shows to their friends, so new guests discover you the trusted way.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- PARTNER WAITLIST ---------- -->
+<section class="final" id="waitlist">
+  <div class="container final-in">
+    <h2 data-i18n="pFinalH">Be one of the first places on VibeNow.</h2>
+    <p data-i18n="pFinalP">Join the partner waitlist and claim your spot before launch.</p>
+    <div class="form-card" id="waitlistCard">
+      <div class="form-live">
+        <div class="ft" data-i18n="pFormTitle">Claim your spot 🔥</div>
+        <form id="signup">
+          <div class="field">
+            <label for="email" data-i18n="labelEmail">Email address</label>
+            <input type="email" id="email" name="email" inputmode="email" autocomplete="email" placeholder="you@yourplace.com" data-i18n-ph="phEmail" required>
+          </div>
+          <button type="submit" class="cta-form" data-i18n="submit">Join the partner waitlist</button>
+          <p class="tiny" data-i18n="pTiny">Free to join the waitlist - early places get in first.</p>
+        </form>
+      </div>
+      <div class="success">
+        <div class="big">🔥</div>
+        <h2 data-i18n="successH">You're on the list! 🔥</h2>
+        <p data-i18n="successP">We'll reach out before launch to set up your spot.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- FAQ ---------- -->
+<section class="sec" id="faq">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="faqEyebrow">Frequently asked questions</span>
+      <h2 data-i18n="faqH2">Good to know</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary data-i18n="pq1">What does it cost?</summary>
+        <div class="ans" data-i18n="pa1">Joining the waitlist is free, and early partners get in first. Reaching your savers will be simple and fair - we'll share pricing before launch.</div>
+      </details>
+      <details>
+        <summary data-i18n="pq2">Is this advertising?</summary>
+        <div class="ans" data-i18n="pa2">No. You reach people who chose to save your spot - opt-in, relevant, never spam. We never sell your ranking; the recommendations stay honest.</div>
+      </details>
+      <details>
+        <summary data-i18n="pq3">How do you reach my savers?</summary>
+        <div class="ans" data-i18n="pa3">In-app, with their consent. They opted in by saving you, and can mute anytime - so you stay welcome, not annoying.</div>
+      </details>
+      <details>
+        <summary data-i18n="pq4">When does it launch?</summary>
+        <div class="ans" data-i18n="pa4">Soon. Join now and you'll be among the first places on VibeNow.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot-in">
+    <span data-i18n="footRights">© VibeNow - for places</span>
+    <nav>
+      <a href="/" data-i18n="forPeople">For people</a>
+      <a href="mailto:hello@getthevibe.now" data-i18n="footContact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- cookie consent -->
+<div class="consent" id="consentBar" hidden>
+  <span class="consent-txt" data-i18n="consentText">We use cookies for analytics and to measure our ads. Your choice.</span>
+  <span class="consent-actions">
+    <button class="deny" id="consentDeny" data-i18n="consentDeny">Decline</button>
+    <button class="accept" id="consentAccept" data-i18n="consentAccept">Accept</button>
+  </span>
+</div>
+
+<script>
+// ---------- i18n (NL / EN) ----------
+(function(){
+  var I18N = {
+    en: {
+      toggle:'NL', forPeople:'For people', becomePartner:'Become a partner', navDone:"✓ You're in 🔥",
+      pPill:'For places',
+      pH1:'The people who saved your spot are your <span class="g">future regulars</span>.',
+      pLede:"When someone saves your café, bar or restaurant on VibeNow, they're choosing you. Bring them back with a reminder, and keep them posted when something new happens - a fresh menu, an event, a quiet-Tuesday treat.",
+      pCta:'Become a partner', pTiny:'Free to join the waitlist - early places get in first.',
+      p1Eyebrow:'How it works for places', p1H2:'Turn savers into regulars.', p1Intro:'No ads, no buying reviews. Just the people who already chose your spot - and a simple way to stay in touch.',
+      pstep1H:'People save you', pstep1P:'Guests bookmark your spot and share it with their friends - genuine, not paid.',
+      pstep2H:'You get your savers', pstep2P:'A warm, opt-in audience of people who actually want to come - and come back.',
+      pstep3H:'Keep them posted', pstep3P:'Send a reminder, a new-menu ping or an offer - straight to the people who love you.',
+      p2Eyebrow:'Why VibeNow', p2H2:'Your warmest audience, in one place.',
+      val1H:'Reach the people who chose you', val1P:'Not ads to strangers - the people who saved your spot, with their consent.',
+      val2H:"Reminders & what's new", val2P:'Nudge a return, announce a new dish, an event or a deal - right when it matters.',
+      val3H:'Grow by word of mouth', val3P:'Every save shows to their friends, so new guests discover you the trusted way.',
+      pFinalH:'Be one of the first places on VibeNow.', pFinalP:'Join the partner waitlist and claim your spot before launch.',
+      pFormTitle:'Claim your spot 🔥', labelEmail:'Email address', phEmail:'you@yourplace.com',
+      submit:'Join the partner waitlist', busy:'Sending…', err:'Something went wrong - please try again.',
+      successH:"You're on the list! 🔥", successP:"We'll reach out before launch to set up your spot.",
+      faqEyebrow:'Frequently asked questions', faqH2:'Good to know',
+      pq1:'What does it cost?', pa1:'Joining the waitlist is free, and early partners get in first. Reaching your savers will be simple and fair - we\'ll share pricing before launch.',
+      pq2:'Is this advertising?', pa2:'No. You reach people who chose to save your spot - opt-in, relevant, never spam. We never sell your ranking; the recommendations stay honest.',
+      pq3:'How do you reach my savers?', pa3:'In-app, with their consent. They opted in by saving you, and can mute anytime - so you stay welcome, not annoying.',
+      pq4:'When does it launch?', pa4:'Soon. Join now and you\'ll be among the first places on VibeNow.',
+      footRights:'© VibeNow - for places', footContact:'Contact',
+      consentText:'We use cookies for analytics and to measure our ads. Your choice.', consentAccept:'Accept', consentDeny:'Decline'
+    },
+    nl: {
+      toggle:'EN', forPeople:'Voor mensen', becomePartner:'Word partner', navDone:'✓ Je staat erop 🔥',
+      pPill:'Voor plekken',
+      pH1:'De mensen die jouw plek bewaarden zijn je <span class="g">toekomstige vaste gasten</span>.',
+      pLede:'Als iemand jouw café, bar of restaurant op VibeNow bewaart, kiest diegene voor jou. Haal ze terug met een herinnering, en houd ze op de hoogte als er iets nieuws is - een nieuw menu, een event, een rustige-dinsdag-actie.',
+      pCta:'Word partner', pTiny:'Gratis op de wachtlijst - vroege plekken zijn als eerste aan de beurt.',
+      p1Eyebrow:'Hoe het werkt voor plekken', p1H2:'Maak van savers vaste gasten.', p1Intro:'Geen ads, geen reviews kopen. Gewoon de mensen die jouw plek al kozen - en een simpele manier om in contact te blijven.',
+      pstep1H:'Mensen bewaren je', pstep1P:'Gasten bewaren jouw plek en delen die met hun vrienden - echt, niet betaald.',
+      pstep2H:'Je krijgt je savers', pstep2P:'Een warme, opt-in groep mensen die écht willen komen - en terugkomen.',
+      pstep3H:'Houd ze op de hoogte', pstep3P:'Stuur een herinnering, een nieuw-menu-tip of een actie - direct naar de mensen die van je houden.',
+      p2Eyebrow:'Waarom VibeNow', p2H2:'Je warmste publiek, op één plek.',
+      val1H:'Bereik wie jou koos', val1P:'Geen ads naar vreemden - de mensen die jouw plek bewaarden, met hun toestemming.',
+      val2H:'Herinneringen & nieuws', val2P:'Trigger een terugkeer, kondig een nieuw gerecht, event of actie aan - precies op het juiste moment.',
+      val3H:'Groei via mond-tot-mond', val3P:'Elke save verschijnt bij hun vrienden, dus nieuwe gasten ontdekken je op de vertrouwde manier.',
+      pFinalH:'Wees een van de eerste plekken op VibeNow.', pFinalP:'Schrijf je in op de partner-wachtlijst en claim je plek vóór de lancering.',
+      pFormTitle:'Claim je plek 🔥', labelEmail:'E-mailadres', phEmail:'jij@jouwplek.nl',
+      submit:'Op de partner-wachtlijst', busy:'Bezig…', err:'Er ging iets mis - probeer het nog eens.',
+      successH:'Je staat op de lijst! 🔥', successP:'We nemen vóór de lancering contact op om je plek in te richten.',
+      faqEyebrow:'Veelgestelde vragen', faqH2:'Goed om te weten',
+      pq1:'Wat kost het?', pa1:'Op de wachtlijst staan is gratis, en vroege partners zijn als eerste aan de beurt. Je savers bereiken wordt simpel en eerlijk - de prijs delen we vóór de lancering.',
+      pq2:'Is dit adverteren?', pa2:'Nee. Je bereikt mensen die ervoor kozen jouw plek te bewaren - opt-in, relevant, nooit spam. We verkopen je ranking niet; de aanbevelingen blijven eerlijk.',
+      pq3:'Hoe bereik je mijn savers?', pa3:'In de app, met hun toestemming. Ze kozen er zelf voor door je te bewaren, en kunnen je altijd dempen - zo blijf je welkom, niet vervelend.',
+      pq4:'Wanneer lanceert het?', pa4:'Binnenkort. Schrijf je nu in en je hoort bij de eerste plekken op VibeNow.',
+      footRights:'© VibeNow - voor plekken', footContact:'Contact',
+      consentText:'We gebruiken cookies voor analytics en om onze ads te meten. Jouw keuze.', consentAccept:'Accepteren', consentDeny:'Weigeren'
+    }
+  };
+  window.__I18N = I18N;
+  function getLang(){ try{ return localStorage.getItem('vn_lang') || 'en'; }catch(e){ return 'en'; } }
+  function setLang(lang){
+    var d = I18N[lang] || I18N.en;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){ var k=el.getAttribute('data-i18n'); if(d[k]!=null) el.textContent = d[k]; });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el){ var k=el.getAttribute('data-i18n-html'); if(d[k]!=null) el.innerHTML = d[k]; });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){ var k=el.getAttribute('data-i18n-ph'); if(d[k]!=null) el.setAttribute('placeholder', d[k]); });
+    document.documentElement.lang = lang;
+    var t = document.getElementById('langToggle'); if(t) t.textContent = d.toggle;
+    window.__lang = lang;
+    try{ localStorage.setItem('vn_lang', lang); }catch(e){}
+  }
+  var toggle = document.getElementById('langToggle');
+  if(toggle) toggle.addEventListener('click', function(){ setLang(window.__lang==='en' ? 'nl' : 'en'); });
+  setLang(getLang());
+})();
+
+// ---------- Supabase signup (partner waitlist) + Lead tracking ----------
+(function(){
+  var SUPABASE_URL = 'https://uwxapldrcmxtkwlxwwnc.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eGFwbGRyY214dGt3bHh3d25jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NzM5ODksImV4cCI6MjA5NjA0OTk4OX0.gAFJSCgBLwmV5r9FwZZObTPuu0KzWlm0LYMDlo0DKX4';
+  var card = document.getElementById('waitlistCard');
+  function _d(){ return (window.__I18N && window.__I18N[window.__lang||'en']) || {}; }
+  function track(meta, ga){ try{ if(window.fbq) window.fbq('track', meta); if(window.gtag) window.gtag('event', ga); if(window.dataLayer) window.dataLayer.push({event:ga}); }catch(e){} }
+  function trackLead(){ track('Lead','generate_lead'); }
+  var sb = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+  function insertEmail(email, btn, onSuccess){
+    if(!sb){ onSuccess(); return; }
+    var original = btn.textContent; btn.textContent = _d().busy || '…'; btn.disabled = true;
+    function ok(){ onSuccess(); }
+    function fail(res){ console.error(res && res.error); btn.textContent = original; btn.disabled = false; alert(_d().err || 'Error - please try again.'); }
+    // tag partner leads with source:'partner'; if the column isn't there yet, still capture the lead
+    sb.from('signups').insert({ email: email, source: 'partner' }).then(function(res){
+      if(!res.error) return ok();
+      sb.from('signups').insert({ email: email }).then(function(r2){ if(r2.error) fail(r2); else ok(); });
+    });
+  }
+  var valid = function(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); };
+  var form = document.getElementById('signup');
+  if(form) form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('email').value.trim();
+    if(!email) return;
+    insertEmail(email, form.querySelector('button'), function(){ card.classList.add('is-done'); trackLead(); });
+  });
+  var heroForm = document.getElementById('heroSignup');
+  if(heroForm){
+    var heroEmail = document.getElementById('heroEmail'), heroBtn = heroForm.querySelector('button');
+    heroForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email = (heroEmail && heroEmail.value || '').trim();
+      if(!valid(email)){ if(heroEmail) heroEmail.focus(); return; }
+      insertEmail(email, heroBtn, function(){ trackLead(); heroForm.classList.add('is-done'); });
+    });
+  }
+})();
+
+// ---------- Cookie consent + analytics (Meta Pixel + Google) ----------
+(function(){
+  var ANALYTICS = { metaPixelId: '1005274345226748', ga4Id: 'G-0ZSVSEGV3E', googleAdsId: '' };
+  if(!(ANALYTICS.metaPixelId || ANALYTICS.ga4Id || ANALYTICS.googleAdsId)) return;
+  function getC(){ try{ return localStorage.getItem('vn_consent'); }catch(e){ return null; } }
+  function setC(v){ try{ localStorage.setItem('vn_consent', v); }catch(e){} }
+  function loadMeta(id){
+    if(!id || window.fbq) return;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', id); window.fbq('track','PageView');
+  }
+  function loadGoogle(ga4, ads){
+    var first = ga4 || ads; if(!first || window.gtag) return;
+    var s=document.createElement('script'); s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(first); document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[]; window.gtag=function(){ window.dataLayer.push(arguments); };
+    window.gtag('js', new Date()); if(ga4) window.gtag('config', ga4); if(ads) window.gtag('config', ads);
+  }
+  function loadPixels(){ loadMeta(ANALYTICS.metaPixelId); loadGoogle(ANALYTICS.ga4Id, ANALYTICS.googleAdsId); }
+  var bar = document.getElementById('consentBar');
+  var c = getC();
+  if(c === 'granted'){ loadPixels(); }
+  else if(c !== 'denied' && bar){ bar.hidden = false; }
+  var acc = document.getElementById('consentAccept'), den = document.getElementById('consentDeny');
+  if(acc) acc.addEventListener('click', function(){ setC('granted'); if(bar) bar.hidden = true; loadPixels(); });
+  if(den) den.addEventListener('click', function(){ setC('denied'); if(bar) bar.hidden = true; });
+})();
+</script>
+</body>
+</html>
